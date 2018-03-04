@@ -7,7 +7,9 @@
   "scripts": {
     "devserver": "webpack-dev-server --env.dev --mode development",
     "prebuild": "rimraf ./dist",
-    "build": "webpack-cli --mode production --env"
+    "build": "webpack-cli --mode production --env",
+    "preversion": "npm run build",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",

@@ -6,12 +6,12 @@ const array = (...target) => target.filter((item) => item);
 
 export default ({dev}) => ({
     entry: {
-        "main": array(
+        main: array(
             dev && 'react-hot-loader/patch',
             'babel-polyfill',
             'whatwg-fetch',
             "./src/index.js",
-        )
+        ),
     },
     target: 'web',
     devtool: dev ? 'eval-source-map' : 'source-map',
@@ -22,7 +22,7 @@ export default ({dev}) => ({
     optimization: {
         splitChunks: {
             chunks: "all",
-        }
+        },
     },
     plugins: array(
         new HtmlWebpackPlugin({
@@ -43,15 +43,12 @@ export default ({dev}) => ({
             test: /\.js$/,
             include: path.resolve(__dirname, 'src'),
             loader: 'babel-loader',
-        }]
+        }],
     },
     devServer: {
         hot: true,
         inline: true,
         port: 3000,
-    },
-    performance: {
-        hints: dev ? false : 'warning',
     },
     resolve: {
         modules: ['src', 'node_modules'],

@@ -8,7 +8,7 @@
     "start": "webpack-dev-server --env.dev --mode development",
     "lint": "eslint --cache --quiet --ext .js src",
     "lintf": "eslint --cache --quiet --ext .js src --fix",
-    "prebuild": "rimraf ./dist && npm run lint",
+    "prebuild": "rimraf ./docs && npm run lint",
     "build": "webpack-cli --mode production --env",
     "preversion": "npm run build",
     "postversion": "git add . && npm run commit && git push && git push --tags",

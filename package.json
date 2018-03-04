@@ -10,7 +10,7 @@
     "build": "webpack-cli --mode production --env",
     "preversion": "npm run build",
     "postversion": "git add . && npm run commit && git push && git push --tags",
-    "commit": "git diff --quiet && git diff --staged --quiet || git commit -am '-m 'gh-build'"
+    "commit": "git diff --quiet && git diff --staged --quiet || git commit -m 'gh-build'"
   },
   "repository": {
     "type": "git",

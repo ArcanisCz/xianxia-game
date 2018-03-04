@@ -19,6 +19,11 @@ export default ({dev}) => ({
         path: path.resolve(__dirname, 'docs'),
         filename: dev ? '[name].js' : '[name].[chunkhash].js',
     },
+    optimization: {
+        splitChunks: {
+            chunks: "all",
+        }
+    },
     plugins: array(
         new HtmlWebpackPlugin({
             template: "./src/index.html",

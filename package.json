@@ -9,7 +9,7 @@
     "prebuild": "rimraf ./dist",
     "build": "webpack-cli --mode production --env",
     "preversion": "npm run build",
-    "postversion": "git push && git push --tags"
+    "postversion": "git add . && git commit -m gh-build && git push && git push --tags"
   },
   "repository": {
     "type": "git",

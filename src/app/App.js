@@ -1,9 +1,21 @@
 import React from 'react';
-import {Provider} from 'react-redux';
+import {connect} from "react-redux";
 
-// eslint-disable-next-line react/prop-types
-export default ({store}) => (
-    <Provider store={store}>
-        <div>Hello!</div>
-    </Provider>
+import pokus from "./pokus";
+
+const App = ({count, onAdd}) => (
+    <div>
+        <div>Hello! {count}</div>
+        <button onClick={onAdd}>Add</button>
+    </div>
 );
+
+const mapStateToProps = (state) => ({
+    count: pokus.getCount(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+   onAdd: () => dispatch(pokus.add()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

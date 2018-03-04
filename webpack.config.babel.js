@@ -16,7 +16,7 @@ export default ({dev}) => ({
     target: 'web',
     devtool: dev ? 'eval-source-map' : 'source-map',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'docs'),
         filename: dev ? '[name].js' : '[name].[chunkhash].js',
     },
     plugins: array(

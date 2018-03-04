@@ -1,0 +1,18 @@
+{
+  "name": "xianxia-game",
+  "version": "1.0.0",
+  "description": "xianxia-game",
+  "private": true,
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArcanisCz/xianxia-game.git"
+  },
+  "author": "ArcanisCz",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/ArcanisCz/xianxia-game/issues"
+  },
+  "homepage": "https://github.com/ArcanisCz/xianxia-game#readme"
+}

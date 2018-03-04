@@ -5,7 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "devserver": "webpack-dev-server --env.dev --mode development",
+    "start": "webpack-dev-server --env.dev --mode development",
     "lint": "eslint --cache --quiet --ext .js src",
     "lintf": "eslint --cache --quiet --ext .js src --fix",
     "prebuild": "rimraf ./dist && npm run lint",
@@ -45,6 +45,8 @@
   },
   "dependencies": {
     "react": "16.2.0",
-    "react-dom": "16.2.0"
+    "react-dom": "16.2.0",
+    "react-redux": "5.0.7",
+    "redux": "3.7.2"
   }
 }

@@ -6,7 +6,9 @@
   "main": "index.js",
   "scripts": {
     "devserver": "webpack-dev-server --env.dev --mode development",
-    "prebuild": "rimraf ./dist",
+    "lint": "eslint --cache --quiet --ext .js src",
+    "lintf": "eslint --cache --quiet --ext .js src --fix",
+    "prebuild": "rimraf ./dist && npm run lint",
     "build": "webpack-cli --mode production --env",
     "preversion": "npm run build",
     "postversion": "git add . && npm run commit && git push && git push --tags",

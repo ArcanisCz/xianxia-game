@@ -1,3 +1,3 @@
 
-document.querySelector("#aaa").innerHTML="bbbddd";
+document.querySelector('#aaa').innerHTML = 'bbbddd';
 

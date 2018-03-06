@@ -1,8 +1,12 @@
-import {NAME} from './constants';
+import {NAME, QI} from './constants';
 import {add} from './actions';
-import {getCount} from './selectors';
+import {getCurrent, getMax} from './selectors';
 import reducer from './reducer';
 
 export default {
-    NAME, add, getCount, reducer,
+    NAME,
+    reducer,
+    QI,
+    getCurrent,
+    getMax,
 };

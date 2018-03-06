@@ -2,12 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 
+import {Resource} from "containers";
+import resources from "core/resources";
+
 import pokus from './pokus';
 
 const App = ({count, onAdd}) => (
     <div>
-        <div>Hello! {count}</div>
-        <button onClick={onAdd}>Add</button>
+        <Resource name={resources.QI} />
     </div>
 );
 

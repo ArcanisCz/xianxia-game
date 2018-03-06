@@ -1,3 +1,4 @@
 import {NAME} from './constants';
 
-export const getCount = (state) => state.get(NAME);
+export const getCurrent = (state, resourceName) => 0;
+export const getMax = (state, resourceName) => 10;

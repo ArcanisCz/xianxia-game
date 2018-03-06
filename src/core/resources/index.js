@@ -1,6 +1,6 @@
 import {NAME, QI} from './constants';
 import {add} from './actions';
-import {getCurrent, getMax} from './selectors';
+import {getCurrent, getMax, isFull} from './selectors';
 import reducer from './reducer';
 
 export default {
@@ -9,4 +9,6 @@ export default {
     QI,
     getCurrent,
     getMax,
+    isFull,
+    add,
 };

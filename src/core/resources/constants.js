@@ -1,3 +1,3 @@
 export const NAME = 'core-resources';
 
-export const QI = `${NAME}/QI`;
+export const QI = `resource.qi`;

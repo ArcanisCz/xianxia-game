@@ -7,7 +7,8 @@ import saga from './saga';
 const sagaMiddleware = createSagaMiddleware();
 const middleware = compose(
     applyMiddleware(sagaMiddleware),
-    window.devToolsExtension ? window.devToolsExtension() : (x) => x);
+    window.devToolsExtension ? window.devToolsExtension() : (x) => x,
+);
 
 export default () => {
     const store = createStore(reducer, middleware);

@@ -10,7 +10,7 @@ const middleware = compose(
     window.devToolsExtension ? window.devToolsExtension() : (x) => x,
 );
 
-export default () => {
+export default (initialActions = []) => {
     const store = createStore(reducer, middleware);
 
     if (module.hot) {
@@ -18,6 +18,7 @@ export default () => {
             store.replaceReducer(require('./app/reducers').default)); // eslint-disable-line
     }
 
+    initialActions.forEach(store.dispatch);
     sagaMiddleware.run(saga);
     return store;
 };

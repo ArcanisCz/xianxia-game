@@ -46,6 +46,10 @@ export default ({dev}) => ({
             test: /\.js$/,
             include: path.resolve(__dirname, 'src'),
             loader: 'babel-loader',
+        }, {
+            test: /\.yml/,
+            include: path.resolve(__dirname, 'data'),
+            loader: ['json-loader', 'yaml-loader'],
         }],
     },
     devServer: {

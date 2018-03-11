@@ -46,12 +46,15 @@
   },
   "dependencies": {
     "immutable": "3.8.2",
+    "json-loader": "0.5.7",
     "prop-types": "15.6.1",
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-redux": "5.0.7",
     "redux": "3.7.2",
     "redux-immutable": "4.0.0",
-    "redux-saga": "0.16.0"
+    "redux-saga": "0.16.0",
+    "reselect": "3.0.1",
+    "yaml-loader": "0.5.0"
   }
 }

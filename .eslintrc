@@ -57,6 +57,7 @@
         "linebreak-style": "off",
         // we prefer top-down approach
         "no-use-before-define": "off",
+        "object-curly-newline": "off",
 
         /* WARNINGS */
         "react/jsx-key": "warn"

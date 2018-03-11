@@ -1,8 +1,9 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
 
-import {Resource} from "containers";
 import resources from "core/resources";
+
+import {Resource} from "./Resource";
 
 const App = () => (
     <div>

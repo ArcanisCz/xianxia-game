@@ -1,12 +1,12 @@
 import {combineReducers} from "redux-immutable";
 import {Map} from "immutable";
 
-import {SET} from './actions';
+import {SET_BULK} from './actions';
 
-const current = (state = Map(), {type, payload, meta}) => {
+const current = (state = Map(), {type, payload}) => {
     switch (type) {
-        case SET:
-            return state.set(meta.resource, payload);
+        case SET_BULK:
+            return state.merge(payload);
         default:
             return state;
     }

@@ -1,28 +1,17 @@
 import {combineReducers} from "redux-immutable";
 import {Map} from "immutable";
 
-import {QI} from "./constants";
-import {ADD} from './actions';
+import {SET} from './actions';
 
-const current = (state = 0, {type, payload}, maxValue) => {
+const current = (state = Map(), {type, payload, meta}) => {
     switch (type) {
-        case ADD:
-            return Math.min(state + payload, maxValue);
+        case SET:
+            return state.set(meta.resource, payload);
         default:
             return state;
     }
 };
-const max = (state = 11) => state;
-
-const resource = (state = Map(), action) => {
-    const maxValue = max(state.get("max"), action);
-    const currentValue = current(state.get("current"), action, maxValue);
-    return Map({
-        max: maxValue,
-        current: currentValue,
-    });
-};
 
 export default combineReducers({
-    [QI]: resource,
+    current,
 });

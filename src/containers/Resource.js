@@ -28,7 +28,7 @@ const mapStateToProps = (state, {resource}) => ({
 });
 
 const mapDispatchToProps = (dispatch, {resource}) => ({
-    onAdd: () => dispatch(resources.add(resource, 2)),
+    onAdd: () => dispatch(resources.add(resource, 1)),
 });
 
 export const Resource = connect(mapStateToProps, mapDispatchToProps)(ResourceInner);

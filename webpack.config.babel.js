@@ -1,7 +1,9 @@
 import path from 'path';
+import webpack from 'webpack';
 import HtmlWebpackPlugin from "html-webpack-plugin";
 // import {BundleAnalyzerPlugin} from "webpack-bundle-analyzer";
-import webpack from 'webpack';
+
+import pckg from "./package.json";
 
 const array = (...target) => target.filter((item) => item);
 
@@ -25,7 +27,8 @@ export default ({dev}) => ({
     },
     plugins: array(
         new HtmlWebpackPlugin({
-            template: "./src/index.html",
+            title: pckg.version,
+            template: "./src/index.ejs",
             filename: 'index.html',
         }),
         // Dont use EnviromentPlugin, redux-dev-tools will stop work

@@ -10,7 +10,6 @@ export default ({dev}) => ({
         main: array(
             dev && 'react-hot-loader/patch',
             'babel-polyfill',
-            'whatwg-fetch',
             "./src/index.js",
         ),
     },

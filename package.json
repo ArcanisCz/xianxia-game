@@ -10,8 +10,8 @@
     "lintf": "eslint --cache --quiet --ext .js src --fix",
     "prebuild": "rimraf ./docs && npm run lint",
     "build": "webpack-cli --mode production --env",
-    "preversion": "npm run build",
-    "postversion": "git add . && npm run commit && git push && git push --tags",
+    "preversion": "npm run build && git add . && npm run commit",
+    "postversion": "git push && git push --tags",
     "commit": "git diff --quiet && git diff --staged --quiet || git commit -m \"gh-build\""
   },
   "repository": {

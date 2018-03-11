@@ -1,1 +1,1 @@
-export {ResourceStatus} from "./ResourceStatus";
+export {default as ResourceStatus} from "./ResourceStatus";

@@ -1,20 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
+import injectSheet from 'react-jss';
 
 import {types} from "core/util";
 
-const Wrapper = styled.section`
-  padding: 4em;
-  background: ${(props) => props.theme.main};
-`;
+const styles = (theme) => ({
+    container: {
+        background: theme.main,
+    },
+});
 
-export const ResourceStatus = ({current, max, displayName, perSecond, msg}) => (
-    <Wrapper>
+const ResourceStatus = ({current, max, displayName, perSecond, msg, classes}) => (
+    <div className={classes.container}>
         <span>{displayName}: </span>
         <span>{current}/{max}</span>
         <span>({perSecond}/{msg.secondShort})</span>
-    </Wrapper>
+    </div>
 );
 
 ResourceStatus.propTypes = {
@@ -23,5 +24,7 @@ ResourceStatus.propTypes = {
     perSecond: PropTypes.string.isRequired,
     displayName: PropTypes.string.isRequired,
     msg: types.msgProps(["secondShort"]).isRequired,
+    classes: PropTypes.object.isRequired,
 };
 
+export default injectSheet(styles)(ResourceStatus);

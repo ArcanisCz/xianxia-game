@@ -1,7 +1,6 @@
 import path from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from "html-webpack-plugin";
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 // import {BundleAnalyzerPlugin} from "webpack-bundle-analyzer";
 
 import pckg from "./package.json";
@@ -40,7 +39,6 @@ export default ({dev}) => ({
         // https://webpack.js.org/configuration/dev-server/#devserver-hot
         dev && new webpack.HotModuleReplacementPlugin(),
         !dev && new webpack.NoEmitOnErrorsPlugin(),
-        !dev && new ExtractTextPlugin('[name].[chunkhash].css'),
         // new BundleAnalyzerPlugin(),
     ),
     module: {

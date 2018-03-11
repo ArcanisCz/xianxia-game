@@ -9,7 +9,7 @@ const ResourceInner = ({
 }) => (
     <div>
         {resource}: {current}/{max}
-        {!isFull && <button onClick={onAdd}>Add</button>}
+        <button disabled={isFull} onClick={onAdd}>+</button>
     </div>
 );
 

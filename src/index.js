@@ -11,11 +11,3 @@ const renderApp = (RootComponent) => {
 };
 
 renderApp(App);
-
-if (module.hot) {
-    module.hot.accept('./Root.js', () => {
-        const nextRoot = require('./Root').default; // eslint-disable-line
-        renderApp(nextRoot);
-    });
-}
-

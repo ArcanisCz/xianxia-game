@@ -8,7 +8,6 @@ const array = (...target) => target.filter((item) => item);
 export default ({dev}) => ({
     entry: {
         main: array(
-            dev && 'react-hot-loader/patch',
             'babel-polyfill',
             "./src/index.js",
         ),

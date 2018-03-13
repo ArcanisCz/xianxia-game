@@ -6,15 +6,28 @@ import {types} from "core/util";
 
 const styles = (theme) => ({
     container: {
-        background: theme.main,
+        display: "inline-block",
+        padding: theme.spacing.xs,
+    },
+    name: {
+        fontWeight: "bold",
+        textTransform: "uppercase",
+    },
+    amount: {
+        marginLeft: theme.spacing.small,
+    },
+    perSecond: {
+        color: theme.color.grey,
+        fontSize: theme.font.small,
+        marginLeft: theme.spacing.small,
     },
 });
 
 const ResourceStatus = ({current, max, displayName, perSecond, msg, classes}) => (
     <div className={classes.container}>
-        <span>{displayName}: </span>
-        <span>{current}/{max}</span>
-        <span>({perSecond}/{msg.secondShort})</span>
+        <span className={classes.name}>{displayName}</span>
+        <span className={classes.amount}>{current}/{max}</span>
+        <span className={classes.perSecond}>({perSecond}/{msg.secondShort})</span>
     </div>
 );
 

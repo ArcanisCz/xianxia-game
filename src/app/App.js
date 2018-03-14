@@ -2,7 +2,7 @@ import React from 'react';
 import {hot} from 'react-hot-loader';
 import injectSheet from 'react-jss';
 
-import {AppLayout} from "components";
+import {AppLayout, Button} from "components";
 import resources from "core/resources";
 
 import {Resource} from "./Resource";
@@ -29,11 +29,24 @@ const styles = (theme) => ({
     },
 });
 
+const noop = () => {}; // TODO
+
 const App = () => (
     <AppLayout
-        title="Title"
-        sidebar={<Resource resource={resources.QI} />}
-        content="Content"
+        title={(
+            <Button text="Pokus" onClick={noop} block />
+        )}
+        sidebar={(
+            <Resource resource={resources.QI} />
+        )}
+        content={(
+            <div>
+                <Button text="Pokus" onClick={noop} /> &nbsp;
+                <Button text="Pokus" onClick={noop} disabled /> &nbsp;
+                <Button text="Pokus" onClick={noop} progress={0.1} /> &nbsp;
+                <Button text="Pokus" onClick={noop} disabled progress={0.2} /> &nbsp;
+            </div>
+        )}
     />
 );
 

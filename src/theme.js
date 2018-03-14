@@ -6,8 +6,11 @@ export default {
         big: "1.2rem",
     },
     color: {
+        black: "black",
+        white: "white",
         grey: "#aaa",
         lightgrey: "#eee",
+        green: "#80E85A",
         panelBackground: "rgba(250,250,250,0.9)",
     },
     spacing: {
@@ -16,7 +19,8 @@ export default {
         xs: ".25rem",
     },
     transition: {
-        fast: "150ms",
+        normal: "150ms",
+        fast: "75ms",
     },
     helper: {
         glassEffect: {

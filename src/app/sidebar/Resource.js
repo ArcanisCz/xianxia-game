@@ -21,8 +21,8 @@ const mapStateToProps = (state, {resource}) => ({
 
 const mergeProps = ({current, max, perSecond, displayName, msg}) => ({
     current: number.formatInt(current),
-    max: number.formatInt(max),
-    perSecond: number.formatFloat(perSecond),
+    max: max < Infinity ? number.formatInt(max) : null,
+    perSecond: perSecond !== 0 ? number.formatFloat(perSecond) : null,
     displayName,
     msg,
 });

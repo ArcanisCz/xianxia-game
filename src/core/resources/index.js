@@ -1,6 +1,6 @@
-import {NAME, QI} from './constants';
+import {NAME, QI, KARMA} from './constants';
 import {add} from './actions';
-import {getCurrent, getMax, isFull, getPerSecond} from './selectors';
+import {getCurrent, getMax, isFull, getPerSecond, getVisibleResources} from './selectors';
 import reducer from './reducer';
 import saga from "./saga";
 
@@ -12,9 +12,11 @@ export default {
     reducer,
     saga,
     QI,
+    KARMA,
     getCurrent,
     getMax,
     getPerSecond,
+    getVisibleResources,
     isFull,
     add,
 };

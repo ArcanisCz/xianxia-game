@@ -2,10 +2,10 @@ import React from 'react';
 import {hot} from 'react-hot-loader';
 import injectSheet from 'react-jss';
 
-import {AppLayout, Button} from "components";
-import resources from "core/resources";
+import {AppLayout} from "components";
 
-import {Resource} from "./Resource";
+import sidebar from "./sidebar";
+import buttons from "./buttons";
 
 const styles = (theme) => ({
     "@global": {
@@ -29,24 +29,10 @@ const styles = (theme) => ({
     },
 });
 
-const noop = () => {}; // TODO
-
 const App = () => (
     <AppLayout
-        title={(
-            <Button text="Pokus" onClick={noop} block />
-        )}
-        sidebar={(
-            <Resource resource={resources.QI} />
-        )}
-        content={(
-            <div>
-                <Button text="Pokus" onClick={noop} /> &nbsp;
-                <Button text="Pokus" onClick={noop} disabled /> &nbsp;
-                <Button text="Pokus" onClick={noop} progress={0.1} /> &nbsp;
-                <Button text="Pokus" onClick={noop} disabled progress={0.2} /> &nbsp;
-            </div>
-        )}
+        sidebar={<sidebar.Container />}
+        content={<buttons.Container />}
     />
 );
 

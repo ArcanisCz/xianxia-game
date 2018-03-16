@@ -6,7 +6,6 @@ import {types} from "core/util";
 
 const styles = (theme) => ({
     container: {
-        display: "inline-block",
         padding: theme.spacing.xs,
     },
     name: {
@@ -26,18 +25,26 @@ const styles = (theme) => ({
 const ResourceStatus = ({current, max, displayName, perSecond, msg, classes}) => (
     <div className={classes.container}>
         <span className={classes.name}>{displayName}</span>
-        <span className={classes.amount}>{current}/{max}</span>
-        <span className={classes.perSecond}>({perSecond}/{msg.secondShort})</span>
+        <span className={classes.amount}>
+            {current}
+            {max ? `/${max}` : ""}
+        </span>
+        {perSecond && <span className={classes.perSecond}>({perSecond}/{msg.secondShort})</span>}
     </div>
 );
 
 ResourceStatus.propTypes = {
     current: PropTypes.string.isRequired,
-    max: PropTypes.string.isRequired,
-    perSecond: PropTypes.string.isRequired,
+    max: PropTypes.string,
+    perSecond: PropTypes.string,
     displayName: PropTypes.string.isRequired,
     msg: types.msgProps(["secondShort"]).isRequired,
     classes: PropTypes.object.isRequired,
+};
+
+ResourceStatus.defaultProps = {
+    max: null,
+    perSecond: null,
 };
 
 export default injectSheet(styles)(ResourceStatus);

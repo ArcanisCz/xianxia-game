@@ -1,5 +1,5 @@
-import pokus from './pokus';
+// import pokus from './pokus';
 
 export default [
-    pokus,
+    // pokus,
 ].reduce((acc, item) => Object.assign({}, acc, {[item.NAME]: item.reducer}), {});

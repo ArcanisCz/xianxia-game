@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import injectSheet from 'react-jss';
 import classnames from "classnames";
 
+import time from "core/time";
+
 const styles = (theme) => ({
     root: {
         position: "relative",
@@ -42,7 +44,7 @@ const styles = (theme) => ({
         width: ({progress}) => `${Math.min(progress, 1) * 100}%`,
         background: theme.color.green,
         zIndex: 1,
-        transition: `width ${theme.transition.fast} ease`,
+        transition: ({progress}) => (progress > 0 ? `width ${time.TICK_INTERVAL_MS}ms linear` : "none"),
     },
 });
 

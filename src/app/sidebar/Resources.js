@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import IPropTypes from "react-immutable-proptypes"
+import IPropTypes from "react-immutable-proptypes";
 import {connect} from "react-redux";
 
 import resources from "core/resources";

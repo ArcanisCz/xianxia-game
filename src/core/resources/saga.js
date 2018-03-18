@@ -29,7 +29,7 @@ function* tickResourceSaga() {
 
     const newValues = resources.reduce((acc, item, index) => {
         const delta = perSeconds[index] * (time.TICK_INTERVAL_MS / 1000);
-        if (currents[index] >= maxs[index]) {
+        if (currents[index] >= maxs[index] || delta === 0) {
             return acc;
         }
         return acc.set(item, Math.min(delta + currents[index], maxs[index]));

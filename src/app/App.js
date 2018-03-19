@@ -6,6 +6,7 @@ import {AppLayout} from "components";
 
 import sidebar from "./sidebar";
 import buttons from "./buttons";
+import log from "./log";
 
 const styles = (theme) => ({
     "@global": {
@@ -33,6 +34,7 @@ const App = () => (
     <AppLayout
         sidebar={<sidebar.Container />}
         content={<buttons.Container />}
+        log={<log.Container />}
     />
 );
 

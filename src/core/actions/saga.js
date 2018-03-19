@@ -3,6 +3,7 @@ import {Map} from "immutable";
 
 import time from "core/time";
 import resources from "core/resources";
+import log from "core/log";
 
 import {MEDITATE} from "./constants";
 import {setProgressBulk, endActionBulk} from "./actions";
@@ -29,9 +30,12 @@ function* tickResourceSaga() {
     const completedActions = newValues.filter((value) => value > 1).keySeq().toList();
 
     if (!completedActions.isEmpty()) {
-        yield put(endActionBulk(completedActions));
-        const aaa = completedActions.map((name) => put(endActions.get(name)));
-        yield all([...aaa]);
+        const actionsToDispatch = completedActions.map((name) => put(endActions.get(name)));
+        yield all([
+            put(endActionBulk(completedActions)),
+            ...actionsToDispatch,
+            put(log.addMessage(`Completed: ${JSON.stringify(completedActions)}`)),
+        ]);
     }
 
     if (!updatedValues.isEmpty()) {

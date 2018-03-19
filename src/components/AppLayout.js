@@ -20,9 +20,15 @@ const styles = (theme) => ({
         flex: "1",
         padding: theme.spacing.small,
     },
+    log: {
+        width: "300px",
+        padding: theme.spacing.small,
+        overflowY: "auto",
+        fontSize: theme.font.small,
+    },
 });
 
-const ResourceStatus = ({sidebar, content, classes}) => (
+const ResourceStatus = ({sidebar, content, log, classes}) => (
     <div className={classes.container}>
         <div className={classes.sidebar}>
             {sidebar}
@@ -30,12 +36,16 @@ const ResourceStatus = ({sidebar, content, classes}) => (
         <div className={classes.content}>
             {content}
         </div>
+        <div className={classes.log}>
+            {log}
+        </div>
     </div>
 );
 
 ResourceStatus.propTypes = {
     sidebar: PropTypes.node.isRequired,
     content: PropTypes.node.isRequired,
+    log: PropTypes.node.isRequired,
     classes: PropTypes.object.isRequired,
 };
 

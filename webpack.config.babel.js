@@ -1,13 +1,13 @@
-import path from 'path';
-import webpack from 'webpack';
-import HtmlWebpackPlugin from "html-webpack-plugin";
-// import {BundleAnalyzerPlugin} from "webpack-bundle-analyzer";
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+// const BundleAnalyzerPlugin =require( "webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
-import pckg from "./package.json";
+const pckg = require("./package.json");
 
 const array = (...target) => target.filter((item) => item);
 
-export default ({dev}) => ({
+module.exports.default = ({dev}) => ({
     entry: {
         main: array(
             'babel-polyfill',
@@ -20,9 +20,9 @@ export default ({dev}) => ({
         filename: dev ? '[name].js' : '[name].[chunkhash].js',
     },
     optimization: {
-        splitChunks: dev ? {
+        splitChunks: {
             chunks: "all",
-        } : false,
+        },
     },
     plugins: array(
         new HtmlWebpackPlugin({
@@ -40,7 +40,26 @@ export default ({dev}) => ({
         rules: [{
             test: /\.js$/,
             include: path.resolve(__dirname, 'src'),
-            loader: 'babel-loader',
+            use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: [["env", {
+                        targets: {
+                            browsers: ["last 2 versions", "IE 9"],
+                        },
+                        modules: false,
+                    }], "react"],
+                    plugins: [
+                        array(
+                            "transform-object-rest-spread",
+                            // "transform-react-constant-elements", // TODO doesnt work?
+                            // "transform-react-inline-elements", // TODO doesnt work?
+                            // "transform-react-remove-prop-types", // TODO doesnt work?
+                            dev && "react-hot-loader/babel",
+                        ),
+                    ],
+                },
+            },
         }, {
             test: /\.yml/,
             include: path.resolve(__dirname, 'data'),

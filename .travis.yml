@@ -5,7 +5,7 @@ node_js:
 cache:
     bundler: true
     directories:
-    - node_modules # NPM packages
+    - node_modules
 
 branches:
     only:

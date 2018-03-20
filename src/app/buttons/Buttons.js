@@ -7,7 +7,7 @@ import actions from "core/actions";
 
 const Buttons = ({onMeditate, meditateProgress, meditateCanStart}) => (
     <div>
-        <Button text="Meditate" onClick={onMeditate} progress={meditateProgress} disabled={!meditateCanStart} />
+        <Button text="Meditate 1" onClick={onMeditate} progress={meditateProgress} disabled={!meditateCanStart} />
     </div>
 );
 

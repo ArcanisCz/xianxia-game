@@ -10,3 +10,12 @@ cache:
 branches:
     only:
     - master
+
+notifications:
+    email:
+        on_success: never
+        on_failure: always
+
+after_success:
+    npm run build
+    gulp deploy --user $FTP_USER --password $FTP_PASSWORD

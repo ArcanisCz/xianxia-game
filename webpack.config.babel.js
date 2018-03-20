@@ -15,25 +15,20 @@ export default ({dev}) => ({
         ),
     },
     target: 'web',
-    devtool: dev ? 'eval-source-map' : 'source-map',
     output: {
-        path: path.resolve(__dirname, 'docs'),
+        path: path.resolve(__dirname, 'dist'),
         filename: dev ? '[name].js' : '[name].[chunkhash].js',
     },
     optimization: {
-        splitChunks: {
+        splitChunks: dev ? {
             chunks: "all",
-        },
+        } : false,
     },
     plugins: array(
         new HtmlWebpackPlugin({
             title: pckg.version,
             template: "./src/index.ejs",
             filename: 'index.html',
-        }),
-        // Dont use EnviromentPlugin, redux-dev-tools will stop work
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production'),
         }),
         dev && new webpack.NamedModulesPlugin(),
         // https://webpack.js.org/configuration/dev-server/#devserver-hot

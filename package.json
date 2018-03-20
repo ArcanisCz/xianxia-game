@@ -5,6 +5,7 @@
   "private": true,
   "main": "index.js",
   "scripts": {
+    "test": "npm run lint",
     "start": "webpack-dev-server --env.dev --mode development",
     "lint": "eslint --cache --quiet --ext .js src",
     "lintf": "eslint --cache --quiet --ext .js src --fix",

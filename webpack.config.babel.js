@@ -1,8 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CompressionPlugin = require("compression-webpack-plugin");
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const pckg = require("./package.json");
@@ -10,7 +8,9 @@ const pckg = require("./package.json");
 const array = (...target) => target.filter((item) => item);
 
 module.exports.default = ({dev}) => ({
-    entry: "./src/index.js",
+    entry: {
+        main: "./src/index.js",
+    },
     target: 'web',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -29,11 +29,6 @@ module.exports.default = ({dev}) => ({
         }),
         dev && new webpack.NamedModulesPlugin(),
         dev && new webpack.HotModuleReplacementPlugin(), // https://webpack.js.org/configuration/dev-server/#devserver-hot
-        !dev && new CompressionPlugin({
-            test: /\.js/,
-            // deleteOriginalAssets: true, // TODO
-        }),
-        !dev && new CopyWebpackPlugin(['public/.htaccess']),
         // new BundleAnalyzerPlugin(),
     ),
     module: {

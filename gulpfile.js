@@ -18,7 +18,7 @@ gulp.task('clean', () => {
 
 gulp.task('deploy', ["clean"], () => {
     const conn = ftp.create(ftpConfig);
-    gulp.src(['./dist/index.html', './dist/*.js', './dist/*.gz'])
+    gulp.src(['./dist/index.html', './dist/*.js'])
         .pipe(conn.newer(remotePath))
         .pipe(conn.dest(remotePath));
 });

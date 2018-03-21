@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin")
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const pckg = require("./package.json");
@@ -33,6 +34,10 @@ module.exports.default = ({dev}) => ({
         dev && new webpack.NamedModulesPlugin(),
         // https://webpack.js.org/configuration/dev-server/#devserver-hot
         dev && new webpack.HotModuleReplacementPlugin(),
+        !dev && new CompressionPlugin({
+            test: /\.js/,
+            deleteOriginalAssets: true,
+        }),
         // new BundleAnalyzerPlugin(),
     ),
     module: {

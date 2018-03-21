@@ -36,7 +36,7 @@ module.exports.default = ({dev}) => ({
         dev && new webpack.HotModuleReplacementPlugin(),
         !dev && new CompressionPlugin({
             test: /\.js/,
-            deleteOriginalAssets: true,
+            // deleteOriginalAssets: true, // TODO
         }),
         // new BundleAnalyzerPlugin(),
     ),

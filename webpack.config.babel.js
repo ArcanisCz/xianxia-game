@@ -1,7 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CompressionPlugin = require("compression-webpack-plugin")
+const CompressionPlugin = require("compression-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const pckg = require("./package.json");
@@ -9,11 +10,7 @@ const pckg = require("./package.json");
 const array = (...target) => target.filter((item) => item);
 
 module.exports.default = ({dev}) => ({
-    entry: {
-        main: [
-            "./src/index.js",
-        ],
-    },
+    entry: "./src/index.js",
     target: 'web',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -31,12 +28,12 @@ module.exports.default = ({dev}) => ({
             filename: 'index.html',
         }),
         dev && new webpack.NamedModulesPlugin(),
-        // https://webpack.js.org/configuration/dev-server/#devserver-hot
-        dev && new webpack.HotModuleReplacementPlugin(),
+        dev && new webpack.HotModuleReplacementPlugin(), // https://webpack.js.org/configuration/dev-server/#devserver-hot
         !dev && new CompressionPlugin({
             test: /\.js/,
             // deleteOriginalAssets: true, // TODO
         }),
+        !dev && new CopyWebpackPlugin(['public/.htaccess']),
         // new BundleAnalyzerPlugin(),
     ),
     module: {
@@ -52,11 +49,11 @@ module.exports.default = ({dev}) => ({
             loader: ['json-loader', 'yaml-loader'],
         }],
     },
-    devServer: {
+    devServer: dev ? {
         hot: true,
         inline: true,
         port: 3000,
-    },
+    } : undefined,
     resolve: {
         modules: ['src', 'node_modules'],
     },

@@ -1,0 +1,25 @@
+{
+    "presets": [
+        [
+            "env",
+            {
+                "targets": {
+                    "browsers": [
+                        "last 2 versions",
+                        "IE 9"
+                    ]
+                },
+                "modules": false,
+                "useBuiltIns": true,
+            }
+        ],
+        "react"
+    ],
+    "plugins": [
+        "transform-object-rest-spread",
+        "transform-react-constant-elements",
+        "transform-react-inline-elements",
+        "transform-react-remove-prop-types",
+        "react-hot-loader/babel"
+    ]
+}

@@ -10,10 +10,9 @@ const array = (...target) => target.filter((item) => item);
 
 module.exports.default = ({dev}) => ({
     entry: {
-        main: array(
-            // 'babel-polyfill',
+        main: [
             "./src/index.js",
-        ),
+        ],
     },
     target: 'web',
     output: {
@@ -28,7 +27,7 @@ module.exports.default = ({dev}) => ({
     plugins: array(
         new HtmlWebpackPlugin({
             title: pckg.version,
-            template: "./src/index.ejs",
+            template: "./public/index.ejs",
             filename: 'index.html',
         }),
         dev && new webpack.NamedModulesPlugin(),

@@ -10,7 +10,7 @@
                     ]
                 },
                 "modules": false,
-                "useBuiltIns": true,
+                "useBuiltIns": true
             }
         ],
         "react"
@@ -20,6 +20,10 @@
         "transform-react-constant-elements",
         "transform-react-inline-elements",
         "transform-react-remove-prop-types",
+        ["transform-runtime", {
+            "polyfill": false,
+            "regenerator": true
+        }],
         "react-hot-loader/babel"
     ]
 }

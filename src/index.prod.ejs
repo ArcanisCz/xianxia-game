@@ -2,6 +2,8 @@
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <title><%= htmlWebpackPlugin.options.title %></title>
     <script>
         if (!navigator.doNotTrack) {
             document.write('<script async src="https://www.googletagmanager.com/gtag/js?id=UA-13200242-5"><'+""+'/script>');
@@ -13,10 +15,9 @@
             gtag('config', 'UA-13200242-5');
         }
     </script>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
+<noscript>You need javascript enabled</noscript>
 <div id="app">Loading...</div>
 </body>
 </html>

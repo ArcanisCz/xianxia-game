@@ -24,7 +24,7 @@ module.exports.default = ({dev}) => ({
     plugins: array(
         new HtmlWebpackPlugin({
             title: pckg.version,
-            template: "./src/index.ejs",
+            template: dev ? "./src/index.dev.ejs" : "./src/index.prod.ejs",
             filename: 'index.html',
         }),
         dev && new webpack.NamedModulesPlugin(),

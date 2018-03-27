@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import i18n from "core/i18n";
-import {number} from "core/util";
 import resources from "core/resources";
 
 import {ResourceStatus} from "components";
@@ -20,9 +19,9 @@ const mapStateToProps = (state, {resource}) => ({
 });
 
 const mergeProps = ({current, max, perSecond, displayName, msg}) => ({
-    current: number.formatInt(current),
-    max: max < Infinity ? number.formatInt(max) : null,
-    perSecond: perSecond !== 0 ? number.formatFloat(perSecond) : null,
+    current,
+    max: max < Infinity ? max : null,
+    perSecond: perSecond !== 0 ? perSecond : null,
     displayName,
     msg,
 });

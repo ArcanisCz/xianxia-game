@@ -2,7 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from 'react-jss';
 
-import {types} from "core/util";
+import {types, number} from "core/util";
+
+import ResourceBar from "./ResourceBar";
 
 const styles = (theme) => ({
     container: {
@@ -11,9 +13,11 @@ const styles = (theme) => ({
     name: {
         fontWeight: "bold",
         textTransform: "uppercase",
+        display: "block",
     },
-    amount: {
-        marginLeft: theme.spacing.small,
+    amount: {},
+    bar: {
+        paddingTop: theme.spacing.small,
     },
     perSecond: {
         color: theme.color.grey,
@@ -25,18 +29,28 @@ const styles = (theme) => ({
 const ResourceStatus = ({current, max, displayName, perSecond, msg, classes}) => (
     <div className={classes.container}>
         <span className={classes.name}>{displayName}</span>
-        <span className={classes.amount}>
-            {current}
-            {max ? `/${max}` : ""}
-        </span>
-        {perSecond && <span className={classes.perSecond}>({perSecond}/{msg.secondShort})</span>}
+
+        {max ? (
+            <div className={classes.bar}>
+                <ResourceBar value={current} max={max} />
+            </div>
+        ) : (
+            <div className={classes.amount}>
+                {number.formatInt(current)}
+            </div>
+        )}
+        {perSecond && (
+            <span className={classes.perSecond}>
+                ({number.formatFloat(perSecond)}/{msg.secondShort})
+            </span>
+        )}
     </div>
 );
 
 ResourceStatus.propTypes = {
-    current: PropTypes.string.isRequired,
-    max: PropTypes.string,
-    perSecond: PropTypes.string,
+    current: PropTypes.number.isRequired,
+    max: PropTypes.number,
+    perSecond: PropTypes.number,
     displayName: PropTypes.string.isRequired,
     msg: types.msgProps(["secondShort"]).isRequired,
     classes: PropTypes.object.isRequired,

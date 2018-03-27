@@ -1,8 +1,10 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
 import injectSheet from 'react-jss';
+import {connect} from "react-redux";
 
 import {AppLayout} from "components";
+import init from "core/init";
 
 import sidebar from "./sidebar";
 import buttons from "./buttons";
@@ -30,13 +32,22 @@ const styles = (theme) => ({
     },
 });
 
-const App = () => (
+const App = ({loading}) => (
     <AppLayout
+        loading={loading}
         sidebar={<sidebar.Container />}
         content={<buttons.Container />}
         log={<log.Container />}
     />
 );
 
-export default hot(module)(injectSheet(styles)(App));
+const mapStateToProps = (state) => ({
+    loading: !init.isInitialized(state),
+});
+
+const Connected = connect(mapStateToProps)(App);
+const Styled = injectSheet(styles)(Connected);
+const Hot = hot(module)(Styled);
+
+export default Hot;
 

@@ -28,7 +28,7 @@ const styles = (theme) => ({
     },
 });
 
-const ResourceStatus = ({sidebar, content, log, classes}) => (
+const ResourceStatus = ({sidebar, content, log, classes, loading}) => !loading && (
     <div className={classes.container}>
         <div className={classes.sidebar}>
             {sidebar}
@@ -47,6 +47,11 @@ ResourceStatus.propTypes = {
     content: PropTypes.node.isRequired,
     log: PropTypes.node.isRequired,
     classes: PropTypes.object.isRequired,
+    loading: PropTypes.bool,
+};
+
+ResourceStatus.defaultProps = {
+    loading: false,
 };
 
 export default injectSheet(styles)(ResourceStatus);

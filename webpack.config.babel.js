@@ -26,6 +26,7 @@ module.exports.default = ({dev}) => ({
             title: pckg.version,
             template: dev ? "./src/index.dev.ejs" : "./src/index.prod.ejs",
             filename: 'index.html',
+            publicPath: path.resolve(__dirname, "public"),
         }),
         dev && new webpack.NamedModulesPlugin(),
         dev && new webpack.HotModuleReplacementPlugin(), // https://webpack.js.org/configuration/dev-server/#devserver-hot

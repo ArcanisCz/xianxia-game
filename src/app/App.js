@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import {hot} from 'react-hot-loader';
 import injectSheet from 'react-jss';
 import {connect} from "react-redux";
@@ -40,6 +41,10 @@ const App = ({loading}) => (
         log={<log.Container />}
     />
 );
+
+App.propTypes = {
+    loading: PropTypes.bool.isRequired,
+};
 
 const mapStateToProps = (state) => ({
     loading: !init.isInitialized(state),

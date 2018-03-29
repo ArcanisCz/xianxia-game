@@ -1,3 +1,3 @@
-export const NAME = 'core-actions';
+export const NAME = 'game-actions';
 
 export const MEDITATE = `${NAME}/MEDITATE`;

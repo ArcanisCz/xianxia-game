@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import injectSheet from 'react-jss';
 import classnames from "classnames";
 
-import time from "core/time";
+import time from "game/time";
 
 const styles = (theme) => ({
     root: {

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import IPropTypes from "react-immutable-proptypes";
 import {connect} from "react-redux";
 
-import resources from "core/resources";
+import resources from "game/resources";
 
 import {Resource} from "./Resource";
 

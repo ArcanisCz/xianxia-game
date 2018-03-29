@@ -1,6 +1,6 @@
 import {all, fork, call} from "redux-saga/effects";
 
-import coreSagas from "./core/sagas";
+import coreSagas from "./game/sagas";
 import init from "./core/init";
 
 

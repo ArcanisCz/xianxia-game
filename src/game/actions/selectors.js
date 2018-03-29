@@ -1,7 +1,7 @@
 import {Map} from "immutable";
 import {createSelector} from "reselect";
 
-import resources from "core/resources";
+import resources from "game/resources";
 
 import {NAME, MEDITATE} from './constants';
 

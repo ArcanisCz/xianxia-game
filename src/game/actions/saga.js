@@ -1,8 +1,8 @@
 import {takeEvery, all, put, select} from "redux-saga/effects";
 import {Map} from "immutable";
 
-import time from "core/time";
-import resources from "core/resources";
+import time from "game/time";
+import resources from "game/resources";
 import log from "core/log";
 
 import {MEDITATE} from "./constants";

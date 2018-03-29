@@ -1,7 +1,7 @@
 import {takeEvery, all, put, select} from "redux-saga/effects";
 import {Map} from "immutable";
 
-import time from "core/time";
+import time from "game/time";
 
 import {ADD, setBulk} from "./actions";
 import {getMax, getCurrent, getResourcesList, getPerSecond} from "./selectors";

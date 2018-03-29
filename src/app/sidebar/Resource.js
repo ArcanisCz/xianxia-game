@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import i18n from "core/i18n";
-import resources from "core/resources";
+import resources from "game/resources";
 
 import {ResourceComponent} from "components";
 

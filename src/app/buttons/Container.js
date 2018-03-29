@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import {ButtonComponent} from "components";
-import actions from "core/actions";
+import actions from "game/actions";
 
 const Container = ({onMeditate, meditateProgress, meditateCanStart}) => (
     <div>

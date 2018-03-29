@@ -1,11 +1,12 @@
 import {delay} from "redux-saga";
-import {put, call, fork} from "redux-saga/effects";
+import {put, call, take} from "redux-saga/effects";
 
 import {TICK_INTERVAL_MS} from "./constants";
-import {tick} from "./actions";
+import {tick, START} from "./actions";
 
 export default function* () {
-    yield fork(tickSaga);
+    yield take(START);
+    yield call(tickSaga);
 }
 
 function* tickSaga() {

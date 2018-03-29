@@ -1,17 +1,18 @@
 export default {
     font: {
         family: "'Open Sans', sans-serif",
-        small: ".75rem",
+        small: ".8rem",
         normal: "1rem",
         big: "1.2rem",
     },
     color: {
         black: "black",
         white: "white",
-        grey: "#aaa",
+        grey: "#888",
         lightgrey: "#eee",
         green: "#80E85A",
         panelBackground: "rgba(250,250,250,0.9)",
+        greyBorder: "#aaa",
     },
     spacing: {
         normal: "1rem",

@@ -14,9 +14,8 @@ const styles = (theme) => ({
     },
     name: {
         width: "50px",
-        fontWeight: "bold",
-        textTransform: "uppercase",
         fontSize: theme.font.small,
+        color: theme.color.black,
     },
     perSecond: {
         width: "50px",

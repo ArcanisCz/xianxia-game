@@ -16,11 +16,11 @@ const styles = (theme) => ({
     },
     bottom: {
         height: "25px",
-        borderTop: `1px solid ${theme.color.black}`,
+        borderTop: `1px solid ${theme.color.greyBorder}`,
     },
     sidebar: {
         width: "250px",
-        borderRight: `1px solid ${theme.color.black}`,
+        borderRight: `1px solid ${theme.color.greyBorder}`,
         padding: theme.spacing.small,
     },
     content: {
@@ -28,7 +28,7 @@ const styles = (theme) => ({
         padding: theme.spacing.small,
     },
     log: {
-        borderLeft: `1px solid ${theme.color.black}`,
+        borderLeft: `1px solid ${theme.color.greyBorder}`,
         width: "300px",
         padding: theme.spacing.small,
         overflowY: "auto",

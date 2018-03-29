@@ -6,7 +6,7 @@ import injectSheet from "react-jss";
 const styles = (theme) => ({
     container: {
         background: "#eee",
-        border: `1px solid ${theme.color.black}`,
+        border: `1px solid ${theme.color.greyBorder}`,
         position: "relative",
         height: "20px",
         display: "flex",
@@ -19,6 +19,12 @@ const styles = (theme) => ({
         zIndex: 10,
         width: "100%",
         textAlign: "center",
+    },
+    delimiter: {
+        color: theme.color.grey,
+    },
+    max: {
+        color: theme.color.grey,
     },
     part: {
         top: 0,
@@ -80,7 +86,6 @@ class ResourceBarComponent extends Component {
     timer() {
         if (this.state.displayValue !== this.state.value) {
             const toAdd = (this.state.value - this.state.displayValue + 1) / 10;
-            // console.log(this.state.displayValue, toAdd, Math.abs(this.state.displayValue + toAdd));
             this.setState({
                 displayValue: toAdd > 0.5 ? this.state.displayValue + toAdd : this.props.value,
             }, () => setTimeout(this.timer, 15));
@@ -96,7 +101,15 @@ class ResourceBarComponent extends Component {
 
         return (
             <div className={this.props.classes.container}>
-                <span className={classes.text}>{this.state.value} / {this.state.max}</span>
+                <span className={classes.text}>
+                    <span className={classes.current}>{this.state.value}</span>
+                    {!!emptyWidth && (
+                        <span className={classes.delimiter}> / </span>
+                    )}
+                    {!!emptyWidth && (
+                        <span className={classes.max}>{this.state.max}</span>
+                    )}
+                </span>
                 <span
                     className={classnames(classes.part, classes.fullPart)}
                     style={{width: `${fullWidth}%`, left: `${0}%`}}

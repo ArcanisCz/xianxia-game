@@ -9,7 +9,7 @@ const styles = (theme) => ({
     root: {
         position: "relative",
         backgroundColor: theme.color.white,
-        border: `1px solid ${theme.color.black}`,
+        border: `1px solid ${theme.color.greyBorder}`,
         display: "inline-block",
         cursor: "pointer",
         padding: theme.spacing.small,
@@ -25,7 +25,7 @@ const styles = (theme) => ({
     },
     disabled: {
         backgroundColor: theme.color.lightgrey,
-        borderColor: theme.color.grey,
+        borderColor: theme.color.greyBorder,
         color: theme.color.grey,
         cursor: "default",
         "&:hover": {

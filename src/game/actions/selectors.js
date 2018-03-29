@@ -7,7 +7,7 @@ import {NAME, MEDITATE} from './constants';
 
 export const getProgress = (state, actionName) => state.getIn([NAME, "progress", actionName]);
 const perSecondMap = Map({
-    [MEDITATE]: () => 0.2,
+    [MEDITATE]: () => 0.5,
 });
 export const getInProgress = createSelector(
     (state) => state.getIn([NAME, "progress"]),

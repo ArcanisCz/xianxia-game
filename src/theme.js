@@ -1,7 +1,7 @@
 export default {
     font: {
         family: "'Open Sans', sans-serif",
-        small: ".8rem",
+        small: ".75rem",
         normal: "1rem",
         big: "1.2rem",
     },

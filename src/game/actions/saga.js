@@ -14,7 +14,7 @@ export default function* () {
 }
 
 const endActions = Map({
-    [MEDITATE]: resources.add(resources.QI, 1),
+    [MEDITATE]: resources.add(resources.QI, 200),
 });
 
 function* tickResourceSaga() {

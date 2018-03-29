@@ -8,28 +8,34 @@ import ResourceBar from "./resource/ResourceBarComponent";
 
 const styles = (theme) => ({
     container: {
-        padding: theme.spacing.xs,
+        paddingBottom: theme.spacing.xs,
+        display: "flex",
+        alignItems: "center",
     },
     name: {
+        width: "50px",
         fontWeight: "bold",
         textTransform: "uppercase",
-        display: "block",
-    },
-    amount: {},
-    bar: {
-        paddingTop: theme.spacing.small,
+        fontSize: theme.font.small,
     },
     perSecond: {
+        width: "50px",
+        display: "inline-block",
         color: theme.color.grey,
         fontSize: theme.font.small,
-        marginLeft: theme.spacing.small,
+        textAlign: "right",
+    },
+    amount: {
+        flex: 1,
+    },
+    bar: {
+        flex: 1,
     },
 });
 
 const ResourceComponent = ({current, max, displayName, perSecond, msg, classes}) => (
     <div className={classes.container}>
         <span className={classes.name}>{displayName}</span>
-
         {max ? (
             <div className={classes.bar}>
                 <ResourceBar value={current} max={max} />
@@ -41,7 +47,7 @@ const ResourceComponent = ({current, max, displayName, perSecond, msg, classes})
         )}
         {perSecond && (
             <span className={classes.perSecond}>
-                ({number.formatFloat(perSecond)}/{msg.secondShort})
+                {number.formatFloat(perSecond)} /{msg.secondShort}
             </span>
         )}
     </div>

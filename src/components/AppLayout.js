@@ -19,7 +19,7 @@ const styles = (theme) => ({
         borderTop: `1px solid ${theme.color.black}`,
     },
     sidebar: {
-        width: "200px",
+        width: "250px",
         borderRight: `1px solid ${theme.color.black}`,
         padding: theme.spacing.small,
     },

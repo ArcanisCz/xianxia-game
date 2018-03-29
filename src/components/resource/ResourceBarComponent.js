@@ -3,17 +3,14 @@ import PropTypes from "prop-types";
 import classnames from "classnames";
 import injectSheet from "react-jss";
 
-const getValue = (value, max) => Math.max(Math.min(value, max), 0);
-
-const getMax = (max) => Math.max(0, max);
-
 const styles = (theme) => ({
     container: {
         background: "#eee",
-        width: "100%",
         border: `1px solid ${theme.color.black}`,
         position: "relative",
         height: "20px",
+        display: "flex",
+        alignItems: "center",
     },
     text: {
         color: theme.color.black,
@@ -39,6 +36,9 @@ const styles = (theme) => ({
     },
     emptyPart: {},
 });
+
+const getValue = (value, max) => Math.max(Math.min(value, max), 0);
+const getMax = (max) => Math.max(0, max);
 
 class ResourceBarComponent extends Component {
     constructor(props) {
@@ -67,7 +67,7 @@ class ResourceBarComponent extends Component {
             this.setState({
                 max,
                 value: newValue,
-            }, () => setTimeout(this.timer, 250));
+            }, () => setTimeout(this.timer, 0));
         }
     }
 
@@ -79,10 +79,11 @@ class ResourceBarComponent extends Component {
 
     timer() {
         if (this.state.displayValue !== this.state.value) {
-            const toAdd = (this.state.value - this.state.displayValue) / 10;
+            const toAdd = (this.state.value - this.state.displayValue + 1) / 10;
+            // console.log(this.state.displayValue, toAdd, Math.abs(this.state.displayValue + toAdd));
             this.setState({
-                displayValue: this.state.displayValue + (toAdd > 0 ? Math.ceil(toAdd) : Math.floor(toAdd)),
-            }, () => setTimeout(this.timer, 5));
+                displayValue: toAdd > 0.5 ? this.state.displayValue + toAdd : this.props.value,
+            }, () => setTimeout(this.timer, 15));
         }
     }
 

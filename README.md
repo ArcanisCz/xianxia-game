@@ -1,7 +1,7 @@
 # xianxia-game
 
-<a href="#" id="status-image-popup" title="Latest push build on default branch: passed" name="status-images" class="open-popup" data-ember-action="" data-ember-action-767="767">
-  <img src="https://travis-ci.org/erikras/redux-form.svg?branch=master" alt="build:passed">
+<a href="https://travis-ci.org/ArcanisCz/xianxia-game">
+  <img src="https://travis-ci.org/ArcanisCz/xianxia-game.svg?branch=master">
 </a>
 
 <a href="https://codeclimate.com/github/ArcanisCz/xianxia-game/maintainability">

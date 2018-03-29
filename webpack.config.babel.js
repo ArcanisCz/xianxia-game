@@ -1,11 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
-const pckg = require("./package.json");
+const gitRevisionPlugin = new GitRevisionPlugin();
 
-const array = (...target) => target.filter((item) => item);
+const array = (...target) => target.filter(Boolean);
 
 module.exports.default = ({dev}) => ({
     entry: {
@@ -23,10 +24,13 @@ module.exports.default = ({dev}) => ({
     },
     plugins: array(
         new HtmlWebpackPlugin({
-            title: pckg.version,
+            title: "Xianxia Game",
             template: dev ? "./src/index.dev.ejs" : "./src/index.prod.ejs",
             filename: 'index.html',
             publicPath: path.resolve(__dirname, "public"),
+        }),
+        new webpack.DefinePlugin({
+            VERSION: JSON.stringify(gitRevisionPlugin.version()),
         }),
         dev && new webpack.NamedModulesPlugin(),
         dev && new webpack.HotModuleReplacementPlugin(), // https://webpack.js.org/configuration/dev-server/#devserver-hot
@@ -36,20 +40,18 @@ module.exports.default = ({dev}) => ({
         rules: [{
             test: /\.js$/,
             include: path.resolve(__dirname, 'src'),
-            exclude: /node_modules/,
             loader: 'babel-loader',
         }, {
             test: /\.yml/,
             include: path.resolve(__dirname, 'data'),
-            exclude: /node_modules/,
             loader: ['json-loader', 'yaml-loader'],
         }],
     },
-    devServer: dev ? {
+    devServer: {
         hot: true,
         inline: true,
         port: 3000,
-    } : undefined,
+    },
     resolve: {
         modules: ['src', 'node_modules'],
     },

@@ -51,7 +51,7 @@ const styles = (theme) => ({
 /**
  * Inline block element of clickable button with text. Can also be disabled and have progressbar on background.
  */
-const Button = ({text, onClick, disabled, block, classes}) => (
+const ButtonComponent = ({text, onClick, disabled, block, classes}) => (
     <div
         className={classnames(classes.root, {
             [classes.disabled]: disabled,
@@ -65,7 +65,7 @@ const Button = ({text, onClick, disabled, block, classes}) => (
     </div>
 );
 
-Button.propTypes = {
+ButtonComponent.propTypes = {
     classes: PropTypes.object.isRequired,
     /** Text of button. */
     text: PropTypes.string.isRequired,
@@ -79,10 +79,10 @@ Button.propTypes = {
     block: PropTypes.bool,
 };
 
-Button.defaultProps = {
+ButtonComponent.defaultProps = {
     disabled: false,
     progress: 0,
     block: false,
 };
 
-export default injectSheet(styles)(Button);
+export default injectSheet(styles)(ButtonComponent);

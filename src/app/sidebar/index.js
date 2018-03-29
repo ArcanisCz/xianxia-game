@@ -1,5 +1,5 @@
-import Resources from "./Resources";
+import Container from "./Container";
 
 export default {
-    Container: Resources,
+    Container,
 };

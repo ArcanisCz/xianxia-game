@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import i18n from "core/i18n";
 import resources from "core/resources";
 
-import {ResourceStatus} from "components";
+import {ResourceComponent} from "components";
 
 const getMessages = i18n.createGetMessages({
     secondShort: "unit.second.short",
@@ -26,7 +26,7 @@ const mergeProps = ({current, max, perSecond, displayName, msg}) => ({
     msg,
 });
 
-export const Resource = connect(mapStateToProps, undefined, mergeProps)(ResourceStatus);
+export const Resource = connect(mapStateToProps, undefined, mergeProps)(ResourceComponent);
 
 Resource.propTypes = {
     resource: PropTypes.string.isRequired,

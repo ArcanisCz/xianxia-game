@@ -7,7 +7,7 @@ import resources from "core/resources";
 
 import {Resource} from "./Resource";
 
-const Resources = ({visibleResources}) => (
+const Container = ({visibleResources}) => (
     <div>
         {visibleResources.map((resource) => (
             <Resource key={resource} resource={resource} />
@@ -15,7 +15,7 @@ const Resources = ({visibleResources}) => (
     </div>
 );
 
-Resources.propTypes = {
+Container.propTypes = {
     visibleResources: IPropTypes.listOf(PropTypes.string).isRequired,
 };
 
@@ -23,5 +23,5 @@ const mapStateToProps = (state) => ({
     visibleResources: resources.getVisibleResources(state),
 });
 
-export default connect(mapStateToProps)(Resources);
+export default connect(mapStateToProps)(Container);
 

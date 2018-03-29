@@ -1,5 +1,5 @@
-import Buttons from "./Buttons";
+import Container from "./Container";
 
 export default {
-    Container: Buttons,
+    Container,
 };

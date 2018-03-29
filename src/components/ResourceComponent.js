@@ -4,7 +4,7 @@ import injectSheet from 'react-jss';
 
 import {types, number} from "core/util";
 
-import ResourceBar from "./ResourceBar";
+import ResourceBar from "./resource/ResourceBarComponent";
 
 const styles = (theme) => ({
     container: {
@@ -26,7 +26,7 @@ const styles = (theme) => ({
     },
 });
 
-const ResourceStatus = ({current, max, displayName, perSecond, msg, classes}) => (
+const ResourceComponent = ({current, max, displayName, perSecond, msg, classes}) => (
     <div className={classes.container}>
         <span className={classes.name}>{displayName}</span>
 
@@ -47,7 +47,7 @@ const ResourceStatus = ({current, max, displayName, perSecond, msg, classes}) =>
     </div>
 );
 
-ResourceStatus.propTypes = {
+ResourceComponent.propTypes = {
     current: PropTypes.number.isRequired,
     max: PropTypes.number,
     perSecond: PropTypes.number,
@@ -56,9 +56,9 @@ ResourceStatus.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-ResourceStatus.defaultProps = {
+ResourceComponent.defaultProps = {
     max: null,
     perSecond: null,
 };
 
-export default injectSheet(styles)(ResourceStatus);
+export default injectSheet(styles)(ResourceComponent);

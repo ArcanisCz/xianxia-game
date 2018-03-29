@@ -40,7 +40,7 @@ const styles = (theme) => ({
     emptyPart: {},
 });
 
-class ResourceBar extends Component {
+class ResourceBarComponent extends Component {
     constructor(props) {
         super(props);
         const max = getMax(this.props.max);
@@ -117,14 +117,14 @@ class ResourceBar extends Component {
     }
 }
 
-ResourceBar.propTypes = {
+ResourceBarComponent.propTypes = {
     max: PropTypes.number.isRequired,
     value: PropTypes.number,
     classes: PropTypes.object.isRequired,
 };
 
-ResourceBar.defaultProps = {
+ResourceBarComponent.defaultProps = {
     value: 0,
 };
 
-export default injectSheet(styles)(ResourceBar);
+export default injectSheet(styles)(ResourceBarComponent);

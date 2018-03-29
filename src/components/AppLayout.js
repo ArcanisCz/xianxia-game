@@ -8,13 +8,19 @@ const styles = (theme) => ({
         width: "100%",
         height: "100%",
         display: "flex",
+        flexDirection: "column",
     },
-    bottom: {
+    top: {
         flex: "1",
         display: "flex",
     },
+    bottom: {
+        height: "25px",
+        borderTop: `1px solid ${theme.color.black}`,
+    },
     sidebar: {
         width: "200px",
+        borderRight: `1px solid ${theme.color.black}`,
         padding: theme.spacing.small,
     },
     content: {
@@ -22,6 +28,7 @@ const styles = (theme) => ({
         padding: theme.spacing.small,
     },
     log: {
+        borderLeft: `1px solid ${theme.color.black}`,
         width: "300px",
         padding: theme.spacing.small,
         overflowY: "auto",
@@ -29,30 +36,36 @@ const styles = (theme) => ({
     },
 });
 
-const ResourceStatus = ({sidebar, content, log, classes, loading}) => !loading && (
+const AppLayout = ({sidebar, content, log, footer, classes, loading}) => !loading && (
     <div className={classes.container}>
-        <div className={classes.sidebar}>
-            {sidebar}
+        <div className={classes.top}>
+            <div className={classes.sidebar}>
+                {sidebar}
+            </div>
+            <div className={classes.content}>
+                {content}
+            </div>
+            <div className={classes.log}>
+                {log}
+            </div>
         </div>
-        <div className={classes.content}>
-            {content}
-        </div>
-        <div className={classes.log}>
-            {log}
+        <div className={classes.bottom}>
+            {footer}
         </div>
     </div>
 );
 
-ResourceStatus.propTypes = {
+AppLayout.propTypes = {
     sidebar: PropTypes.node.isRequired,
     content: PropTypes.node.isRequired,
     log: PropTypes.node.isRequired,
+    footer: PropTypes.node.isRequired,
     classes: PropTypes.object.isRequired,
     loading: PropTypes.bool,
 };
 
-ResourceStatus.defaultProps = {
+AppLayout.defaultProps = {
     loading: false,
 };
 
-export default injectSheet(styles)(ResourceStatus);
+export default injectSheet(styles)(AppLayout);

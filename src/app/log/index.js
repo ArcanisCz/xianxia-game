@@ -1,5 +1,5 @@
-import Log from "./Log";
+import Container from "./Container";
 
 export default {
-    Container: Log,
+    Container,
 };

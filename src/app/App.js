@@ -11,6 +11,8 @@ import sidebar from "./sidebar";
 import buttons from "./buttons";
 import log from "./log";
 
+const version = VERSION; // eslint-disable-line no-undef
+
 const styles = (theme) => ({
     "@global": {
         html: {
@@ -39,6 +41,7 @@ const App = ({loading}) => (
         sidebar={<sidebar.Container />}
         content={<buttons.Container />}
         log={<log.Container />}
+        footer={version}
     />
 );
 

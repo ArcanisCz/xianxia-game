@@ -16,11 +16,7 @@ notifications:
         on_success: never
         on_failure: always
 
-script: npm run build
-
-jobs:
-  include:
-    - stage: deploy
-      gulp deploy --user $FTP_USER --password $FTP_PASSWORD
-
-
+script:
+    npm run build
+after_success:
+    gulp deploy --user $FTP_USER --password $FTP_PASSWORD

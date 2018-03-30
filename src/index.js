@@ -17,3 +17,4 @@ const renderApp = (RootComponent) => {
 };
 
 renderApp(App);
+

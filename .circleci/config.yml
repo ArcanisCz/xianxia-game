@@ -64,10 +64,10 @@ workflows:
   build_and_deploy:
     jobs:
       - install
-      - lint
+      - lint:
           requires:
             - install
-      - build
+      - build:
           requires:
             -install
       - deploy:
@@ -77,4 +77,3 @@ workflows:
             branches:
               only:
                 - /^master$/
-                

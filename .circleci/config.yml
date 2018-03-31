@@ -12,11 +12,9 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
       - run: npm install
@@ -28,13 +26,17 @@ jobs:
 
       - run: npm run build
       - store_artifacts:
-          path: /dist/
+          path: ~/repo/dist
   deploy:
     docker:
       - image: circleci/node:7.10
     working_directory: ~/repo10
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-
       - run: npm run gulp -- --user $FTP_USER --password $FTP_PASSWORD
 
 workflows:

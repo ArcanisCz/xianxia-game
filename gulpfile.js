@@ -35,7 +35,7 @@ const revision = require('child_process')
     .toString().trim();
 
 const postData = querystring.stringify({
-    access_token: args.accessToken,
+    access_token: args.rollbar,
     environment: "production",
     revision,
     local_username: "Circle CI",

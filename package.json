@@ -62,7 +62,7 @@
     "react": "16.3.0",
     "react-dom": "16.3.0",
     "react-immutable-proptypes": "2.1.0",
-    "react-jss": "8.3.5",
+    "react-jss": "8.4.0",
     "react-redux": "5.0.7",
     "redux": "3.7.2",
     "redux-immutable": "4.0.0",

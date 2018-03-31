@@ -33,6 +33,7 @@ jobs:
             - node_modules
             - dist
             - package.json
+            - gulpfile.js
   deploy:
     docker:
       - image: circleci/node:7.10

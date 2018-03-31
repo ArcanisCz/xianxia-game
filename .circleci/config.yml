@@ -38,6 +38,12 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
       - run: npm run gulp -- --user $FTP_USER --password $FTP_PASSWORD
+      - run: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
 workflows:
   version: 2

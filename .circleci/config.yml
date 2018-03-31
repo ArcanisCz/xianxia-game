@@ -28,8 +28,6 @@ jobs:
 
       - run: npm run build
   deploy:
-    requires:
-      - build
     docker:
       - image: circleci/node:7.10
     working_directory: ~/repo10
@@ -45,4 +43,6 @@ workflows:
   build_and_deploy:
     jobs:
       - build
-      - deploy
+      - deploy:
+          requires:
+            - build

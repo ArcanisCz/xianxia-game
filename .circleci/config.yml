@@ -4,38 +4,55 @@
 #
 version: 2
 jobs:
-  build:
+  install:
     docker:
       - image: circleci/node:7.10@sha256:295338f0d5e60150b6eb8d1f43f82007206e0edae0c159e77b383f7598933028
     working_directory: ~/repo
-
     steps:
       - checkout
-
       - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
-
       - run: npm install
-
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: npm run lint
-      - run: npm run build
-      - store_artifacts:
-          path: ~/repo/dist
       - persist_to_workspace:
           root: ~/repo
           paths:
             - node_modules
+
+
+  lint:
+    docker:
+      - image: circleci/node:7.10@sha256:295338f0d5e60150b6eb8d1f43f82007206e0edae0c159e77b383f7598933028
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run: npm run lint
+
+
+  build:
+    docker:
+      - image: circleci/node:7.10@sha256:295338f0d5e60150b6eb8d1f43f82007206e0edae0c159e77b383f7598933028
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run: npm run build
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
             - dist
             - package.json
             - gulpfile.js
             - public
+
   deploy:
     docker:
       - image: circleci/node:7.10@sha256:295338f0d5e60150b6eb8d1f43f82007206e0edae0c159e77b383f7598933028
@@ -45,17 +62,25 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - run: npm run gulp -- --user $FTP_USER --password $FTP_PASSWORD --rollbar $ROLLBAR_ACCESS
+      - store_artifacts:
+          path: ~/repo/dist
 
 workflows:
   version: 2
   build_and_deploy:
     jobs:
-      - build
+      - install
+      - lint:
+          requires:
+            - install
+      - build:
+          requires:
+            - install
       - deploy:
           requires:
             - build
+            - lint
           filters:
             branches:
               only:
                 - /^master$/
-

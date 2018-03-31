@@ -27,15 +27,14 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: npm run build
+      - store_artifacts:
+          path: /dist/
   deploy:
     docker:
       - image: circleci/node:7.10
     working_directory: ~/repo10
-    filters:
-        branches:
-          only:
-            - /^(?!.*^master$).*$/
     steps:
+      - checkout
       - run: npm run gulp -- --user $FTP_USER --password $FTP_PASSWORD
 
 workflows:
@@ -46,3 +45,7 @@ workflows:
       - deploy:
           requires:
             - build
+          filters:
+            branches:
+              only:
+                - /^(?!.*^master$).*$/

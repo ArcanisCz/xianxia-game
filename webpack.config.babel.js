@@ -52,7 +52,4 @@ module.exports.default = ({dev}) => ({
         inline: true,
         port: 3000,
     },
-    resolve: {
-        modules: ['src', 'node_modules'],
-    },
 });

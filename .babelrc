@@ -24,7 +24,15 @@
                 "regenerator": true
             }
         ],
-        "react-hot-loader/babel"
+        "react-hot-loader/babel",
+        [
+            "module-resolver",
+            {
+                "root": [
+                    "./src"
+                ]
+            }
+        ]
     ],
     "env": {
         "production": {
@@ -32,6 +40,14 @@
                 "transform-react-constant-elements",
                 "transform-react-inline-elements",
                 "transform-react-remove-prop-types"
+            ]
+        },
+        "test": {
+            "presets": [
+                [
+                    "env"
+                ],
+                "react"
             ]
         }
     }

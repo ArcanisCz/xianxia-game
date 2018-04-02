@@ -13,7 +13,8 @@
     "preversion": "npm run build && git add . && npm run commit",
     "postversion": "git push && git push --tags",
     "commit": "git diff --quiet && git diff --staged --quiet || git commit -m \"[gh-pages] build\"",
-    "gulp": "gulp deploy"
+    "gulp": "gulp deploy",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -24,9 +25,15 @@
   "bugs": {
     "url": "https://github.com/ArcanisCz/xianxia-game/issues"
   },
+  "jest": {
+    "setupTestFrameworkScriptFile": "./setupTests.js"
+  },
   "homepage": "https://github.com/ArcanisCz/xianxia-game#readme",
   "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-jest": "22.4.3",
     "babel-loader": "7.1.4",
+    "babel-plugin-module-resolver": "3.1.1",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
     "babel-plugin-transform-react-constant-elements": "6.23.0",
     "babel-plugin-transform-react-inline-elements": "6.22.0",
@@ -35,19 +42,26 @@
     "babel-preset-env": "1.6.1",
     "babel-preset-react": "6.24.1",
     "babel-register": "6.26.0",
+    "chai": "4.1.2",
     "cross-env": "5.1.4",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
     "eslint": "4.19.1",
     "eslint-config-airbnb": "16.1.0",
     "eslint-plugin-import": "2.10.0",
+    "eslint-plugin-jest": "21.15.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "7.7.0",
     "git-revision-webpack-plugin": "2.5.1",
     "gulp": "3.9.1",
     "gulp-cli": "2.0.1",
     "html-webpack-plugin": "3.1.0",
+    "jest": "22.4.3",
     "minimist": "1.2.0",
     "react-hot-loader": "4.0.1",
+    "react-test-renderer": "16.3.0",
     "rimraf": "2.6.2",
+    "sinon": "4.5.0",
     "vinyl-ftp": "0.6.1",
     "webpack": "4.4.1",
     "webpack-bundle-analyzer": "2.11.1",

@@ -5,7 +5,7 @@ import classnames from "classnames";
 
 import time from "game/time";
 
-const styles = (theme) => ({
+export const styles = (theme) => ({
     root: {
         position: "relative",
         backgroundColor: theme.color.white,
@@ -51,7 +51,7 @@ const styles = (theme) => ({
 /**
  * Inline block element of clickable button with text. Can also be disabled and have progressbar on background.
  */
-const ButtonComponent = ({text, onClick, disabled, block, classes}) => (
+export const ButtonComponent = ({text, onClick, disabled, block, classes}) => (
     <div
         className={classnames(classes.root, {
             [classes.disabled]: disabled,
@@ -66,7 +66,7 @@ const ButtonComponent = ({text, onClick, disabled, block, classes}) => (
 );
 
 ButtonComponent.propTypes = {
-    classes: PropTypes.object.isRequired,
+    classes: PropTypes.object,
     /** Text of button. */
     text: PropTypes.string.isRequired,
     /** Button click. */
@@ -83,6 +83,7 @@ ButtonComponent.defaultProps = {
     disabled: false,
     progress: 0,
     block: false,
+    classes: {},
 };
 
 export default injectSheet(styles)(ButtonComponent);

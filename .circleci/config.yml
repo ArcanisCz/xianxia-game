@@ -71,7 +71,7 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/repo
-      - run: npm run gulp -- --user $FTP_USER --password $FTP_PASSWORD --rollbar $ROLLBAR_ACCESS
+      - run: npm run deploy -- --user $FTP_USER --password $FTP_PASSWORD --rollbar $ROLLBAR_ACCESS
       - store_artifacts:
           path: ~/repo/dist
 

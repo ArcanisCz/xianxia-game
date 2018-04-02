@@ -10,11 +10,10 @@
     "lintf": "eslint --cache --quiet --ext .js src --fix",
     "prebuild": "rimraf ./dist",
     "build": "webpack-cli --mode production --env",
-    "preversion": "npm run build && git add . && npm run commit",
     "postversion": "git push && git push --tags",
-    "commit": "git diff --quiet && git diff --staged --quiet || git commit -m \"[gh-pages] build\"",
-    "gulp": "gulp deploy",
-    "test": "jest"
+    "deploy": "gulp deploy",
+    "test": "jest -b --ci",
+    "test:watch": "jest --watchAll"
   },
   "repository": {
     "type": "git",

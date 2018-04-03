@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from 'react-jss';
 
-const styles = (theme) => ({
+export const styles = (theme) => ({
     container: {
         background: theme.color.white,
         width: "100%",
@@ -11,57 +11,68 @@ const styles = (theme) => ({
         flexDirection: "column",
     },
     top: {
-        flex: "1",
         display: "flex",
     },
-    bottom: {
-        height: "25px",
+    middle: {
+        flex: "1",
+        display: "flex",
+        flexDirection: "row",
         borderTop: `1px solid ${theme.color.greyBorder}`,
+        borderBottom: `1px solid ${theme.color.greyBorder}`,
+    },
+    bottom: {
+        // TODO
+    },
+    info: {
+        width: "250px",
+        borderRight: `1px solid ${theme.color.greyBorder}`,
+    },
+    energy: {
+        flex: 1,
     },
     sidebar: {
         width: "250px",
         borderRight: `1px solid ${theme.color.greyBorder}`,
-        padding: theme.spacing.small,
+    },
+    contentArea: {
+        flex: "1",
+        display: "flex",
+        flexDirection: "column",
+    },
+    tabs: {
+        borderBottom: `1px solid ${theme.color.greyBorder}`,
     },
     content: {
-        flex: "1",
-        padding: theme.spacing.small,
-    },
-    log: {
-        borderLeft: `1px solid ${theme.color.greyBorder}`,
-        width: "300px",
-        padding: theme.spacing.small,
-        overflowY: "auto",
-        fontSize: theme.font.small,
+        flex: 1,
     },
 });
 
-const AppLayout = ({sidebar, content, log, footer, classes, loading}) => !loading && (
+export const AppLayout = ({info, energy, sidebar, tabs, content, footer, classes, loading}) => !loading && (
     <div className={classes.container}>
         <div className={classes.top}>
-            <div className={classes.sidebar}>
-                {sidebar}
-            </div>
-            <div className={classes.content}>
-                {content}
-            </div>
-            <div className={classes.log}>
-                {log}
+            <div className={classes.info}>{info}</div>
+            <div className={classes.energy}>{energy}</div>
+        </div>
+        <div className={classes.middle}>
+            <div className={classes.sidebar}>{sidebar}</div>
+            <div className={classes.contentArea}>
+                <div className={classes.tabs}>{tabs}</div>
+                <div className={classes.content}>{content}</div>
             </div>
         </div>
-        <div className={classes.bottom}>
-            {footer}
-        </div>
+        <div className={classes.bottom}>{footer}</div>
     </div>
 );
 
 AppLayout.propTypes = {
+    info: PropTypes.node.isRequired,
+    energy: PropTypes.node.isRequired,
     sidebar: PropTypes.node.isRequired,
+    tabs: PropTypes.node.isRequired,
     content: PropTypes.node.isRequired,
-    log: PropTypes.node.isRequired,
     footer: PropTypes.node.isRequired,
-    classes: PropTypes.object.isRequired,
     loading: PropTypes.bool,
+    classes: PropTypes.object.isRequired,
 };
 
 AppLayout.defaultProps = {

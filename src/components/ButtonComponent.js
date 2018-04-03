@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import injectSheet from 'react-jss';
 import classnames from "classnames";
 
-import time from "game/time";
-
 export const styles = (theme) => ({
     root: {
         position: "relative",
@@ -44,7 +42,7 @@ export const styles = (theme) => ({
         width: ({progress}) => `${Math.min(progress, 1) * 100}%`,
         background: theme.color.green,
         zIndex: 1,
-        transition: ({progress}) => (progress > 0 ? `width ${time.TICK_INTERVAL_MS}ms linear` : "none"),
+        transition: ({progress}) => (progress > 0 ? `width 10ms linear` : "none"), // TODO progress differently
     },
 });
 
@@ -58,7 +56,6 @@ export const ButtonComponent = ({text, onClick, disabled, block, classes}) => (
             [classes.block]: block,
         })}
         onClick={disabled ? undefined : onClick}
-        onKeyDown={onClick}
     >
         <span className={classes.text}>{text}</span>
         <div className={classes.progress} />

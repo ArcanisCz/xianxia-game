@@ -11,7 +11,8 @@ const onClick = () => {
 };
 const text = "my text asdas555";
 
-const makeComponent = (props) => shallow(<ButtonComponent classes={getClasses(styles)} onClick={onClick} text={text} {...props} />);
+const classes = getClasses(styles);
+const makeComponent = (props) => shallow(<ButtonComponent classes={classes} onClick={onClick} text={text} {...props} />);
 
 describe('ButtonComponent', () => {
     it('should display text', () => {
@@ -26,6 +27,22 @@ describe('ButtonComponent', () => {
         expect(onClickSpy.calledOnce).to.equal(true);
     });
 
-    // .. TODO
+    it("should be block element when block prop set", () => {
+        const wrapper = makeComponent({block: true});
+        expect(wrapper.hasClass(classes.block)).to.equal(true);
+    });
+
+    it("should be disabled when disabled prop set", () => {
+        const wrapper = makeComponent({disabled: true});
+        expect(wrapper.hasClass(classes.disabled)).to.equal(true);
+    });
+
+    it("should not call onClick when disabled", () => {
+        const onClickSpy = sinon.spy();
+        const wrapper = makeComponent({disabled: true, onClick: onClickSpy});
+        wrapper.simulate('click');
+        expect(onClickSpy.notCalled).to.equal(true);
+    });
+
 });
 

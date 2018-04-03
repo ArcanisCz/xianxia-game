@@ -12,7 +12,7 @@
     "build": "webpack-cli --mode production --env",
     "postversion": "git push && git push --tags",
     "deploy": "gulp deploy",
-    "test": "jest -b --ci",
+    "test": "jest -b --ci --silent",
     "test:watch": "jest --watchAll"
   },
   "repository": {

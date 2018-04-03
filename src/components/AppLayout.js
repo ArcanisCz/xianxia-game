@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import injectSheet from 'react-jss';
 
-const styles = (theme) => ({
+export const styles = (theme) => ({
     container: {
         background: theme.color.white,
         width: "100%",
@@ -36,7 +36,7 @@ const styles = (theme) => ({
     },
 });
 
-const AppLayout = ({sidebar, content, log, footer, classes, loading}) => !loading && (
+export const AppLayout = ({sidebar, content, log, footer, classes, loading}) => !loading && (
     <div className={classes.container}>
         <div className={classes.top}>
             <div className={classes.sidebar}>
@@ -56,10 +56,10 @@ const AppLayout = ({sidebar, content, log, footer, classes, loading}) => !loadin
 );
 
 AppLayout.propTypes = {
-    sidebar: PropTypes.node.isRequired,
-    content: PropTypes.node.isRequired,
-    log: PropTypes.node.isRequired,
-    footer: PropTypes.node.isRequired,
+    sidebar: PropTypes.node,
+    content: PropTypes.node,
+    log: PropTypes.node,
+    footer: PropTypes.node,
     classes: PropTypes.object.isRequired,
     loading: PropTypes.bool,
 };

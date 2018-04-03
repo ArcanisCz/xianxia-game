@@ -43,6 +43,5 @@ describe('ButtonComponent', () => {
         wrapper.simulate('click');
         expect(onClickSpy.notCalled).to.equal(true);
     });
-
 });
 

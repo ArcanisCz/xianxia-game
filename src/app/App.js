@@ -38,10 +38,12 @@ const styles = (theme) => ({
 const App = ({loading}) => (
     <AppLayout
         loading={loading}
+        info="TODO info"
+        energy="TODO energy"
+        tabs="TODO tabs"
         sidebar={<sidebar.Container />}
         content={<buttons.Container />}
-        log={<log.Container />}
-        footer={version}
+        footer={`TODO footer | ${version}`}
     />
 );
 

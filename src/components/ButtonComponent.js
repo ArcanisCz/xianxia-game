@@ -42,7 +42,7 @@ export const styles = (theme) => ({
         width: ({progress}) => `${Math.min(progress, 1) * 100}%`,
         background: theme.color.green,
         zIndex: 1,
-        transition: ({progress}) => (progress > 0 ? `width 10ms linear` : "none"), // TODO progress differently
+        // transition: ({progress}) => (progress > 0 ? `width 0 linear` : "none"), // TODO progress differently
     },
 });
 

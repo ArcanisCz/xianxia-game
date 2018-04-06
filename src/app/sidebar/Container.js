@@ -3,16 +3,17 @@ import PropTypes from "prop-types";
 import IPropTypes from "react-immutable-proptypes";
 import {connect} from "react-redux";
 
+import {SectionLayout} from "components";
 import resources from "game/resources";
 
 import {Resource} from "./Resource";
 
 const Container = ({visibleResources}) => (
-    <div>
+    <SectionLayout>
         {visibleResources.map((resource) => (
             <Resource key={resource} resource={resource} />
         ))}
-    </div>
+    </SectionLayout>
 );
 
 Container.propTypes = {

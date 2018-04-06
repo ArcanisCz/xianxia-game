@@ -11,6 +11,7 @@ export default {
         grey: "#888",
         lightgrey: "#eee",
         green: "#80E85A",
+        red: "red",
         panelBackground: "rgba(250,250,250,0.9)",
         greyBorder: "#aaa",
     },

@@ -1,10 +1,8 @@
-import React from "react";
+import React, {Fragment} from "react";
 import PropTypes from "prop-types";
 import injectSheet from 'react-jss';
 
 import {types, number} from "core/util";
-
-import ResourceBar from "./resource/ResourceBarComponent";
 
 const styles = (theme) => ({
     container: {
@@ -18,37 +16,42 @@ const styles = (theme) => ({
         color: theme.color.black,
     },
     perSecond: {
-        width: "50px",
+        width: "60px",
         display: "inline-block",
-        color: theme.color.grey,
+        color: ({perSecond}) => (perSecond > 0 ? theme.color.green : theme.color.red),
         fontSize: theme.font.small,
         textAlign: "right",
     },
     amount: {
         flex: 1,
+        textAlign: "right",
     },
-    bar: {
-        flex: 1,
+    max: {
+        width: "60px",
+        color: theme.color.grey,
     },
 });
 
 const ResourceComponent = ({current, max, displayName, perSecond, msg, classes}) => (
     <div className={classes.container}>
         <span className={classes.name}>{displayName}</span>
-        {max ? (
-            <div className={classes.bar}>
-                <ResourceBar value={current} max={max} />
-            </div>
-        ) : (
-            <div className={classes.amount}>
-                {number.formatInt(current)}
-            </div>
-        )}
-        {perSecond && (
-            <span className={classes.perSecond}>
-                {number.formatFloat(perSecond)} /{msg.secondShort}
-            </span>
-        )}
+        <div className={classes.amount}>
+            {number.formatInt(current)}
+        </div>
+        <div className={classes.max}>
+            {max && (
+                <Fragment>
+                    &nbsp;/&nbsp;{number.formatInt(max)}
+                </Fragment>
+            )}
+        </div>
+        <span className={classes.perSecond}>
+            {perSecond && (
+                <Fragment>
+                    {number.formatFloat(perSecond)} /{msg.secondShort}
+                </Fragment>
+            )}
+        </span>
     </div>
 );
 

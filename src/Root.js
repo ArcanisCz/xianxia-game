@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {StrictMode} from 'react';
 import {Provider} from 'react-redux';
 import {ThemeProvider} from 'react-jss';
 

@@ -2,4 +2,5 @@
 unit.second.short: s
 # RESOURCES
 resource.qi: qi
+resource.vitality: vitality
 resource.karma: karma

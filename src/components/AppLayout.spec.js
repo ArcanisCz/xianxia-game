@@ -8,7 +8,6 @@ import {AppLayout, styles} from './AppLayout';
 
 const divs = {
     content: <div>content</div>,
-    energy: <div>energy</div>,
     footer: <div>footer</div>,
     info: <div>info</div>,
     sidebar: <div>sidebar</div>,
@@ -19,7 +18,6 @@ const classes = getClasses(styles);
 const makeComponent = (props) => shallow((
     <AppLayout
         content={divs.content}
-        energy={divs.energy}
         footer={divs.footer}
         info={divs.info}
         sidebar={divs.sidebar}

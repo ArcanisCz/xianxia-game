@@ -27,38 +27,27 @@ export const styles = (theme) => ({
         width: "250px",
         borderRight: `1px solid ${theme.color.greyBorder}`,
     },
-    energy: {
+    tabs: {
         flex: 1,
     },
     sidebar: {
         width: "250px",
         borderRight: `1px solid ${theme.color.greyBorder}`,
     },
-    contentArea: {
-        flex: "1",
-        display: "flex",
-        flexDirection: "column",
-    },
-    tabs: {
-        borderBottom: `1px solid ${theme.color.greyBorder}`,
-    },
     content: {
         flex: 1,
     },
 });
 
-export const AppLayout = ({info, energy, sidebar, tabs, content, footer, classes, loading}) => !loading && (
+export const AppLayout = ({info, sidebar, tabs, content, footer, classes, loading}) => !loading && (
     <div className={classes.container}>
         <div className={classes.top}>
             <div className={classes.info}>{info}</div>
-            <div className={classes.energy}>{energy}</div>
+            <div className={classes.tabs}>{tabs}</div>
         </div>
         <div className={classes.middle}>
             <div className={classes.sidebar}>{sidebar}</div>
-            <div className={classes.contentArea}>
-                <div className={classes.tabs}>{tabs}</div>
-                <div className={classes.content}>{content}</div>
-            </div>
+            <div className={classes.content}>{content}</div>
         </div>
         <div className={classes.bottom}>{footer}</div>
     </div>
@@ -66,7 +55,6 @@ export const AppLayout = ({info, energy, sidebar, tabs, content, footer, classes
 
 AppLayout.propTypes = {
     info: PropTypes.node.isRequired,
-    energy: PropTypes.node.isRequired,
     sidebar: PropTypes.node.isRequired,
     tabs: PropTypes.node.isRequired,
     content: PropTypes.node.isRequired,

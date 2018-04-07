@@ -39,7 +39,6 @@ const App = ({loading}) => (
     <AppLayout
         loading={loading}
         info="TODO info"
-        energy="TODO energy"
         tabs="TODO tabs"
         sidebar={<sidebar.Container />}
         content={<buttons.Container />}

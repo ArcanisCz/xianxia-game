@@ -9,7 +9,7 @@ import {ActionButton} from "./ActionButton";
 
 const Container = () => (
     <SectionLayout>
-        <ActionButton action={actions.MEDITATE}/>
+        <ActionButton action={actions.MEDITATE} />
     </SectionLayout>
 );
 

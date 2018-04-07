@@ -1,1 +1,1 @@
-export const tickMs = 500;
+export const tickMs = 1000;

@@ -14,7 +14,7 @@ const mapStateToProps = (state, {action}) => ({
 });
 
 const mapDispatchToProps = (dispatch, {action}) => ({
-    onClick: () => dispatch(actions.startAction(action)),
+    onClick: (immediate) => dispatch(actions.startAction(action, immediate)),
 });
 
 const mergeProps = ({progress, canStart, perSecond, text}, {onClick}) => ({
@@ -22,7 +22,7 @@ const mergeProps = ({progress, canStart, perSecond, text}, {onClick}) => ({
     disabled: !canStart,
     perSecond,
     text,
-    onClick,
+    onClick: () => onClick(perSecond === Infinity),
 });
 
 export const ActionButton = connect(mapStateToProps, mapDispatchToProps, mergeProps)(ButtonComponent);

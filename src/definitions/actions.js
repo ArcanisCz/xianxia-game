@@ -6,12 +6,12 @@ import resources from "game/resources";
 export const MEDITATE = `action.meditate`;
 
 export const perSecondMap = Map({
-    [MEDITATE]: () => 0.5,
+    [MEDITATE]: () => Infinity,
 });
 export const canStartMap = Map({
     [MEDITATE]: (state) => !resources.isFull(state, QI),
 });
 
 export const endActions = Map({
-    [MEDITATE]: resources.add(QI, 200),
+    [MEDITATE]: resources.add(QI, 1),
 });

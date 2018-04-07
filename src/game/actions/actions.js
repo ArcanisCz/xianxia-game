@@ -7,8 +7,9 @@ export const END_ACTION = `${NAME}/END_ACTION`;
 /**
  * @param {string} name
  */
-export const startAction = (name) => ({
+export const startAction = (name, immediate = false) => ({
     type: START_ACTION,
+    meta: {immediate},
     payload: {name},
 });
 

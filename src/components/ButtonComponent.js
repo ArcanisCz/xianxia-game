@@ -48,7 +48,7 @@ export const styles = (theme) => ({
 /**
  * Inline block element of clickable button with text. Can also be disabled and have progressbar on background.
  */
-const ButtonComponent = ({text, onClick, disabled, block, classes, progress}) => (
+export const ButtonComponent = ({text, onClick, disabled, block, classes, progress}) => (
     <div
         className={classnames(classes.root, {
             [classes.disabled]: disabled,

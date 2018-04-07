@@ -14,7 +14,7 @@ export const styles = (theme) => ({
         userSelect: "none",
         transition: `all ${theme.transition.normal} ease`,
         "&:hover": {
-            backgroundColor: theme.color.lightgrey,
+            borderColor: theme.color.black,
         },
     },
     block: {
@@ -27,7 +27,7 @@ export const styles = (theme) => ({
         color: theme.color.grey,
         cursor: "default",
         "&:hover": {
-            background: theme.color.lightgrey,
+            borderColor: theme.color.greyBorder,
         },
     },
     text: {
@@ -39,17 +39,16 @@ export const styles = (theme) => ({
         left: 0,
         top: 0,
         bottom: 0,
-        width: ({progress}) => `${Math.min(progress, 1) * 100}%`,
         background: theme.color.green,
         zIndex: 1,
-        // transition: ({progress}) => (progress > 0 ? `width 0 linear` : "none"), // TODO progress differently
+        transition: ({perSecond, progress}) => `width ${progress === 0 ? 0.1 : (1 / perSecond)}s linear`,
     },
 });
 
 /**
  * Inline block element of clickable button with text. Can also be disabled and have progressbar on background.
  */
-export const ButtonComponent = ({text, onClick, disabled, block, classes}) => (
+const ButtonComponent = ({text, onClick, disabled, block, classes, progress}) => (
     <div
         className={classnames(classes.root, {
             [classes.disabled]: disabled,
@@ -58,7 +57,10 @@ export const ButtonComponent = ({text, onClick, disabled, block, classes}) => (
         onClick={disabled ? undefined : onClick}
     >
         <span className={classes.text}>{text}</span>
-        <div className={classes.progress} />
+        <div
+            className={classes.progress}
+            style={{width: `${progress * 100}%`}}
+        />
     </div>
 );
 
@@ -70,8 +72,10 @@ ButtonComponent.propTypes = {
     onClick: PropTypes.func.isRequired,
     /** Will render button disabled, not able to click and greyed. */
     disabled: PropTypes.bool,
-    /** Will show progress on background in interval <0, 1>. */
-    progress: PropTypes.number, // eslint-disable-line
+    /** Will show progress on background in interval. Current implementation only triggers animation based on 0/1 values and perSecond */
+    progress: PropTypes.oneOf([0, 1]),
+    /** Used for computing animation */
+    perSecond: PropTypes.number, // eslint-disable-line
     /** Will make button block element */
     block: PropTypes.bool,
 };
@@ -79,6 +83,7 @@ ButtonComponent.propTypes = {
 ButtonComponent.defaultProps = {
     disabled: false,
     progress: 0,
+    perSecond: 0,
     block: false,
     classes: {},
 };

@@ -1,6 +1,6 @@
 import {NAME, MEDITATE} from './constants';
 import {startAction} from './actions';
-import {getProgress, canStart} from './selectors';
+import {getProgress, canStart, getPerSecond} from './selectors';
 import reducer from './reducer';
 import saga from "./saga";
 
@@ -15,4 +15,5 @@ export default {
     startAction,
     getProgress,
     canStart,
+    getPerSecond,
 };

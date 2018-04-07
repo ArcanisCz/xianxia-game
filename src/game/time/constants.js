@@ -1,3 +1,3 @@
 export const NAME = 'game-time';
 
-export const TICK_INTERVAL_MS = 500;
+export const TICK_INTERVAL_MS = 1000;

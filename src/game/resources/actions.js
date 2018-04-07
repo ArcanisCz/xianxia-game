@@ -1,7 +1,7 @@
 import {NAME} from './constants';
 
 export const ADD = `${NAME}/ADD`;
-export const SET_BULK = `${NAME}/BULK`;
+export const SET = `${NAME}/SET`;
 
 /**
  * @param {String} resource
@@ -16,7 +16,7 @@ export const add = (resource, amount) => ({
 /**
  * @param {Map<String, Number>} amountMap
  */
-export const setBulk = (amountMap) => ({
-    type: SET_BULK,
+export const set = (amountMap) => ({
+    type: SET,
     payload: amountMap,
 });

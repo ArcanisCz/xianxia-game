@@ -33,6 +33,7 @@ export const styles = (theme) => ({
     text: {
         zIndex: 2,
         position: "relative",
+        textTransform: "capitalize",
     },
     progress: {
         position: "absolute",

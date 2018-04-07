@@ -1,4 +1,4 @@
-import {NAME, MEDITATE} from './constants';
+import {NAME} from './constants';
 import {startAction} from './actions';
 import {getProgress, canStart, getPerSecond} from './selectors';
 import reducer from './reducer';

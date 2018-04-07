@@ -2,21 +2,20 @@ import {takeEvery, all, put, select} from "redux-saga/effects";
 import {Map} from "immutable";
 
 import time from "game/time";
-import log from "core/log";
 import {endActions} from "definitions/actions";
 
-import {setProgressBulk, endActionBulk} from "./actions";
-import {getProgress, getPerSecond, getInProgress} from "./selectors";
+import {setProgress, endAction} from "./actions";
+import {getProgress, getPerSecond, getActionsInProgress} from "./selectors";
 
 export default function* () {
-    yield takeEvery(time.TICK, tickResourceSaga);
+    yield takeEvery(time.TICK, tickProgressSaga);
 }
 
-function* tickResourceSaga() {
-    const actions = (yield select(getInProgress)).toJS();
+function* tickProgressSaga() {
+    const tickInterval = yield select(time.getTickIntervalMs);
+    const actions = (yield select(getActionsInProgress)).toJS();
     const currents = yield all(actions.map((name) => select(getProgress, name)));
     const perSeconds = yield all(actions.map((name) => select(getPerSecond, name)));
-    const tickInterval = yield select(time.getTickIntervalMs);
 
     const newValues = actions.reduce((acc, item, index) => {
         const delta = perSeconds[index] * (tickInterval / 1000);
@@ -28,13 +27,12 @@ function* tickResourceSaga() {
     if (!completedActions.isEmpty()) {
         const actionsToDispatch = completedActions.map((name) => put(endActions.get(name)));
         yield all([
-            put(endActionBulk(completedActions)),
+            put(endAction(completedActions)),
             ...actionsToDispatch,
-            put(log.addMessage(`Completed: ${JSON.stringify(completedActions)}`)),
         ]);
     }
 
     if (!updatedValues.isEmpty()) {
-        yield put(setProgressBulk(updatedValues));
+        yield put(setProgress(updatedValues));
     }
 }

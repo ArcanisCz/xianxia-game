@@ -9,7 +9,7 @@ export const perSecondMap = Map({
     [MEDITATE]: () => 0.5,
 });
 export const canStartMap = Map({
-    [MEDITATE]: (state) => resources.getCurrent(state, QI) < resources.getMax(state, QI),
+    [MEDITATE]: (state) => !resources.isFull(state, QI),
 });
 
 export const endActions = Map({

@@ -5,7 +5,7 @@ import {canStartMap, perSecondMap} from "definitions/actions";
 import {NAME} from './constants';
 
 export const getProgress = (state, actionName) => state.getIn([NAME, "progress", actionName]);
-export const getInProgress = createSelector(
+export const getActionsInProgress = createSelector(
     (state) => state.getIn([NAME, "progress"]),
     (map) => map.keySeq().toList(),
 );

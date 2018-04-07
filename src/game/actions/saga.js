@@ -21,9 +21,10 @@ function* tickResourceSaga() {
     const actions = (yield select(getInProgress)).toJS();
     const currents = yield all(actions.map((name) => select(getProgress, name)));
     const perSeconds = yield all(actions.map((name) => select(getPerSecond, name)));
+    const tickInterval = yield select(time.getTickIntervalMs);
 
     const newValues = actions.reduce((acc, item, index) => {
-        const delta = perSeconds[index] * (time.TICK_INTERVAL_MS / 1000);
+        const delta = perSeconds[index] * (tickInterval / 1000);
         return acc.set(item, delta + currents[index]);
     }, Map());
     const updatedValues = newValues.filter((value) => value <= 1);

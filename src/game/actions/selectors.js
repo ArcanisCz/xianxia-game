@@ -1,16 +1,8 @@
-import {Map} from "immutable";
 import {createSelector} from "reselect";
 
-import resources from "game/resources";
+import {canStartMap, perSecondMap} from "definitions/actions";
 
-import {NAME, MEDITATE} from './constants';
-
-const perSecondMap = Map({
-    [MEDITATE]: () => 0.5,
-});
-const canStartMap = Map({
-    [MEDITATE]: (state) => resources.getCurrent(state, resources.QI) < resources.getMax(state, resources.QI),
-});
+import {NAME} from './constants';
 
 export const getProgress = (state, actionName) => state.getIn([NAME, "progress", actionName]);
 export const getInProgress = createSelector(

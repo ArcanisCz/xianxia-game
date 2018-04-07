@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch, {action}) => ({
 
 const mergeProps = ({progress, canStart, perSecond, text}, {onClick}) => ({
     progress: progress ? 1 : 0,
-    canStart,
+    disabled: !canStart,
     perSecond,
     text,
     onClick,

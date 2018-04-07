@@ -1,5 +1,6 @@
-import {NAME, TICK_INTERVAL_MS} from './constants';
+import {NAME} from './constants';
 import {start, TICK} from './actions';
+import {getTickIntervalMs} from './selectors';
 
 import saga from "./saga";
 
@@ -8,7 +9,7 @@ import saga from "./saga";
  */
 export default {
     NAME,
-    TICK_INTERVAL_MS,
+    getTickIntervalMs,
     TICK,
     saga,
     start,

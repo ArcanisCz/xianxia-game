@@ -1,7 +1,7 @@
 import {delay} from "redux-saga";
-import {put, call, take} from "redux-saga/effects";
+import {put, call, take, select} from "redux-saga/effects";
 
-import {TICK_INTERVAL_MS} from "./constants";
+import {getTickIntervalMs} from "./selectors";
 import {tick, START} from "./actions";
 
 export default function* () {
@@ -12,7 +12,8 @@ export default function* () {
 function* tickSaga() {
     for (;;) {
         yield put(tick());
-        yield call(delay, TICK_INTERVAL_MS);
+        const tickInterval = yield select(getTickIntervalMs);
+        yield call(delay, tickInterval);
     }
 }
 

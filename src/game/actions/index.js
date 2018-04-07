@@ -11,7 +11,6 @@ export default {
     NAME,
     reducer,
     saga,
-    MEDITATE,
     startAction,
     getProgress,
     canStart,

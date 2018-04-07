@@ -1,6 +1,8 @@
 import {List, Map} from "immutable";
 
-import {QI, VITALITY, KARMA} from "game/resources/constants"; // circular dependency hack
+export const QI = `resource.qi`;
+export const VITALITY = `resource.vitality`;
+export const KARMA = `resource.karma`;
 
 export const resources = List([QI, VITALITY, KARMA]);
 export const mainResources = List([QI, VITALITY]);

@@ -13,6 +13,7 @@ module.exports.default = ({dev}) => ({
         main: "./src/index.js",
     },
     target: 'web',
+    devtool: dev ? "source-map" : false,
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: dev ? '[name].js' : '[name].[chunkhash].js',

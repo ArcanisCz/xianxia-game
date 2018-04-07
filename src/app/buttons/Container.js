@@ -3,13 +3,13 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {SectionLayout} from "components";
-import actions from "game/actions";
+import {MEDITATE} from "definitions/actions";
 
 import {ActionButton} from "./ActionButton";
 
 const Container = () => (
     <SectionLayout>
-        <ActionButton action={actions.MEDITATE} />
+        <ActionButton action={MEDITATE} />
     </SectionLayout>
 );
 

@@ -9,7 +9,6 @@ import init from "core/init";
 
 import sidebar from "./sidebar";
 import buttons from "./buttons";
-// import log from "./log"; // TODO will not be a sidebar
 
 const version = VERSION; // eslint-disable-line no-undef
 

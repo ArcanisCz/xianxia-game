@@ -1,14 +1,15 @@
 import {NAME} from './constants';
 
-export const START_ACTION = `${NAME}/START_ACTION`;
+export const START = `${NAME}/START`;
 export const SET_PROGRESS = `${NAME}/SET_PROGRESS`;
-export const END_ACTION = `${NAME}/END_ACTION`;
+export const END = `${NAME}/END`;
 
 /**
  * @param {string} name
+ * @param {boolean} immediate
  */
-export const startAction = (name, immediate = false) => ({
-    type: START_ACTION,
+export const start = (name, immediate = false) => ({
+    type: START,
     meta: {immediate},
     payload: {name},
 });
@@ -24,7 +25,7 @@ export const setProgress = (progressMap) => ({
 /**
  * @param {List<string>} namesList
  */
-export const endAction = (namesList) => ({
-    type: END_ACTION,
+export const end = (namesList) => ({
+    type: END,
     payload: {namesList},
 });

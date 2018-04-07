@@ -6,7 +6,7 @@ import resources from "game/resources";
 export const MEDITATE = `action.meditate`;
 
 export const perSecondMap = Map({
-    [MEDITATE]: () => Infinity,
+    [MEDITATE]: () => 0.5,
 });
 export const canStartMap = Map({
     [MEDITATE]: (state) => !resources.isFull(state, QI),

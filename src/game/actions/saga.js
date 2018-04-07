@@ -4,12 +4,12 @@ import {Map} from "immutable";
 import time from "game/time";
 import {endActions} from "definitions/actions";
 
-import {setProgress, endAction, START_ACTION} from "./actions";
+import {setProgress, end, START} from "./actions";
 import {getProgress, getPerSecond, getActionsInProgress} from "./selectors";
 
 export default function* () {
     yield takeEvery(time.TICK, tickProgressSaga);
-    yield takeEvery(START_ACTION, immediateActionSaga);
+    yield takeEvery(START, immediateActionSaga);
 }
 
 function* immediateActionSaga({payload, meta}) {
@@ -34,7 +34,7 @@ function* tickProgressSaga() {
     if (!completedActions.isEmpty()) {
         const actionsToDispatch = completedActions.map((name) => put(endActions.get(name)));
         yield all([
-            put(endAction(completedActions)),
+            put(end(completedActions)),
             ...actionsToDispatch,
         ]);
     }

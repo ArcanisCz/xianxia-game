@@ -11,3 +11,4 @@ export const getActionsInProgress = createSelector(
 );
 export const canStart = (state, actionName) => getProgress(state, actionName) === undefined && canStartMap.get(actionName)(state);
 export const getPerSecond = (state, actionName) => perSecondMap.get(actionName)(state);
+export const getLevel = (state, actionName) => state.getIn([NAME, "level", actionName]);

@@ -1,11 +1,13 @@
 import {combineReducers} from "redux-immutable";
 import {Map} from "immutable";
 
-import {START_ACTION, SET_PROGRESS, END_ACTION} from './actions';
+import {MEDITATE} from "definitions/actions";
+
+import {START, SET_PROGRESS, END} from './actions';
 
 const progress = (state = Map(), {type, payload, meta}) => {
     switch (type) {
-        case START_ACTION: {
+        case START: {
             if (!meta.immediate) {
                 return state.set(payload.name, 0);
             }
@@ -13,13 +15,18 @@ const progress = (state = Map(), {type, payload, meta}) => {
         }
         case SET_PROGRESS:
             return state.merge(payload.progressMap);
-        case END_ACTION:
+        case END:
             return state.deleteAll(payload.namesList);
         default:
             return state;
     }
 };
 
+const level = (state = Map({[MEDITATE]: 1}), {type, payload}) => {
+    return state;
+};
+
 export default combineReducers({
     progress,
+    level,
 });

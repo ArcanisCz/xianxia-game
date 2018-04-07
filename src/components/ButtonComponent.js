@@ -5,21 +5,31 @@ import classnames from "classnames";
 
 export const styles = (theme) => ({
     root: {
+        display: "inline-block",
+    },
+    block: {
+        display: "flex",
+        textAlign: "center",
+    },
+    buttonBasic: {
+        display: "inline-block",
         position: "relative",
         backgroundColor: theme.color.white,
         border: `1px solid ${theme.color.greyBorder}`,
-        display: "inline-block",
         cursor: "pointer",
         padding: theme.spacing.small,
         userSelect: "none",
         transition: `all ${theme.transition.normal} ease`,
         "&:hover": {
             borderColor: theme.color.black,
+            zIndex: 1,
         },
     },
-    block: {
-        display: "block",
-        textAlign: "center",
+    button: {
+        flex: 1,
+    },
+    upgradeButton: {
+        left: "-1px",
     },
     disabled: {
         backgroundColor: theme.color.lightgrey,
@@ -49,19 +59,34 @@ export const styles = (theme) => ({
 /**
  * Inline block element of clickable button with text. Can also be disabled and have progressbar on background.
  */
-export const ButtonComponent = ({text, onClick, disabled, block, classes, progress}) => (
+export const ButtonComponent = ({text, onClick, disabled, block, classes, progress, onUpgrade, upgradeDisabled}) => (
     <div
         className={classnames(classes.root, {
-            [classes.disabled]: disabled,
             [classes.block]: block,
         })}
-        onClick={disabled ? undefined : onClick}
     >
-        <span className={classes.text}>{text}</span>
         <div
-            className={classes.progress}
-            style={{width: `${progress * 100}%`}}
-        />
+            onClick={disabled ? undefined : onClick}
+            className={classnames(classes.buttonBasic, classes.button, {
+                [classes.disabled]: disabled,
+            })}
+        >
+            <span className={classes.text}>{text}</span>
+            <div
+                className={classes.progress}
+                style={{width: `${progress * 100}%`}}
+            />
+        </div>
+        {onUpgrade && (
+            <div
+                onClick={disabled ? undefined : onUpgrade}
+                className={classnames(classes.buttonBasic, classes.upgradeButton, {
+                    [classes.disabled]: upgradeDisabled,
+                })}
+            >
+                +
+            </div>
+        )}
     </div>
 );
 
@@ -71,6 +96,8 @@ ButtonComponent.propTypes = {
     text: PropTypes.string.isRequired,
     /** Button click. */
     onClick: PropTypes.func.isRequired,
+    onUpgrade: PropTypes.func,
+    upgradeDisabled: PropTypes.bool,
     /** Will render button disabled, not able to click and greyed. */
     disabled: PropTypes.bool,
     /** Will show progress on background in interval. Current implementation only triggers animation based on 0/1 values and perSecond */
@@ -82,7 +109,9 @@ ButtonComponent.propTypes = {
 };
 
 ButtonComponent.defaultProps = {
+    onUpgrade: null,
     disabled: false,
+    upgradeDisabled: false,
     progress: 0,
     perSecond: 0,
     block: false,

@@ -1,17 +1,23 @@
 import {Map} from "immutable";
 
-import {QI} from "definitions/resources";
-import resources from "game/resources";
+import {isFull} from "game/resources/selectors";
+import {add} from "game/resources/actions";
 
-export const CIRCULATE_QI = `action.circulateQi`;
+import {QI, CIRCULATE_QI} from "./constants";
 
 export const perSecondMap = Map({
-    [CIRCULATE_QI]: () => 0.5,
+    [CIRCULATE_QI]: () => 1,
 });
 export const canStartMap = Map({
-    [CIRCULATE_QI]: (state) => !resources.isFull(state, QI),
+    [CIRCULATE_QI]: (state) => !isFull(state, QI),
+});
+
+export const levelUpPriceMap = Map({
+    [CIRCULATE_QI]: () => Map({
+        [QI]: 1,
+    }),
 });
 
 export const endActions = Map({
-    [CIRCULATE_QI]: resources.add(QI, 1),
+    [CIRCULATE_QI]: add(QI, 1),
 });

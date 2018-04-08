@@ -4,10 +4,10 @@ import {hot} from 'react-hot-loader';
 import injectSheet from 'react-jss';
 import {connect} from "react-redux";
 
-import {QI} from "definitions/resources";
+// import {QI} from "definitions";
 import {AppLayout} from "components";
 import init from "core/init";
-import resources from "game/resources";  // TODO stage here
+// import resources from "game/resources";
 
 import sidebar from "./sidebar";
 import buttons from "./buttons";
@@ -54,7 +54,8 @@ App.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    showSidebar: resources.getCurrent(state, QI) > 0,
+    // showSidebar: resources.getCurrent(state, QI) > 0,
+    showSidebar: true, // TODO stages
     loading: !init.isInitialized(state),
 });
 

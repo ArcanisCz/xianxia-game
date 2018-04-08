@@ -1,6 +1,6 @@
 import {NAME} from './constants';
-import {start} from './actions';
-import {getProgress, canStart, getPerSecond, getLevel} from './selectors';
+import {start, levelUp} from './actions';
+import {getProgress, canStart, getPerSecond, getLevel, canLevelUp} from './selectors';
 import reducer from './reducer';
 import saga from "./saga";
 
@@ -12,8 +12,10 @@ export default {
     reducer,
     saga,
     start,
+    levelUp,
     getProgress,
     canStart,
     getPerSecond,
     getLevel,
+    canLevelUp,
 };

@@ -16,7 +16,7 @@ function* addResourceSaga({payload, meta}) {
         select(getCurrent, meta.resource),
         select(getMax, meta.resource),
     ]);
-    const newAmount = Math.min(current + payload, max);
+    const newAmount = Math.min(current + payload.amount, max);
     yield put(set(Map({[meta.resource]: newAmount})));
 }
 

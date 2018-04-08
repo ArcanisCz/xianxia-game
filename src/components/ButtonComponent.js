@@ -28,7 +28,7 @@ export const styles = (theme) => ({
     button: {
         flex: 1,
     },
-    upgradeButton: {
+    levelUpButton: {
         left: "-1px",
     },
     disabled: {
@@ -52,14 +52,14 @@ export const styles = (theme) => ({
         bottom: 0,
         background: theme.color.green,
         zIndex: 1,
-        transition: ({perSecond, progress}) => `width ${progress === 0 ? 0.1 : (1 / perSecond)}s linear`,
+        transition: ({perSecond, progress}) => `width ${!progress ? 0 : ((1 / perSecond) - 0.2)}s linear`,
     },
 });
 
 /**
  * Inline block element of clickable button with text. Can also be disabled and have progressbar on background.
  */
-export const ButtonComponent = ({text, onClick, disabled, block, classes, progress, onUpgrade, upgradeDisabled}) => (
+export const ButtonComponent = ({text, onClick, disabled, block, classes, progress, onLevelUp, levelUpDisabled}) => (
     <div
         className={classnames(classes.root, {
             [classes.block]: block,
@@ -74,14 +74,14 @@ export const ButtonComponent = ({text, onClick, disabled, block, classes, progre
             <span className={classes.text}>{text}</span>
             <div
                 className={classes.progress}
-                style={{width: `${progress * 100}%`}}
+                style={{width: `${progress ? 100 : 0}%`}}
             />
         </div>
-        {onUpgrade && (
+        {onLevelUp && (
             <div
-                onClick={disabled ? undefined : onUpgrade}
-                className={classnames(classes.buttonBasic, classes.upgradeButton, {
-                    [classes.disabled]: upgradeDisabled,
+                onClick={levelUpDisabled ? undefined : onLevelUp}
+                className={classnames(classes.buttonBasic, classes.levelUpButton, {
+                    [classes.disabled]: levelUpDisabled,
                 })}
             >
                 +
@@ -96,12 +96,12 @@ ButtonComponent.propTypes = {
     text: PropTypes.string.isRequired,
     /** Button click. */
     onClick: PropTypes.func.isRequired,
-    onUpgrade: PropTypes.func,
-    upgradeDisabled: PropTypes.bool,
+    onLevelUp: PropTypes.func,
+    levelUpDisabled: PropTypes.bool,
     /** Will render button disabled, not able to click and greyed. */
     disabled: PropTypes.bool,
     /** Will show progress on background in interval. Current implementation only triggers animation based on 0/1 values and perSecond */
-    progress: PropTypes.oneOf([0, 1]),
+    progress: PropTypes.bool,
     /** Used for computing animation */
     perSecond: PropTypes.number, // eslint-disable-line
     /** Will make button block element */
@@ -109,10 +109,10 @@ ButtonComponent.propTypes = {
 };
 
 ButtonComponent.defaultProps = {
-    onUpgrade: null,
+    onLevelUp: null,
     disabled: false,
-    upgradeDisabled: false,
-    progress: 0,
+    levelUpDisabled: false,
+    progress: false,
     perSecond: 0,
     block: false,
     classes: {},

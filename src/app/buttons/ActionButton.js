@@ -11,22 +11,23 @@ const mapStateToProps = (state, {action}) => ({
     canStart: actions.canStart(state, action),
     perSecond: actions.getPerSecond(state, action),
     level: actions.getLevel(state, action),
+    canLevelUp: actions.canLevelUp(state, action),
     text: i18n.getMessage(state, action),
 });
 
 const mapDispatchToProps = (dispatch, {action}) => ({
     onClick: (immediate) => dispatch(actions.start(action, immediate)),
+    onLevelUp: () => dispatch(actions.levelUp(action)),
 });
 
-const mergeProps = ({progress, canStart, perSecond, text, level}, {onClick}) => ({
-    progress: progress != null ? 1 : 0,
+const mergeProps = ({progress, canStart, perSecond, text, level, canLevelUp}, {onClick, onLevelUp}) => ({
+    progress,
     disabled: !canStart,
     perSecond,
-    // text: `${text} (${level})`, // TODO future
-    text,
+    text: level ? `${text} (${level})` : text,
     onClick: () => onClick(perSecond === Infinity),
-    // onUpgrade: () => console.log("aa"), // TODO future
-    // upgradeDisabled: false, // TODO future
+    onLevelUp,
+    levelUpDisabled: !canLevelUp,
 });
 
 export const ActionButton = connect(mapStateToProps, mapDispatchToProps, mergeProps)(ButtonComponent);

@@ -39,7 +39,7 @@ const ResourceComponent = ({current, max, displayName, perSecond, msg, classes})
             {number.formatInt(current)}
         </div>
         <div className={classes.max}>
-            {max && current < max && (
+            {max && (
                 <Fragment>
                     &nbsp;/&nbsp;{number.formatInt(max)}
                 </Fragment>

@@ -1,5 +1,5 @@
 import {NAME} from './constants';
-import {add} from './actions';
+import {add, subtract} from './actions';
 import {getCurrent, getMax, isFull, getPerSecond, getMainResources, getSecondaryResources} from './selectors';
 import reducer from './reducer';
 import saga from "./saga";
@@ -18,4 +18,5 @@ export default {
     getSecondaryResources,
     isFull,
     add,
+    subtract,
 };

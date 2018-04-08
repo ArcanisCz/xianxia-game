@@ -3,7 +3,7 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {SectionLayout} from "components";
-import {CIRCULATE_QI} from "definitions/actions";
+import {CIRCULATE_QI} from "definitions";
 
 import {ActionButton} from "./ActionButton";
 

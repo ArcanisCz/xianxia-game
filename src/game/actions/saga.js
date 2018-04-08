@@ -1,45 +1,33 @@
-import {takeEvery, all, put, select} from "redux-saga/effects";
-import {Map} from "immutable";
+import {delay} from "redux-saga";
+import {takeEvery, all, put, select, call} from "redux-saga/effects";
+import {List} from "immutable";
 
-import time from "game/time";
-import {endActions} from "definitions/actions";
+import {endActions, levelUpPriceMap} from "definitions/actions";
+import resources from "game/resources";
 
-import {setProgress, end, START} from "./actions";
-import {getProgress, getPerSecond, getActionsInProgress} from "./selectors";
+import {end, START, LEVEL_UP} from "./actions";
+import {getPerSecond} from "./selectors";
 
 export default function* () {
-    yield takeEvery(time.TICK, tickProgressSaga);
-    yield takeEvery(START, immediateActionSaga);
+    yield takeEvery(START, startActionSaga);
+    yield takeEvery(LEVEL_UP, levelUpSaga);
 }
 
-function* immediateActionSaga({payload, meta}) {
+function* startActionSaga({payload, meta}) {
     if (meta.immediate) {
         yield put(endActions.get(payload.name));
+    } else {
+        const perSecond = yield select(getPerSecond, payload.name);
+        yield call(delay, (1 / perSecond) * 1000);
+        yield all([
+            put(endActions.get(payload.name)),
+            put(end(List([payload.name]))),
+        ]);
     }
 }
 
-function* tickProgressSaga() {
-    const tickInterval = yield select(time.getTickIntervalMs);
-    const actions = (yield select(getActionsInProgress)).toJS();
-    const currents = yield all(actions.map((name) => select(getProgress, name)));
-    const perSeconds = yield all(actions.map((name) => select(getPerSecond, name)));
-
-    const newValues = actions.reduce((acc, item, index) => {
-        const delta = perSeconds[index] * (tickInterval / 1000);
-        return acc.set(item, delta + currents[index]);
-    }, Map());
-    const updatedValues = newValues.filter((value) => value <= 1);
-    const completedActions = newValues.filter((value) => value > 1).keySeq().toList();
-
-    if (!completedActions.isEmpty()) {
-        const actionsToDispatch = completedActions.map((name) => put(endActions.get(name)));
-        yield all([
-            put(end(completedActions)),
-            ...actionsToDispatch,
-        ]);
-    }
-
-    if (!updatedValues.isEmpty()) {
-        yield put(setProgress(updatedValues));
-    }
+function* levelUpSaga({payload}) {
+    const prices = yield select(levelUpPriceMap.get(payload.name));
+    const actions = prices.map((price, resourceName) => put(resources.subtract(resourceName, price)));
+    yield all(actions.toJS());
 }

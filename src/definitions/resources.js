@@ -1,14 +1,14 @@
 import {List, Map} from "immutable";
 
-export const QI = `resource.qi`;
-// export const VITALITY = `resource.vitality`;
-// export const KARMA = `resource.karma`;
+import actions from "game/actions";
+
+import {CIRCULATE_QI, QI} from "./constants";
 
 export const resources = List([QI]);
 export const mainResources = List([QI]);
 export const secondaryResources = List([]);
 export const maxMap = Map({
-    [QI]: () => 10,
+    [QI]: (state) => 1 + actions.getLevel(state, CIRCULATE_QI),
     // [VITALITY]: () => 10,
     // [KARMA]: () => Infinity,
 });

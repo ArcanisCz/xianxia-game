@@ -3,13 +3,13 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {SectionLayout} from "components";
-import {MEDITATE} from "definitions/actions";
+import {CIRCULATE_QI} from "definitions/actions";
 
 import {ActionButton} from "./ActionButton";
 
 const Container = () => (
     <SectionLayout>
-        <ActionButton action={MEDITATE} />
+        <ActionButton action={CIRCULATE_QI} />
     </SectionLayout>
 );
 

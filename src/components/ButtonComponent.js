@@ -19,7 +19,7 @@ export const styles = (theme) => ({
         cursor: "pointer",
         padding: theme.spacing.small,
         userSelect: "none",
-        transition: `all ${theme.transition.normal} ease`,
+        transition: `all ${theme.transition.standard}ms ${theme.easing.easeInOut}`,
         "&:hover": {
             borderColor: theme.color.black,
             zIndex: 1,

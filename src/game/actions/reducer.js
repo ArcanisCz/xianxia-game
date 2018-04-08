@@ -1,8 +1,6 @@
 import {combineReducers} from "redux-immutable";
 import {Map} from "immutable";
 
-import {MEDITATE} from "definitions/actions";
-
 import {START, SET_PROGRESS, END} from './actions';
 
 const progress = (state = Map(), {type, payload, meta}) => {
@@ -22,7 +20,7 @@ const progress = (state = Map(), {type, payload, meta}) => {
     }
 };
 
-const level = (state = Map({[MEDITATE]: 1}), {type, payload}) => {
+const level = (state = Map(), {type, payload}) => {
     return state;
 };
 

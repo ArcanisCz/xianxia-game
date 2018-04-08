@@ -12,12 +12,12 @@ export const styles = (theme) => ({
     },
     top: {
         display: "flex",
+        borderBottom: `1px solid ${theme.color.greyBorder}`,
     },
     middle: {
         flex: "1",
         display: "flex",
         flexDirection: "row",
-        borderTop: `1px solid ${theme.color.greyBorder}`,
         borderBottom: `1px solid ${theme.color.greyBorder}`,
     },
     bottom: {
@@ -33,6 +33,8 @@ export const styles = (theme) => ({
     sidebar: {
         width: "250px",
         borderRight: `1px solid ${theme.color.greyBorder}`,
+        marginLeft: ({showSidebar}) => (showSidebar ? "0px" : "-250px"),
+        transition: `margin ${theme.transition.enteringScreen}ms ${theme.easing.easeOut}`,
     },
     content: {
         flex: 1,
@@ -41,10 +43,12 @@ export const styles = (theme) => ({
 
 export const AppLayout = ({info, sidebar, tabs, content, footer, classes, loading}) => !loading && (
     <div className={classes.container}>
-        <div className={classes.top}>
-            <div className={classes.info}>{info}</div>
-            <div className={classes.tabs}>{tabs}</div>
-        </div>
+        {(info || tabs) && (
+            <div className={classes.top}>
+                <div className={classes.info}>{info}</div>
+                <div className={classes.tabs}>{tabs}</div>
+            </div>
+        )}
         <div className={classes.middle}>
             <div className={classes.sidebar}>{sidebar}</div>
             <div className={classes.content}>{content}</div>
@@ -54,17 +58,21 @@ export const AppLayout = ({info, sidebar, tabs, content, footer, classes, loadin
 );
 
 AppLayout.propTypes = {
-    info: PropTypes.node.isRequired,
-    sidebar: PropTypes.node.isRequired,
-    tabs: PropTypes.node.isRequired,
     content: PropTypes.node.isRequired,
     footer: PropTypes.node.isRequired,
-    loading: PropTypes.bool,
     classes: PropTypes.object.isRequired,
+    sidebar: PropTypes.node.isRequired,
+    loading: PropTypes.bool,
+    showSidebar: PropTypes.bool,
+    info: PropTypes.node,
+    tabs: PropTypes.node,
 };
 
 AppLayout.defaultProps = {
     loading: false,
+    showSidebar: false,
+    info: null,
+    tabs: null,
 };
 
 export default injectSheet(styles)(AppLayout);

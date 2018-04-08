@@ -4,8 +4,10 @@ import {hot} from 'react-hot-loader';
 import injectSheet from 'react-jss';
 import {connect} from "react-redux";
 
+import {QI} from "definitions/resources";
 import {AppLayout} from "components";
 import init from "core/init";
+import resources from "game/resources";  // TODO stage here
 
 import sidebar from "./sidebar";
 import buttons from "./buttons";
@@ -34,11 +36,12 @@ const styles = (theme) => ({
     },
 });
 
-const App = ({loading}) => (
+const App = ({loading, showSidebar}) => (
     <AppLayout
         loading={loading}
-        info="TODO info"
-        tabs="TODO tabs"
+        // info="TODO info"
+        // tabs="TODO tabs"
+        showSidebar={showSidebar}
         sidebar={<sidebar.Container />}
         content={<buttons.Container />}
         footer={`TODO footer | ${version}`}
@@ -46,10 +49,12 @@ const App = ({loading}) => (
 );
 
 App.propTypes = {
+    showSidebar: PropTypes.bool.isRequired,
     loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+    showSidebar: resources.getCurrent(state, QI) > 0,
     loading: !init.isInitialized(state),
 });
 

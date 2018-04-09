@@ -1,7 +1,9 @@
-import React from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
 import injectSheet from 'react-jss';
 import classnames from "classnames";
+
+import Tooltip from "./tooltip/Tooltip";
 
 export const styles = (theme) => ({
     root: {
@@ -59,36 +61,87 @@ export const styles = (theme) => ({
 /**
  * Inline block element of clickable button with text. Can also be disabled and have progressbar on background.
  */
-export const ButtonComponent = ({text, onClick, disabled, block, classes, progress, onLevelUp, levelUpDisabled}) => (
-    <div
-        className={classnames(classes.root, {
-            [classes.block]: block,
-        })}
-    >
-        <div
-            onClick={disabled ? undefined : onClick}
-            className={classnames(classes.buttonBasic, classes.button, {
-                [classes.disabled]: disabled,
-            })}
-        >
-            <span className={classes.text}>{text}</span>
+
+export class ButtonComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            showTooltipForButton: false,
+            showTooltipForUpgrade: false,
+            x: null,
+            y: null,
+        };
+
+        this.showTooltipForButton = this.showTooltipForButton.bind(this);
+        this.showTooltipForUpgrade = this.showTooltipForUpgrade.bind(this);
+    }
+
+    showTooltipForButton(show) {
+        const rect = this.buttonElement.getBoundingClientRect();
+        this.setState({
+            showTooltipForButton: show,
+            showTooltipForUpgrade: false,
+            x: rect.right,
+            y: rect.top,
+        });
+    }
+
+    showTooltipForUpgrade(show) {
+        const rect = this.upgradeElement.getBoundingClientRect();
+        this.setState({
+            showTooltipForButton: false,
+            showTooltipForUpgrade: show,
+            x: rect.right,
+            y: rect.top,
+        });
+    }
+
+    render() {
+        const {text, onClick, disabled, block, classes, progress, onLevelUp, levelUpDisabled} = this.props;
+        return (
             <div
-                className={classes.progress}
-                style={{width: `${progress ? 100 : 0}%`}}
-            />
-        </div>
-        {onLevelUp && (
-            <div
-                onClick={levelUpDisabled ? undefined : onLevelUp}
-                className={classnames(classes.buttonBasic, classes.levelUpButton, {
-                    [classes.disabled]: levelUpDisabled,
+                className={classnames(classes.root, {
+                    [classes.block]: block,
                 })}
             >
-                +
+                <div
+                    ref={(el) => this.buttonElement = el} // eslint-disable-line no-return-assign
+                    onMouseEnter={() => this.showTooltipForButton(true)}
+                    onMouseLeave={() => this.showTooltipForButton(false)}
+                    onClick={disabled ? undefined : onClick}
+                    className={classnames(classes.buttonBasic, classes.button, {
+                        [classes.disabled]: disabled,
+                    })}
+                >
+                    <span className={classes.text}>{text}</span>
+                    <div
+                        className={classes.progress}
+                        style={{width: `${progress ? 100 : 0}%`}}
+                    />
+                </div>
+                {onLevelUp && (
+                    <div
+                        ref={(el) => this.upgradeElement = el} // eslint-disable-line no-return-assign
+                        onMouseEnter={() => this.showTooltipForUpgrade(true)}
+                        onMouseLeave={() => this.showTooltipForUpgrade(false)}
+                        onClick={levelUpDisabled ? undefined : onLevelUp}
+                        className={classnames(classes.buttonBasic, classes.levelUpButton, {
+                            [classes.disabled]: levelUpDisabled,
+                        })}
+                    >
+                        +
+                    </div>
+                )}
+                {this.state.showTooltipForButton && (
+                    <Tooltip x={this.state.x} y={this.state.y}>Button Tooltip</Tooltip>
+                )}
+                {this.state.showTooltipForUpgrade && (
+                    <Tooltip x={this.state.x} y={this.state.y}>Upgrade Tooltip</Tooltip>
+                )}
             </div>
-        )}
-    </div>
-);
+        );
+    }
+}
 
 ButtonComponent.propTypes = {
     classes: PropTypes.object,

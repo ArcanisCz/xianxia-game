@@ -10,20 +10,24 @@ import {ActionButton} from "./ActionButton";
 const Container = () => (
     <SectionLayout>
         <ActionButton action={CIRCULATE_QI} />
+        <ActionButton action={CIRCULATE_QI} />
+        <ActionButton action={CIRCULATE_QI} />
+        <ActionButton action={CIRCULATE_QI} />
+        <ActionButton action={CIRCULATE_QI} />
+        <ActionButton action={CIRCULATE_QI} />
+        <ActionButton action={CIRCULATE_QI} />
+        <ActionButton action={CIRCULATE_QI} />
+        <ActionButton action={CIRCULATE_QI} />
+        <ActionButton action={CIRCULATE_QI} />
     </SectionLayout>
 );
 
-Container.propTypes = {
-};
+Container.propTypes = {};
 
-Container.defaultProps = {
-};
+Container.defaultProps = {};
 
-const mapStateToProps = () => ({
-});
+const mapStateToProps = () => ({});
 
-const mapDispatchToProps = () => ({
-
-});
+const mapDispatchToProps = () => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Container);

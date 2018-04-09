@@ -20,7 +20,7 @@ const mapDispatchToProps = (dispatch, {action}) => ({
     onLevelUp: () => dispatch(actions.levelUp(action)),
 });
 
-const mergeProps = ({progress, canStart, perSecond, text, level, canLevelUp}, {onClick, onLevelUp}) => ({
+const mergeProps = ({progress, canStart, perSecond, text, level, canLevelUp}, {onClick, onLevelUp}, {onMouseEnter, onMouseLeave}) => ({
     progress,
     disabled: !canStart,
     perSecond,
@@ -28,6 +28,8 @@ const mergeProps = ({progress, canStart, perSecond, text, level, canLevelUp}, {o
     onClick: () => onClick(perSecond === Infinity),
     onLevelUp,
     levelUpDisabled: !canLevelUp,
+    onMouseEnter,
+    onMouseLeave,
 });
 
 export const ActionButton = connect(mapStateToProps, mapDispatchToProps, mergeProps)(ButtonComponent);

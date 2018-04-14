@@ -10,15 +10,6 @@ import {ActionButton} from "./ActionButton";
 const Container = () => (
     <SectionLayout>
         <ActionButton action={CIRCULATE_QI} />
-        <ActionButton action={CIRCULATE_QI} />
-        <ActionButton action={CIRCULATE_QI} />
-        <ActionButton action={CIRCULATE_QI} />
-        <ActionButton action={CIRCULATE_QI} />
-        <ActionButton action={CIRCULATE_QI} />
-        <ActionButton action={CIRCULATE_QI} />
-        <ActionButton action={CIRCULATE_QI} />
-        <ActionButton action={CIRCULATE_QI} />
-        <ActionButton action={CIRCULATE_QI} />
     </SectionLayout>
 );
 

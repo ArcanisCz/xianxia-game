@@ -3,10 +3,15 @@ import {connect} from 'react-redux';
 
 import i18n from 'core/i18n';
 
-import Text from './Text';
+import {Text} from 'components';
 
 const mapStateToProps = (state, {msg}) => ({
     text: i18n.getMessage(state, msg),
+});
+
+const mergeProps = ({text}, dispatch, {grey}) => ({
+    children: text,
+    grey,
 });
 
 /**
@@ -14,14 +19,16 @@ const mapStateToProps = (state, {msg}) => ({
  * @param msg Message key.
  * @param params Parameters object (optional).
  */
-const Msg = connect(mapStateToProps)(Text);
-
-Msg.defaultProps = {
-    params: null,
-};
+const Msg = connect(mapStateToProps, undefined, mergeProps)(Text);
 
 Msg.propTypes = {
     msg: PropTypes.string.isRequired,
+    grey: PropTypes.bool,
+};
+
+
+Msg.defaultProps = {
+    grey: false,
 };
 
 Msg.displayName = "Msg";

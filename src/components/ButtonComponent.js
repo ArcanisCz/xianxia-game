@@ -97,7 +97,18 @@ export class ButtonComponent extends Component {
     }
 
     render() {
-        const {text, onClick, disabled, block, classes, progress, onLevelUp, levelUpDisabled} = this.props;
+        const {
+            text,
+            onClick,
+            disabled,
+            block,
+            classes,
+            progress,
+            onLevelUp,
+            levelUpDisabled,
+            buttonTooltip,
+            upgradeTooltip,
+        } = this.props;
         return (
             <div
                 className={classnames(classes.root, {
@@ -132,11 +143,11 @@ export class ButtonComponent extends Component {
                         +
                     </div>
                 )}
-                {this.state.showTooltipForButton && (
-                    <Tooltip x={this.state.x} y={this.state.y}>Button Tooltip</Tooltip>
+                {buttonTooltip && this.state.showTooltipForButton && (
+                    <Tooltip x={this.state.x} y={this.state.y}>{buttonTooltip}</Tooltip>
                 )}
-                {this.state.showTooltipForUpgrade && (
-                    <Tooltip x={this.state.x} y={this.state.y}>Upgrade Tooltip</Tooltip>
+                {upgradeTooltip && this.state.showTooltipForUpgrade && (
+                    <Tooltip x={this.state.x} y={this.state.y}>{upgradeTooltip}</Tooltip>
                 )}
             </div>
         );
@@ -159,6 +170,8 @@ ButtonComponent.propTypes = {
     perSecond: PropTypes.number, // eslint-disable-line
     /** Will make button block element */
     block: PropTypes.bool,
+    buttonTooltip: PropTypes.node,
+    upgradeTooltip: PropTypes.node,
 };
 
 ButtonComponent.defaultProps = {
@@ -169,6 +182,8 @@ ButtonComponent.defaultProps = {
     perSecond: 0,
     block: false,
     classes: {},
+    buttonTooltip: null,
+    upgradeTooltip: null,
 };
 
 export default injectSheet(styles)(ButtonComponent);

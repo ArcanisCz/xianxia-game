@@ -10,6 +10,7 @@ export const styles = (theme) => ({
         position: "absolute",
         width: "200px",
         zIndex: 1000,
+        padding: theme.spacing.xs,
         top: ({y}) => `${y}px`,
         left: ({x}) => `${x + 2}px`,
     },

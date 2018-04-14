@@ -1,3 +1,4 @@
+import React from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
@@ -5,6 +6,9 @@ import i18n from "core/i18n";
 import actions from "game/actions";
 
 import {ButtonComponent} from "components";
+
+import ActionTooltip from "./ActionTooltip";
+import ActionUpgradeTooltip from "./ActionUpgradeTooltip";
 
 const mapStateToProps = (state, {action}) => ({
     progress: actions.getProgress(state, action),
@@ -20,7 +24,7 @@ const mapDispatchToProps = (dispatch, {action}) => ({
     onLevelUp: () => dispatch(actions.levelUp(action)),
 });
 
-const mergeProps = ({progress, canStart, perSecond, text, level, canLevelUp}, {onClick, onLevelUp}, {onMouseEnter, onMouseLeave}) => ({
+const mergeProps = ({progress, canStart, perSecond, text, level, canLevelUp}, {onClick, onLevelUp}, {action}) => ({
     progress,
     disabled: !canStart,
     perSecond,
@@ -28,8 +32,8 @@ const mergeProps = ({progress, canStart, perSecond, text, level, canLevelUp}, {o
     onClick: () => onClick(perSecond === Infinity),
     onLevelUp,
     levelUpDisabled: !canLevelUp,
-    onMouseEnter,
-    onMouseLeave,
+    buttonTooltip: <ActionTooltip action={action} />,
+    upgradeTooltip: <ActionUpgradeTooltip action={action} />,
 });
 
 export const ActionButton = connect(mapStateToProps, mapDispatchToProps, mergeProps)(ButtonComponent);

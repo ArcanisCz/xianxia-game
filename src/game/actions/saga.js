@@ -5,7 +5,7 @@ import {List} from "immutable";
 import {endActions, levelUpPriceMap} from "definitions/actions";
 import resources from "game/resources";
 
-import {end, START, LEVEL_UP} from "./actions";
+import {end, levelUpInner, START, LEVEL_UP} from "./actions";
 import {getPerSecond} from "./selectors";
 
 export default function* () {
@@ -29,5 +29,8 @@ function* startActionSaga({payload, meta}) {
 function* levelUpSaga({payload}) {
     const prices = yield select(levelUpPriceMap.get(payload.name));
     const actions = prices.map((price, resourceName) => put(resources.subtract(resourceName, price)));
-    yield all(actions.toJS());
+    yield all([
+        ...actions.toList().toJS(),
+        put(levelUpInner(payload.name)),
+    ]);
 }

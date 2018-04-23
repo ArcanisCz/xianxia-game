@@ -4,6 +4,7 @@ export const START = `${NAME}/START`;
 export const SET_PROGRESS = `${NAME}/SET_PROGRESS`;
 export const END = `${NAME}/END`;
 export const LEVEL_UP = `${NAME}/LEVEL_UP`;
+export const LEVEL_UP_INNER = `${NAME}/LEVEL_UP_INNER`;
 
 /**
  * @param {string} name
@@ -33,5 +34,10 @@ export const end = (namesList) => ({
 
 export const levelUp = (name) => ({
     type: LEVEL_UP,
+    payload: {name},
+});
+
+export const levelUpInner = (name) => ({
+    type: LEVEL_UP_INNER,
     payload: {name},
 });

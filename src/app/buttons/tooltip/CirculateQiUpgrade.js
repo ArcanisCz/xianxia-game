@@ -7,14 +7,16 @@ import {Msg} from "containers";
 import {CIRCULATE_QI} from "definitions/constants";
 import {levelUpPriceMap} from "definitions/actions";
 
+import CostTable from "./CostTable";
+
 const CirculateQiUpgrade = ({cost}) => (
     <Fragment>
         <Text>+400 </Text>
         <Msg msg="text.max" grey /> <Msg msg="resource.qi" />
         <Text grey>. </Text>
-        <Msg msg="text.costs" grey />
-        {/* TODO resource cost table */}
-        <Text> {JSON.stringify(cost)}</Text>
+        <br />
+        <br />
+        <CostTable costs={cost} />
     </Fragment>
 );
 

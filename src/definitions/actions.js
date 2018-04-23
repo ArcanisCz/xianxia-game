@@ -1,5 +1,6 @@
 import {Map} from "immutable";
 
+import {getLevel} from "game/actions/selectors";
 import {isFull} from "game/resources/selectors";
 import {add} from "game/resources/actions";
 
@@ -13,8 +14,8 @@ export const canStartMap = Map({
 });
 
 export const levelUpPriceMap = Map({
-    [CIRCULATE_QI]: () => Map({
-        [QI]: 1,
+    [CIRCULATE_QI]: (state) => Map({
+        [QI]: 1 + getLevel(state, CIRCULATE_QI),
     }),
 });
 

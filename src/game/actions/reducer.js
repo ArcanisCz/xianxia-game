@@ -1,7 +1,7 @@
 import {combineReducers} from "redux-immutable";
 import {Map} from "immutable";
 
-import {START, SET_PROGRESS, END, LEVEL_UP} from './actions';
+import {START, SET_PROGRESS, END, LEVEL_UP_INNER} from './actions';
 
 const progress = (state = Map(), {type, payload, meta}) => {
     switch (type) {
@@ -22,7 +22,7 @@ const progress = (state = Map(), {type, payload, meta}) => {
 
 const level = (state = Map(), {type, payload}) => {
     switch (type) {
-        case LEVEL_UP:
+        case LEVEL_UP_INNER:
             return state.update(payload.name, (value = 0) => value + 1);
         default:
             return state;

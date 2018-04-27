@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/ArcanisCz/xianxia-game#readme",
   "devDependencies": {
-    "babel-core": "6.26.0",
+    "babel-core": "6.26.3",
     "babel-jest": "22.4.3",
     "babel-loader": "7.1.4",
     "babel-plugin-module-resolver": "3.1.1",

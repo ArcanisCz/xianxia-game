@@ -10,7 +10,7 @@ const array = (...target) => target.filter(Boolean);
 
 module.exports.default = ({dev}) => ({
     entry: {
-        main: "./src/index.js",
+        main: ["@babel/polyfill", "./src/index.js"],
     },
     target: 'web',
     devtool: dev ? "source-map" : false,
@@ -47,6 +47,15 @@ module.exports.default = ({dev}) => ({
             include: path.resolve(__dirname, 'data'),
             loader: ['json-loader', 'yaml-loader'],
         }],
+    },
+    resolve: {
+        alias: {
+            components: path.resolve(__dirname, 'src/components'),
+            containers: path.resolve(__dirname, 'src/containers'),
+            core: path.resolve(__dirname, 'src/core'),
+            game: path.resolve(__dirname, 'src/game'),
+            definitions: path.resolve(__dirname, 'src/definitions'),
+        },
     },
     devServer: {
         hot: true,

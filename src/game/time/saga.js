@@ -5,6 +5,18 @@ import {getTickIntervalMs} from "./selectors";
 import {tick, START} from "./actions";
 
 export default function* () {
+    const obj = {
+        foo: {
+            bar: {
+                baz: 42,
+            },
+        },
+    };
+    const baz = obj?.foo?.bar?.baz; // 42
+    // eslint-disable-next-line
+    console.log(baz);
+
+
     yield take(START);
     yield call(tickSaga);
 }

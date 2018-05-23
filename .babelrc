@@ -1,54 +1,11 @@
 {
     "presets": [
-        [
-            "env",
-            {
-                "targets": {
-                    "browsers": [
-                        "last 2 versions",
-                        "IE 9"
-                    ]
-                },
-                "modules": false,
-                "useBuiltIns": true
-            }
-        ],
-        "react"
+        "@babel/env",
+        ["@babel/preset-stage-1", {
+            "useBuiltIns": true,
+            "decoratorsLegacy": true
+        }],
+        "@babel/react"
     ],
-    "plugins": [
-        "transform-object-rest-spread",
-        [
-            "transform-runtime",
-            {
-                "polyfill": false,
-                "regenerator": true
-            }
-        ],
-        "react-hot-loader/babel",
-        [
-            "module-resolver",
-            {
-                "root": [
-                    "./src"
-                ]
-            }
-        ]
-    ],
-    "env": {
-        "production": {
-            "plugins": [
-                "transform-react-constant-elements",
-                "transform-react-inline-elements",
-                "transform-react-remove-prop-types"
-            ]
-        },
-        "test": {
-            "presets": [
-                [
-                    "env"
-                ],
-                "react"
-            ]
-        }
-    }
+    "plugins": ["@babel/plugin-proposal-optional-chaining"]
 }

@@ -1,6 +1,6 @@
 {
     "extends": "airbnb",
-
+    "parser": "babel-eslint",
     "env": {
         "browser": true,
         "node": true,
@@ -62,6 +62,7 @@
         "object-curly-newline": "off",
         "jsx-a11y/click-events-have-key-events": "off",
         "react/no-typos": "off",
+        "prefer-destructuring": "off", // due to optional chaining
 
         /* WARNINGS */
         "react/jsx-key": "warn"

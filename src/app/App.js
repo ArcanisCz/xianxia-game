@@ -4,15 +4,7 @@ import {hot} from 'react-hot-loader';
 import injectSheet from 'react-jss';
 import {connect} from "react-redux";
 
-// import {QI} from "definitions";
-import {AppLayout} from "components";
 import init from "core/init";
-// import resources from "game/resources";
-
-import sidebar from "./sidebar";
-import buttons from "./buttons";
-
-const version = VERSION; // eslint-disable-line no-undef
 
 const styles = (theme) => ({
     "@global": {
@@ -36,26 +28,13 @@ const styles = (theme) => ({
     },
 });
 
-const App = ({loading, showSidebar}) => (
-    <AppLayout
-        loading={loading}
-        // info="TODO info"
-        // tabs="TODO tabs"
-        showSidebar={showSidebar}
-        sidebar={<sidebar.Container />}
-        content={<buttons.Container />}
-        footer={`TODO footer | ${version}`}
-    />
-);
+const App = ({loading}) => !loading && <div>game</div>;
 
 App.propTypes = {
-    showSidebar: PropTypes.bool.isRequired,
     loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-    // showSidebar: resources.getCurrent(state, QI) > 0,
-    showSidebar: true, // TODO stages
     loading: !init.isInitialized(state),
 });
 

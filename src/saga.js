@@ -1,10 +1,13 @@
-import {all, fork, call} from "redux-saga/effects";
+import {call, put, fork} from "redux-saga/effects";
 
-import gameSagas from "./game/sagas";
-import init from "./core/init";
-
+import {init} from "./core";
+import {time} from "./game";
 
 export default function* () {
-    yield all(gameSagas.map(fork));
-    yield call(init.saga);
+    yield fork(time.saga);
+    yield call(init.saga, undefined, nonBlockingInit);
+}
+
+function* nonBlockingInit() {
+    yield put(time.start());
 }

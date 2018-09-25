@@ -15,7 +15,7 @@ export default (initialActions = []) => {
 
     if (module.hot) {
         module.hot.accept('./', () =>
-            store.replaceReducer(require('./app/reducers').default)); // eslint-disable-line
+            store.replaceReducer(require('./reducer').default)); // eslint-disable-line
     }
 
     initialActions.forEach(store.dispatch);

@@ -1,9 +1,9 @@
 import {put, call, fork, all} from 'redux-saga/effects';
-import time from "game/time";
 
+import {fn} from "../util";
 import {setInitialized} from './actions';
 
-export default function* () {
+export default function* (blockingInitStuff = fn.noop, nonBlockingInitStuff = fn.noop) {
     try {
         yield call(blockingInitStuff);
     } catch (e) {
@@ -15,12 +15,4 @@ export default function* () {
         call(window.NProgress.done),
         fork(nonBlockingInitStuff),
     ]);
-}
-
-function* blockingInitStuff() {
-    // TODO
-}
-
-function* nonBlockingInitStuff() {
-    yield put(time.start());
 }

@@ -3,7 +3,7 @@ import {createStructuredSelector} from "reselect";
 
 import {NAME} from './constants';
 
-const getModel = (state) => state.get(NAME);
+const getModel = (state) => state[NAME];
 
 /**
  * Returns message and optionally formats it.
@@ -12,7 +12,7 @@ const getModel = (state) => state.get(NAME);
  * @returns {String} Formatted string
  */
 export const getMessage = (state, key, params) => {
-    const message = getModel(state).getIn(["messages", key]);
+    const message = getModel(state).messages[key];
     if (message) {
         if (!params) {
             return message;

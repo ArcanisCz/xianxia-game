@@ -1,12 +1,11 @@
-import {Map, fromJS} from 'immutable';
-import {combineReducers} from "redux-immutable";
+import {combineReducers} from "redux";
 
 import {MESSAGES_LOAD} from "./actions";
 
-const messages = (state = Map(), action) => {
+const messages = (state = {}, action) => {
     switch (action.type) {
         case MESSAGES_LOAD:
-            return state.merge(fromJS(action.payload));
+            return {...action.payload};
         default:
             return state;
     }

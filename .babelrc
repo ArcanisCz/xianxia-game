@@ -1,10 +1,6 @@
 {
     "presets": [
         "@babel/env",
-        ["@babel/preset-stage-1", {
-            "useBuiltIns": true,
-            "decoratorsLegacy": true
-        }],
         "@babel/react"
     ],
     "plugins": ["@babel/plugin-proposal-optional-chaining"]

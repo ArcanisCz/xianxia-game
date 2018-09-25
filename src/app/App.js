@@ -1,7 +1,7 @@
-import React from 'react';
+import {h} from 'preact';
+
 import PropTypes from "prop-types";
-import {hot} from 'react-hot-loader';
-import {connect} from "react-redux";
+import {connect} from "preact-redux";
 
 import init from "core/init";
 
@@ -16,7 +16,6 @@ const mapStateToProps = (state) => ({
 });
 
 const Connected = connect(mapStateToProps)(App);
-const Hot = hot(module)(Connected);
 
-export default Hot;
+export default Connected;
 

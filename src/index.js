@@ -1,5 +1,4 @@
-import React from 'react';
-import {render} from 'react-dom';
+import {h, render} from 'preact';
 
 import i18n from "core/i18n";
 
@@ -13,7 +12,7 @@ const store = createStore([
 ]);
 
 const renderApp = (RootComponent) => {
-    render(<RootComponent store={store} theme={theme} />, document.querySelector('#app'));
+    render(<RootComponent store={store} theme={theme}/>, document.querySelector('#app'));
 };
 
 renderApp(App);

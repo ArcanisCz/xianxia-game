@@ -10,7 +10,7 @@ const array = (...target) => target.filter(Boolean);
 
 module.exports.default = ({dev}) => ({
     entry: {
-        main: ["@babel/polyfill", "./src/index.js"],
+        main: "./src/index.js",
     },
     target: 'web',
     devtool: dev ? "cheap-module-source-map " : false,
@@ -34,7 +34,6 @@ module.exports.default = ({dev}) => ({
             VERSION: JSON.stringify(gitRevisionPlugin.version()),
         }),
         dev && new webpack.NamedModulesPlugin(),
-        dev && new webpack.HotModuleReplacementPlugin(), // https://webpack.js.org/configuration/dev-server/#devserver-hot
         // new BundleAnalyzerPlugin(),
     ),
     module: {
@@ -58,7 +57,6 @@ module.exports.default = ({dev}) => ({
         },
     },
     devServer: {
-        hot: true,
         inline: true,
         port: 3000,
     },

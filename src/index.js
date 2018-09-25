@@ -1,3 +1,5 @@
+import "@babel/polyfill"; // Cannot be in webpack, where it imports whole polyfill. needs to be here
+
 import {h, render} from 'preact';
 
 import i18n from "core/i18n";

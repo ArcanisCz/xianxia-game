@@ -49,11 +49,8 @@ module.exports.default = ({dev}) => ({
     },
     resolve: {
         alias: {
-            components: path.resolve(__dirname, 'src/components'),
-            containers: path.resolve(__dirname, 'src/containers'),
             core: path.resolve(__dirname, 'src/core'),
             game: path.resolve(__dirname, 'src/game'),
-            definitions: path.resolve(__dirname, 'src/definitions'),
         },
     },
     devServer: {

@@ -1,3 +1,5 @@
+import {createSelector} from "reselect";
+
 import {
     NAME,
     RESOURCE_QI,
@@ -11,8 +13,9 @@ const resourceMaxMap = {
 };
 
 const techniquePriceMap = {
-    [TECHNIQUE_BASIC]: (state, level) => ({
+    [TECHNIQUE_BASIC]: (level) => ({
         [RESOURCE_QI]: (level * 2) + 1,
+        [RESOURCE_LONGEVITY]: 1,
     }),
 };
 
@@ -22,8 +25,15 @@ export const getResourceAmount = (state, resource) => getModel(state).resources[
 export const getResourceMax = (state, resource) => resourceMaxMap[resource](state);
 
 export const getTechniqueLevel = (state, technique) => getModel(state).techniques[technique];
-export const getTechniqueLevelUpPrice = (state, technique) => techniquePriceMap[technique](state, getTechniqueLevel(state, technique));
-export const canLevelUpTechnique = (state, technique) => {
-    const prices = getTechniqueLevelUpPrice(state, technique);
-    return Object.keys(prices).every((resource) => getResourceAmount(state, resource) >= prices[resource]);
+export const createTechniqueLevelPrice = () => createSelector(
+    (state, technique) => technique,
+    (state, technique) => getTechniqueLevel(state, technique),
+    (technique, level) => techniquePriceMap[technique](level),
+);
+export const createTechniqueCanLevel = () => {
+    const getTechniqueLevelUpPrice = createTechniqueLevelPrice();
+    return (state, technique) => {
+        const prices = getTechniqueLevelUpPrice(state, technique);
+        return Object.keys(prices).every((resource) => getResourceAmount(state, resource) >= prices[resource]);
+    };
 };

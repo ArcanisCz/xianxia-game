@@ -6,8 +6,8 @@ export {
     getResourceAmount,
     getResourceMax,
     getTechniqueLevel,
-    getTechniqueLevelUpPrice,
-    canLevelUpTechnique,
+    createTechniqueLevelPrice,
+    createTechniqueCanLevel,
 } from "./selectors";
 export {addResource, levelTechnique} from "./actions";
 export default {

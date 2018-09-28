@@ -14,6 +14,7 @@ const App = ({loading}) => !loading && (
         {RESOURCES.map((resource) => (
             <Resource key={resource} resource={resource} />
         ))}
+        <hr />
         {TECHNIQUES.map((technique) => (
             <Technique key={technique} technique={technique} />
         ))}

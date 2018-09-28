@@ -7,8 +7,8 @@ import {getResourceAmount, getResourceMax, addResource} from "game";
 
 const Resource = ({resource, value, max, onAddQi, canAdd}) => (
     <div>
-        <span>{value} / {max}</span>
-        <button type="button" disabled={!canAdd} onClick={onAddQi}>add</button>
+        <span>{value} / {max}</span>&nbsp;
+        <button type="button" disabled={!canAdd} onClick={onAddQi}>add</button>&nbsp;
         <span>({resource})</span>
     </div>
 );

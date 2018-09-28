@@ -14,7 +14,7 @@ const store = createStore([
 ]);
 
 const renderApp = (RootComponent) => {
-    render(<RootComponent store={store} theme={theme}/>, document.querySelector('#app'));
+    render(<RootComponent store={store} theme={theme} />, document.querySelector('#app'));
 };
 
 renderApp(App);

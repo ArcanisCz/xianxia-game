@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --env.dev --mode development",
-    "lint": "npm version",
+    "lint": "eslint --cache --quiet --ext .js src",
     "lintf": "eslint --cache --quiet --ext .js src --fix",
     "prebuild": "rimraf ./dist",
     "build": "webpack-cli --mode production --env",

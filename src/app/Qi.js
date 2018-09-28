@@ -33,4 +33,10 @@ const mapDispatchToProps = (dispatch) => ({
     onAddQi: () => dispatch(addQi(2)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Qi);
+const A = connect(mapStateToProps, mapDispatchToProps)(Qi);
+
+A.propTypes = {
+    A: PropTypes.string.isRequired,
+};
+
+export default A;

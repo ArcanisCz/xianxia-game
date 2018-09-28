@@ -10,9 +10,6 @@
             "node": {
                 "paths": ["./src"]
             }
-        },
-        "react": {
-            "pragma": "h"
         }
     },
     "rules": {
@@ -67,9 +64,5 @@
 
         /* WARNINGS */
         "react/jsx-key": "warn",
-
-        /* PREACT */
-//        "react/react-in-jsx-scope": "off",
-        "import/extensions": ["mjs"]
     }
 }

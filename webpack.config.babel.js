@@ -34,10 +34,12 @@ module.exports.default = ({dev}) => ({
         new webpack.DefinePlugin({
             VERSION: JSON.stringify(gitRevisionPlugin.version()),
         }),
-        dev && new webpack.NamedModulesPlugin(),
         new CircularDependencyPlugin({
             exclude: /node_modules/,
+            failOnError: true,
         }),
+        dev && new webpack.NamedModulesPlugin(),
+        dev && new webpack.HotModuleReplacementPlugin(), // https://webpack.js.org/configuration/dev-server/#devserver-hot
         // new BundleAnalyzerPlugin(),
     ),
     module: {
@@ -58,6 +60,7 @@ module.exports.default = ({dev}) => ({
         },
     },
     devServer: {
+        hot: true,
         inline: true,
         port: 3000,
     },

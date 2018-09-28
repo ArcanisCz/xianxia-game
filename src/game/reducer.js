@@ -9,7 +9,11 @@ const resources = (state = initialResources, action) => {
         case SET_RESOURCE:
             return {...state, [action.resource]: ensureRange(state[action.resource] + action.amount, 0, action.max)};
         case LEVEL_UP_BASIC_TECHNIQUE:
-            return {...state, ...Object.keys(action.price).reduce((memo, resource) => Object.assign(memo, {[resource]: state[resource] - action.price[resource]}), {})};
+            return {
+                ...state,
+                ...Object.keys(action.price)
+                    .reduce((memo, resource) => Object.assign(memo, {[resource]: state[resource] - action.price[resource]}), {}),
+            };
         default:
             return state;
     }

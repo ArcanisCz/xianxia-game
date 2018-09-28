@@ -8,9 +8,20 @@
                 "not dead"
             ],
             "modules": false
+        }],
+        ["@babel/react", {
+            "useBuiltIns": true
         }]
     ],
     "plugins": [
-        ["transform-react-jsx", { "pragma": "h" }]
-    ]
+        "react-hot-loader/babel"
+    ],
+    "env": {
+        "production": {
+            "plugins": [
+                "transform-react-remove-prop-types",
+                "@babel/plugin-transform-react-constant-elements"
+            ]
+        }
+    }
 }

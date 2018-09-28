@@ -1,7 +1,7 @@
-import {h} from 'preact';
+import React from 'react';
 
 import PropTypes from "prop-types";
-import {connect} from "preact-redux";
+import {connect} from "react-redux";
 
 import init from "core/init";
 import {RESOURCES, TECHNIQUES} from "game";
@@ -12,10 +12,10 @@ import Technique from "./Technique";
 const App = ({loading}) => !loading && (
     <div>
         {RESOURCES.map((resource) => (
-            <Resource resource={resource} />
+            <Resource key={resource} resource={resource} />
         ))}
         {TECHNIQUES.map((technique) => (
-            <Technique technique={technique} />
+            <Technique key={technique} technique={technique} />
         ))}
     </div>
 );

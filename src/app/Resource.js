@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 
 import {getResourceAmount, getResourceMax, addResource} from "game";
 
-const Resource = ({resource, value, max, onAddQi, canAdd}) => (
+export const Resource = ({resource, value, max, onAddQi, canAdd}) => (
     <div>
         <span>{value} / {max}</span>&nbsp;
         <button type="button" disabled={!canAdd} onClick={onAddQi}>add</button>&nbsp;

@@ -7,4 +7,3 @@ const initialized = (state = false, {type}) => (type === SET_INITIALIZED ? true 
 export default combineReducers({
     initialized,
 });
-

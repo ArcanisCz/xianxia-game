@@ -14,4 +14,3 @@ const messages = (state = {}, action) => {
 export default combineReducers({
     messages,
 });
-

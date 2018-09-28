@@ -8,7 +8,7 @@ import {getQi, getMaxQi, addQi} from "game";
 const Qi = ({value, max, onAddQi, canAdd}) => (
     <div>
         <div>{value} / {max}</div>
-        <button disabled={!canAdd} onClick={onAddQi}>add</button>
+        <button type="button" disabled={!canAdd} onClick={onAddQi}>add</button>
     </div>
 );
 

@@ -1,15 +1,15 @@
 import reducer from "./reducer";
 import {NAME} from "./constants";
 
-export {RESOURCE_QI, RESOURCES} from "./constants";
+export {RESOURCES, TECHNIQUES} from "./constants";
 export {
     getResourceAmount,
     getResourceMax,
-    getBasicTechniqueLevel,
-    getBasicTechniqueLevelUpPrice,
-    canLevelUpBasicTechnique,
+    getTechniqueLevel,
+    getTechniqueLevelUpPrice,
+    canLevelUpTechnique,
 } from "./selectors";
-export {addResource, levelUpBasicTechnique} from "./actions";
+export {addResource, levelTechnique} from "./actions";
 export default {
     reducer,
     NAME,

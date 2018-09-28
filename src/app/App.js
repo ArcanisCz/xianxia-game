@@ -4,17 +4,19 @@ import PropTypes from "prop-types";
 import {connect} from "preact-redux";
 
 import init from "core/init";
-import {RESOURCES} from "game";
+import {RESOURCES, TECHNIQUES} from "game";
 
 import Resource from "./Resource";
-import BasicTechnique from "./BasicTechnique";
+import Technique from "./Technique";
 
 const App = ({loading}) => !loading && (
     <div>
         {RESOURCES.map((resource) => (
             <Resource resource={resource} />
         ))}
-        <BasicTechnique />
+        {TECHNIQUES.map((technique) => (
+            <Technique technique={technique} />
+        ))}
     </div>
 );
 

@@ -6,8 +6,14 @@ import {connect} from "preact-redux";
 import init from "core/init";
 
 import Qi from "./Qi";
+import BasicTechnique from "./BasicTechnique";
 
-const App = ({loading}) => !loading && <Qi />;
+const App = ({loading}) => !loading && (
+    <div>
+        <Qi />
+        <BasicTechnique />
+    </div>
+);
 
 App.propTypes = {
     loading: PropTypes.bool.isRequired,

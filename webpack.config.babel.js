@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin')
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const gitRevisionPlugin = new GitRevisionPlugin();
@@ -34,6 +35,9 @@ module.exports.default = ({dev}) => ({
             VERSION: JSON.stringify(gitRevisionPlugin.version()),
         }),
         dev && new webpack.NamedModulesPlugin(),
+        new CircularDependencyPlugin({
+            exclude: /node_modules/,
+        }),
         // new BundleAnalyzerPlugin(),
     ),
     module: {

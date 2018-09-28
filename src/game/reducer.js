@@ -1,13 +1,15 @@
 import {combineReducers} from "redux";
 
-import {SET_QI, LEVEL_UP_BASIC_TECHNIQUE} from "./actions";
+import {RESOURCES} from "./constants";
+import {SET_RESOURCE, LEVEL_UP_BASIC_TECHNIQUE} from "./actions";
 
-const qi = (state = 0, action) => {
+const initialResources = RESOURCES.reduce((memo, resource) => Object.assign(memo, {[resource]: 0}), {});
+const resources = (state = initialResources, action) => {
     switch (action.type) {
-        case SET_QI:
-            return ensureRange(state + action.amount, 0, action.max);
+        case SET_RESOURCE:
+            return {...state, [action.resource]: ensureRange(state[action.resource] + action.amount, 0, action.max)};
         case LEVEL_UP_BASIC_TECHNIQUE:
-            return state - action.price;
+            return {...state, [action.resource]: state[action.resource] - action.price};
         default:
             return state;
     }
@@ -23,7 +25,7 @@ const basicTechnique = (state = 0, action) => {
 };
 
 export default combineReducers({
-    qi,
+    resources,
     basicTechnique,
 });
 

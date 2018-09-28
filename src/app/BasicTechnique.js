@@ -11,7 +11,11 @@ import {
 } from "game";
 
 const BasicTechnique = ({level, price, onLevelUp, canLevelUp}) => (
-    <button title={price} type="button" disabled={!canLevelUp} onClick={onLevelUp}>Basic Technique ({level})</button>
+    <div>
+        Basic Technique ({level})
+        <button type="button" disabled={!canLevelUp} onClick={onLevelUp}>Level up</button>
+        Price: {price}
+    </div>
 );
 
 BasicTechnique.propTypes = {

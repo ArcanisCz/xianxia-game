@@ -1,16 +1,18 @@
-import {NAME} from "./constants";
-import {getMaxQi, getBasicTechniqueLevelUpPrice} from "./selectors";
+import {NAME, RESOURCE_QI} from "./constants";
+import {getResourceMax, getBasicTechniqueLevelUpPrice} from "./selectors";
 
-export const SET_QI = `${NAME}/SET_QI`;
+export const SET_RESOURCE = `${NAME}/SET_RESOURCE`;
 export const LEVEL_UP_BASIC_TECHNIQUE = `${NAME}/LEVEL_UP_BASIC_TECHNIQUE`;
 
-export const addQi = (amount = 1) => (dispatch, getState) => dispatch({
-    type: SET_QI,
+export const addResource = (resource, amount = 1) => (dispatch, getState) => dispatch({
+    type: SET_RESOURCE,
+    resource,
     amount,
-    max: getMaxQi(getState()),
+    max: getResourceMax(getState(), resource),
 });
 
 export const levelUpBasicTechnique = () => (dispatch, getState) => dispatch({
     type: LEVEL_UP_BASIC_TECHNIQUE,
     price: getBasicTechniqueLevelUpPrice(getState()),
+    resource: RESOURCE_QI,
 });

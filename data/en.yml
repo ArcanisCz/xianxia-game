@@ -1,13 +1,13 @@
 
-unit.second.short: s
-
-resource.qi: qi
-resource.vitality: vitality
-resource.karma: karma
-
-action.circulateQi: circulate qi
-
-text.willGain: will gain
-text.after: after
-text.costs: costs
-text.max: max
+#unit.second.short: s
+#
+#resource.qi: qi
+#resource.vitality: vitality
+#resource.karma: karma
+#
+#action.circulateQi: circulate qi
+#
+#text.willGain: will gain
+#text.after: after
+#text.costs: costs
+#text.max: max

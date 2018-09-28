@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
@@ -12,11 +12,16 @@ import Technique from "./Technique";
 const App = ({loading}) => !loading && (
     <div>
         {RESOURCES.map((resource) => (
-            <Resource key={resource} resource={resource} />
+            <Fragment key={resource}>
+                <Resource resource={resource} />
+                <hr />
+            </Fragment>
         ))}
-        <hr />
         {TECHNIQUES.map((technique) => (
-            <Technique key={technique} technique={technique} />
+            <Fragment key={technique}>
+                <Technique technique={technique} />
+                <hr />
+            </Fragment>
         ))}
     </div>
 );

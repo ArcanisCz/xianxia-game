@@ -8,6 +8,7 @@ import {RESOURCES, TECHNIQUES} from "game";
 
 import Resource from "./Resource";
 import Technique from "./Technique";
+import Version from "./Version";
 
 const App = ({loading}) => !loading && (
     <div>
@@ -23,6 +24,7 @@ const App = ({loading}) => !loading && (
                 <hr />
             </Fragment>
         ))}
+        <Version />
     </div>
 );
 

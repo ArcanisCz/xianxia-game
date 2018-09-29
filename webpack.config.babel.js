@@ -32,7 +32,10 @@ module.exports.default = ({dev}) => ({
             publicPath: path.resolve(__dirname, "public"),
         }),
         new webpack.DefinePlugin({
-            VERSION: JSON.stringify(gitRevisionPlugin.version()),
+            VERSION: {
+                NUMBER: JSON.stringify(gitRevisionPlugin.version()),
+                DATE: new Date().getTime(),
+            },
         }),
         new CircularDependencyPlugin({
             exclude: /node_modules/,

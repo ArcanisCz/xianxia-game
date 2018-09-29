@@ -1,13 +1,11 @@
 import {combineReducers} from "redux";
 
-import {RESOURCES, TECHNIQUES} from "./constants";
 import {SET_RESOURCE, LEVEL_TECHNIQUE} from "./actions";
 
-const initialResources = RESOURCES.reduce((memo, resource) => Object.assign(memo, {[resource]: 0}), {});
-export const resources = (state = initialResources, action) => {
+export const resources = (state = {}, action) => {
     switch (action.type) {
         case SET_RESOURCE:
-            return {...state, [action.resource]: ensureRange(state[action.resource] + action.amount, 0, action.max)};
+            return {...state, [action.resource]: ensureRange((state[action.resource] || 0) + action.amount, 0, action.max)};
         case LEVEL_TECHNIQUE:
             return {
                 ...state,
@@ -19,11 +17,10 @@ export const resources = (state = initialResources, action) => {
     }
 };
 
-const initialTechniques = TECHNIQUES.reduce((memo, resource) => Object.assign(memo, {[resource]: 0}), {});
-export const techniques = (state = initialTechniques, action) => {
+export const techniques = (state = {}, action) => {
     switch (action.type) {
         case LEVEL_TECHNIQUE:
-            return {...state, [action.technique]: state[action.technique] + 1};
+            return {...state, [action.technique]: (state[action.technique] || 0) + 1};
         default:
             return state;
     }

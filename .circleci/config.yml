@@ -86,10 +86,14 @@ workflows:
       - build:
           requires:
             - install
+      - test:
+          requires:
+          - install
       - deploy:
           requires:
             - build
             - lint
+            - test
           filters:
             branches:
               only:

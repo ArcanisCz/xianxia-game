@@ -3,24 +3,34 @@ import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
 
 import reducer from "./reducer";
-import saga from './saga';
 
-const sagaMiddleware = createSagaMiddleware();
-const middleware = compose(
-    applyMiddleware(thunk),
-    applyMiddleware(sagaMiddleware),
-    window.devToolsExtension ? window.devToolsExtension() : (x) => x,
-);
+export default (saga, initialActions = []) => {
+    let sagaMiddleware = null;
+    let middleware = null;
 
-export default (initialActions = []) => {
+    if (saga) {
+        sagaMiddleware = createSagaMiddleware();
+        middleware = compose(
+            applyMiddleware(thunk),
+            applyMiddleware(sagaMiddleware),
+            window.devToolsExtension ? window.devToolsExtension() : (x) => x,
+        );
+    } else {
+        middleware = compose(
+            applyMiddleware(thunk),
+        );
+    }
+
     const store = createStore(reducer, middleware);
 
-    if (module.hot) {
+    if (saga && module.hot) {
         module.hot.accept('./reducer', () =>
             store.replaceReducer(require('./reducer').default)); // eslint-disable-line
     }
 
     initialActions.forEach(store.dispatch);
-    sagaMiddleware.run(saga);
+    if (saga) {
+        sagaMiddleware.run(saga);
+    }
     return store;
 };

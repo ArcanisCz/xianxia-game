@@ -1,8 +1,8 @@
 import {NAME} from "./constants";
-import {getResourceMax, createTechniqueLevelPrice} from "./selectors";
+import {getResourceMax, createTechniqueLevelPrice, createTechniqueCanLevel} from "./selectors";
 
 export const SET_RESOURCE = `${NAME}/SET_RESOURCE`;
-export const LEVEL_UP_BASIC_TECHNIQUE = `${NAME}/LEVEL_UP_BASIC_TECHNIQUE`;
+export const LEVEL_TECHNIQUE = `${NAME}/LEVEL_TECHNIQUE`;
 
 export const addResource = (resource, amount = 1) => (dispatch, getState) => dispatch({
     type: SET_RESOURCE,
@@ -11,8 +11,11 @@ export const addResource = (resource, amount = 1) => (dispatch, getState) => dis
     max: getResourceMax(getState(), resource),
 });
 
-export const levelTechnique = (technique) => (dispatch, getState) => dispatch({
-    type: LEVEL_UP_BASIC_TECHNIQUE,
+const getPrice = createTechniqueLevelPrice();
+const canLevel = createTechniqueCanLevel();
+
+export const levelTechnique = (technique) => (dispatch, getState) => canLevel(getState(), technique) && dispatch({
+    type: LEVEL_TECHNIQUE,
     technique,
-    price: createTechniqueLevelPrice()(getState(), technique),
+    price: getPrice(getState(), technique),
 });

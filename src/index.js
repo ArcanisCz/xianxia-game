@@ -5,11 +5,12 @@ import {render} from 'react-dom';
 
 import i18n from "core/i18n";
 
+import saga from './saga';
 import App from './Root';
 import createStore from './createStore';
 import messages from "../data/en.yml";
 
-const store = createStore([
+const store = createStore(saga, [
     i18n.loadMessages(messages),
 ]);
 

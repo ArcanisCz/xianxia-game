@@ -3,11 +3,11 @@ import React from 'react';
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
-import {getResourceAmount, getResourceMax, addResource} from "game";
+import {getResourceAmount, getResourceMax, addResource, getResourcePerSecond, isResourceAtMax} from "game";
 
-export const Resource = ({resource, value, max, onAddQi, canAdd}) => (
+export const Resource = ({resource, value, max, onAddQi, canAdd, perSec}) => (
     <div>
-        <span>{value} / {max}</span>&nbsp;
+        <span>{value} / {max} ({perSec} /sec)</span>&nbsp;
         <button type="button" disabled={!canAdd} onClick={onAddQi}>add</button>&nbsp;
         <span>({resource})</span>
     </div>
@@ -19,17 +19,15 @@ Resource.propTypes = {
     max: PropTypes.number.isRequired,
     canAdd: PropTypes.bool.isRequired,
     onAddQi: PropTypes.func.isRequired,
+    perSec: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state, {resource}) => {
-    const value = getResourceAmount(state, resource);
-    const max = getResourceMax(state, resource);
-    return {
-        value,
-        max,
-        canAdd: value < max,
-    };
-};
+const mapStateToProps = (state, {resource}) => ({
+    value: getResourceAmount(state, resource),
+    max: getResourceMax(state, resource),
+    perSec: getResourcePerSecond(state, resource),
+    canAdd: !isResourceAtMax(state, resource),
+});
 
 const mapDispatchToProps = (dispatch, {resource}) => ({
     onAddQi: () => dispatch(addResource(resource)),

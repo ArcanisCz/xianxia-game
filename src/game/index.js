@@ -1,16 +1,24 @@
 import reducer from "./reducer";
+import saga from "./saga";
 import {NAME} from "./constants";
 
 export {RESOURCES, TECHNIQUES} from "./constants";
 export {
     getResourceAmount,
     getResourceMax,
+    isResourceAtMax,
+    getResourcePerSecond,
     getTechniqueLevel,
     createTechniqueLevelPrice,
     createTechniqueCanLevel,
 } from "./selectors";
-export {addResource, levelTechnique} from "./actions";
+export {
+    addResource,
+    levelTechnique,
+} from "./actions";
+
 export default {
-    reducer,
     NAME,
+    reducer,
+    saga,
 };

@@ -13,6 +13,12 @@ export const resourceMaxMap = {
     [RESOURCE_LONGEVITY]: (techs) => (techs[TECHNIQUE_LONGEVITY] || 0) + 3,
 };
 
+export const resourcePerSecondMap = {
+    [RESOURCE_TEST]: (techs) => (techs[TECHNIQUE_TEST] || 0) * 0.5,
+    [RESOURCE_QI]: (techs) => (techs[TECHNIQUE_QI] || 0) * 0.5,
+    [RESOURCE_LONGEVITY]: (techs) => (techs[TECHNIQUE_LONGEVITY] || 0) * 0.5,
+};
+
 export const techniquePriceMap = {
     [TECHNIQUE_TEST]: (level) => ({
         [RESOURCE_TEST]: (level) + 1,

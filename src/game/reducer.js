@@ -1,11 +1,13 @@
 import {combineReducers} from "redux";
 
-import {SET_RESOURCE, LEVEL_TECHNIQUE} from "./actions";
+import {fn} from "core/util";
+
+import {ADD_RESOURCE, LEVEL_TECHNIQUE} from "./actions";
 
 export const resources = (state = {}, action) => {
     switch (action.type) {
-        case SET_RESOURCE:
-            return {...state, [action.resource]: ensureRange((state[action.resource] || 0) + action.amount, 0, action.max)};
+        case ADD_RESOURCE:
+            return {...state, [action.resource]: fn.ensureRange((state[action.resource] || 0) + action.amount, 0, action.max)};
         case LEVEL_TECHNIQUE:
             return {
                 ...state,
@@ -30,5 +32,3 @@ export default combineReducers({
     resources,
     techniques,
 });
-
-const ensureRange = (value, min, max) => Math.min(Math.max(value, min), max);

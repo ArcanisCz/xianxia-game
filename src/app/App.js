@@ -8,9 +8,8 @@ import {RESOURCES, TECHNIQUES} from "game";
 
 import Resource from "./Resource";
 import Technique from "./Technique";
-import Version from "./Version";
 
-import style from "./pokus.css";
+import style from "./pokus.scss";
 
 const App = ({loading}) => !loading && (
     <div className={style.display}>
@@ -26,7 +25,6 @@ const App = ({loading}) => !loading && (
                 <hr />
             </Fragment>
         ))}
-        <Version />
     </div>
 );
 

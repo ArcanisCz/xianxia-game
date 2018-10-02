@@ -34,7 +34,8 @@ module.exports.default = ({dev}) => ({
         }),
         new webpack.DefinePlugin({
             VERSION: {
-                NUMBER: JSON.stringify(gitRevisionPlugin.version()),
+                VERSION: JSON.stringify(gitRevisionPlugin.version()),
+                HASH: JSON.stringify(gitRevisionPlugin.commithash()),
                 DATE: new Date().getTime(),
             },
         }),
@@ -61,15 +62,22 @@ module.exports.default = ({dev}) => ({
             include: path.resolve(__dirname, 'data'),
             loader: ['json-loader', 'yaml-loader'],
         }, {
-            test: /\.css$/,
+            test: /\.scss$/,
             use: [
                 dev ? 'style-loader' : MiniCssExtractPlugin.loader,
                 {
                     loader: 'css-loader',
                     options: {
                         modules: true,
+                        importLoaders: 1,
                     },
-                }],
+                }, {
+                    loader: "sass-loader",
+                    options: {
+                        includePaths: ["src"],
+                    },
+                },
+            ],
         }],
     },
     resolve: {

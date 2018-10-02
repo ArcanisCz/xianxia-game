@@ -2,6 +2,8 @@ import {put, fork} from "redux-saga/effects";
 
 import {time} from "core";
 
+import {performResourcesPerSecond} from "./actions";
+
 export default function* () {
     yield fork(time.saga, gameTick);
 
@@ -9,5 +11,5 @@ export default function* () {
 }
 
 function* gameTick() {
-    // yield call(addResouces);
+    yield put(performResourcesPerSecond());
 }

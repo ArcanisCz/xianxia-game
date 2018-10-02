@@ -8,7 +8,7 @@ import {
 } from "./constants";
 
 export const resourceMaxMap = {
-    [RESOURCE_TEST]: (techs) => (techs[TECHNIQUE_TEST] || 0) + 1,
+    [RESOURCE_TEST]: (techs) => (techs[TECHNIQUE_TEST] || 0) + 10,
     [RESOURCE_QI]: (techs) => (techs[TECHNIQUE_QI] || 0) + 3,
     [RESOURCE_LONGEVITY]: (techs) => (techs[TECHNIQUE_LONGEVITY] || 0) + 3,
 };

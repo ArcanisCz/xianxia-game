@@ -11,21 +11,6 @@ export const getResourceAmount = (state, resource) => getResources(state)[resour
 export const getResourceMax = (state, resource) => resourceMaxMap[resource](getTechniques(state));
 export const isResourceAtMax = (state, resource) => getResourceAmount(state, resource) >= getResourceMax(state, resource);
 export const getResourcePerSecond = (state, resource) => resourcePerSecondMap[resource](getTechniques(state));
-export const getRealResourcePerSecond = (state, resource) => {
-    const toAdd = getResourcePerSecond(state, resource);
-    if (toAdd === 0) {
-        return 0;
-    }
-    const value = getResourceAmount(state, resource);
-    const max = getResourceMax(state, resource);
-    if (toAdd < 0 && value <= 0) {
-        return 0;
-    }
-    if (toAdd > 0 && value >= max) {
-        return 0;
-    }
-    return toAdd;
-};
 
 export const getTechniqueLevel = (state, technique) => getTechniques(state)[technique] || 0;
 export const createTechniqueLevelPrice = () => createSelector(

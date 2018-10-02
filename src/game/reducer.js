@@ -1,34 +1,57 @@
-import {combineReducers} from "redux";
-
-import {fn} from "core/util";
-
+import {resourceMaxMap, techniquePriceMap} from "./definitions";
 import {ADD_RESOURCE, LEVEL_TECHNIQUE} from "./actions";
 
-export const resources = (state = {}, action) => {
+const initialState = {
+    resources: resourcesReducer(undefined, {}),
+    techniques: techniquesReducer(undefined, {}),
+};
+export default (state = initialState, action) => {
+    if ([ADD_RESOURCE, LEVEL_TECHNIQUE].includes(action.type)) {
+        return {
+            resources: resourcesReducer(state.resources, action, state.techniques),
+            techniques: techniquesReducer(state.techniques, action, state.resources),
+        };
+    }
+    return state;
+};
+
+function resourcesReducer(state = {}, action, techniques) {
     switch (action.type) {
-        case ADD_RESOURCE:
-            return {...state, [action.resource]: fn.ensureRange((state[action.resource] || 0) + action.amount, 0, action.max)};
-        case LEVEL_TECHNIQUE:
-            return {
-                ...state,
-                ...Object.keys(action.price)
-                    .reduce((memo, resource) => Object.assign(memo, {[resource]: state[resource] - action.price[resource]}), {}),
-            };
+        case ADD_RESOURCE: {
+            const max = resourceMaxMap[action.resource](techniques);
+            const amount = state[action.resource] || 0;
+            return {...state, [action.resource]: ensureRange(amount + action.amount, 0, max)};
+        }
+        case LEVEL_TECHNIQUE: {
+            const price = techniquePriceMap[action.technique](techniques[action.technique] || 0);
+            const canLevel = canPay(price, state);
+            if (canLevel) {
+                return {...state, ...Object.keys(price).reduce(createGetResourcesAfterPay(state, price), {})};
+            }
+            return state;
+        }
         default:
             return state;
     }
-};
+}
 
-export const techniques = (state = {}, action) => {
+function techniquesReducer(state = {}, action, resources) {
     switch (action.type) {
-        case LEVEL_TECHNIQUE:
-            return {...state, [action.technique]: (state[action.technique] || 0) + 1};
+        case LEVEL_TECHNIQUE: {
+            const price = techniquePriceMap[action.technique](state[action.technique] || 0);
+            const canLevel = canPay(price, resources);
+            if (canLevel) {
+                return {...state, [action.technique]: (state[action.technique] || 0) + 1};
+            }
+            return state;
+        }
         default:
             return state;
     }
-};
+}
 
-export default combineReducers({
-    resources,
-    techniques,
+const createGetResourcesAfterPay = (resources, price) => (memo, resource) => Object.assign(memo, {
+    [resource]: resources[resource] - price[resource],
 });
+const canPay = (price, resources) => Object.keys(price).every((resource) => resources[resource] >= price[resource]);
+const ensureRange = (value, min, max) => Math.min(Math.max(value, min), max);

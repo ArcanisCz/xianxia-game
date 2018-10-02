@@ -2,7 +2,8 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
-const CircularDependencyPlugin = require('circular-dependency-plugin')
+const CircularDependencyPlugin = require('circular-dependency-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const gitRevisionPlugin = new GitRevisionPlugin();
@@ -41,6 +42,11 @@ module.exports.default = ({dev}) => ({
             exclude: /node_modules/,
             failOnError: true,
         }),
+        !dev && new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: "[contenthash].css",
+        }),
         dev && new webpack.NamedModulesPlugin(),
         dev && new webpack.HotModuleReplacementPlugin(), // https://webpack.js.org/configuration/dev-server/#devserver-hot
         // new BundleAnalyzerPlugin(),
@@ -54,6 +60,16 @@ module.exports.default = ({dev}) => ({
             test: /\.yml/,
             include: path.resolve(__dirname, 'data'),
             loader: ['json-loader', 'yaml-loader'],
+        }, {
+            test: /\.css$/,
+            use: [
+                dev ? 'style-loader' : MiniCssExtractPlugin.loader,
+                {
+                    loader: 'css-loader',
+                    options: {
+                        modules: true,
+                    },
+                }],
         }],
     },
     resolve: {

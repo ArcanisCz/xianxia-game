@@ -10,8 +10,10 @@ import Resource from "./Resource";
 import Technique from "./Technique";
 import Version from "./Version";
 
+import style from "./pokus.css";
+
 const App = ({loading}) => !loading && (
-    <div>
+    <div className={style.display}>
         {RESOURCES.map((resource) => (
             <Fragment key={resource}>
                 <Resource resource={resource} />

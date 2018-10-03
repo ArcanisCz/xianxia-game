@@ -17,12 +17,12 @@ describe('Techiques', () => {
         const getPrices = createTechniqueLevelPrice();
         const prices = getPrices(store.getState(), TECHNIQUE_TEST);
         const oldLevel = getTechniqueLevel(store.getState(), TECHNIQUE_TEST);
-        Object.keys(prices).forEach((resource) => {
-            store.dispatch(addResource(resource, prices[resource] + REMAINING));
+        prices.forEach((price, resource) => {
+            store.dispatch(addResource(resource, price + REMAINING));
         });
         store.dispatch(levelTechnique(TECHNIQUE_TEST));
         expect(getTechniqueLevel(store.getState(), TECHNIQUE_TEST)).to.be.eq(oldLevel + 1, "level");
-        Object.keys(prices).forEach((resource) => {
+        prices.forEach((price, resource) => {
             expect(getResourceAmount(store.getState(), resource)).to.be.eq(REMAINING, `resource ${resource}`);
         });
     });

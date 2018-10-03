@@ -1,3 +1,5 @@
+import {Map} from "immutable";
+
 import {
     RESOURCE_TEST,
     RESOURCE_LONGEVITY,
@@ -7,28 +9,27 @@ import {
     TECHNIQUE_QI,
 } from "./constants";
 
-export const resourceMaxMap = {
-    [RESOURCE_TEST]: (techs) => (techs[TECHNIQUE_TEST] || 0) + 10,
-    [RESOURCE_QI]: (techs) => (techs[TECHNIQUE_QI] || 0) + 3,
-    [RESOURCE_LONGEVITY]: (techs) => (techs[TECHNIQUE_LONGEVITY] || 0) + 3,
-};
+export const resourceMaxMap = Map()
+    .set(RESOURCE_TEST, (techs) => t(techs, TECHNIQUE_TEST) + 10)
+    .set(RESOURCE_QI, (techs) => t(techs, TECHNIQUE_QI) + 3)
+    .set(RESOURCE_LONGEVITY, (techs) => t(techs, TECHNIQUE_LONGEVITY) + 3);
 
-export const resourcePerSecondMap = {
-    [RESOURCE_TEST]: () => 1,
-    [RESOURCE_QI]: (techs) => (techs[TECHNIQUE_QI] || 0) * 0.5,
-    [RESOURCE_LONGEVITY]: (techs) => (techs[TECHNIQUE_LONGEVITY] || 0) * 0.5,
-};
+export const resourcePerSecondMap = Map()
+    .set(RESOURCE_TEST, () => 1)
+    .set(RESOURCE_QI, (techs) => t(techs, TECHNIQUE_QI) * 0.5)
+    .set(RESOURCE_LONGEVITY, (techs) => t(techs, TECHNIQUE_LONGEVITY) * 0.5);
 
-export const techniquePriceMap = {
-    [TECHNIQUE_TEST]: (level) => ({
+export const techniquePriceMap = Map()
+    .set(TECHNIQUE_TEST, (level) => Map({
         [RESOURCE_TEST]: (level) + 1,
-    }),
-    [TECHNIQUE_QI]: (level) => ({
+    }))
+    .set(TECHNIQUE_QI, (level) => Map({
         [RESOURCE_QI]: (level * 2) + 1,
         [RESOURCE_LONGEVITY]: 1,
-    }),
-    [TECHNIQUE_LONGEVITY]: (level) => ({
+    }))
+    .set(TECHNIQUE_LONGEVITY, (level) => Map({
         [RESOURCE_QI]: 1,
         [RESOURCE_LONGEVITY]: (level * 2) + 1,
-    }),
-};
+    }));
+
+const t = (techs, name) => techs.get(name, 0);

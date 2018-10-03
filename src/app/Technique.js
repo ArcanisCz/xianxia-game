@@ -1,6 +1,7 @@
 import React from 'react';
 
 import PropTypes from "prop-types";
+import IPropTypes from "react-immutable-proptypes";
 import {connect} from "react-redux";
 
 import {
@@ -15,16 +16,19 @@ const Technique = ({technique, level, onLevelUp, canLevelUp, prices}) => (
     <div>
         {technique} ({level})&nbsp;
         <button type="button" disabled={!canLevelUp} onClick={onLevelUp}>Level up</button>
-        {Object.keys(prices).map((resource) => (
-            <div key={resource}>{resource}: {prices[resource]}</div>
-        ))}
+        {/* eslint-disable react/no-array-index-key */}
+        {/* immutable map's second argument is key, not index */}
+        {prices.map((price, resource) => (
+            <div key={resource}>{resource}: {price}</div>
+        )).toList().toArray()}
+        {/* eslint-enable */}
     </div>
 );
 
 Technique.propTypes = {
     technique: PropTypes.string.isRequired,
     level: PropTypes.number.isRequired,
-    prices: PropTypes.objectOf(PropTypes.number, PropTypes.oneOf([RESOURCES])).isRequired,
+    prices: IPropTypes.mapOf(PropTypes.number, PropTypes.oneOf(RESOURCES)).isRequired,
     canLevelUp: PropTypes.bool.isRequired,
     onLevelUp: PropTypes.func.isRequired,
 };

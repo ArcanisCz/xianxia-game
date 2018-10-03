@@ -1,11 +1,12 @@
-import {combineReducers} from "redux";
+import {combineReducers} from "redux-immutable";
+import {Map} from "immutable";
 
 import {MESSAGES_LOAD} from "./actions";
 
-const messages = (state = {}, action) => {
+const messages = (state = Map(), action) => {
     switch (action.type) {
         case MESSAGES_LOAD:
-            return {...action.payload};
+            return Map(action.payload);
         default:
             return state;
     }

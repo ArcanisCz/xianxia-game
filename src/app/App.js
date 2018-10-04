@@ -1,25 +1,33 @@
 import React, {Fragment} from 'react';
-
 import PropTypes from "prop-types";
+import IPropTypes from "react-immutable-proptypes";
 import {connect} from "react-redux";
 
 import init from "core/init";
-import {RESOURCES, TECHNIQUES} from "game";
+import {
+    RESOURCES,
+    TECHNIQUES,
+    getVisibleResources,
+    getVisibleTechniques,
+} from "game";
 
 import Resource from "./Resource";
 import Technique from "./Technique";
 
 import style from "./pokus.scss";
+import Meditate from "./Meditate";
 
-const App = ({loading}) => !loading && (
+const App = ({loading, resources, techniques}) => !loading && (
     <div className={style.display}>
-        {RESOURCES.map((resource) => (
+        {resources.map((resource) => (
             <Fragment key={resource}>
                 <Resource resource={resource} />
                 <hr />
             </Fragment>
         ))}
-        {TECHNIQUES.map((technique) => (
+        <Meditate />
+        <hr />
+        {techniques.map((technique) => (
             <Fragment key={technique}>
                 <Technique technique={technique} />
                 <hr />
@@ -30,10 +38,14 @@ const App = ({loading}) => !loading && (
 
 App.propTypes = {
     loading: PropTypes.bool.isRequired,
+    resources: IPropTypes.listOf(PropTypes.oneOf(RESOURCES)),
+    techniques: IPropTypes.listOf(PropTypes.oneOf(TECHNIQUES)),
 };
 
 const mapStateToProps = (state) => ({
     loading: !init.isInitialized(state),
+    resources: getVisibleResources(state),
+    techniques: getVisibleTechniques(state),
 });
 
 export default connect(mapStateToProps)(App);

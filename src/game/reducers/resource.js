@@ -1,6 +1,11 @@
 import {Map} from "immutable";
-import {ADD_RESOURCE, LEVEL_TECHNIQUE, PERFORM_RESOURCES_PER_SECOND} from "../actions";
-import {RESOURCES} from "../constants";
+import {
+    ADD_RESOURCE,
+    LEVEL_TECHNIQUE,
+    PERFORM_RESOURCES_PER_SECOND,
+    MEDITATE,
+} from "../actions";
+import {RESOURCES, RESOURCE_QI} from "../constants";
 
 import {
     getResource,
@@ -8,7 +13,8 @@ import {
     getTechniquePrice,
     canPay,
     ensureRange,
-    getResourcePerSecond, getTechnique,
+    getResourcePerSecond,
+    getTechnique,
 } from "./fn";
 
 export default (state = Map(), action, techniques) => {
@@ -19,6 +25,8 @@ export default (state = Map(), action, techniques) => {
             return levelTechnique(state, techniques, action.technique);
         case PERFORM_RESOURCES_PER_SECOND:
             return addPerSecond(state, techniques);
+        case MEDITATE:
+            return addResource(state, techniques, RESOURCE_QI, 1);
         default:
             return state;
     }

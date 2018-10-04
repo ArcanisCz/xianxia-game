@@ -1,7 +1,7 @@
 import {createSelector} from "reselect";
-import {Map} from "immutable";
+import {Map, List} from "immutable";
 
-import {NAME} from './constants';
+import {NAME, RESOURCE_QI} from './constants';
 import {
     getResourceFn,
     getResourceMaxFn,
@@ -33,3 +33,8 @@ export const createTechniqueCanLevel = () => {
         return canPayFn(prices, getResources(state));
     };
 };
+
+export const getVisibleResources = () => List([RESOURCE_QI]);
+export const getVisibleTechniques = () => List([]);
+
+export const canMeditate = (state) => !isResourceAtMax(state, RESOURCE_QI);

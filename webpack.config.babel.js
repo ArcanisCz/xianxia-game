@@ -5,8 +5,11 @@ const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HappyPack = require('happypack');
+const AutoDllPlugin = require('autodll-webpack-plugin');
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 // const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+
+const pckg = require("./package");
 
 const gitRevisionPlugin = new GitRevisionPlugin();
 // const smp = new SpeedMeasurePlugin();
@@ -25,12 +28,11 @@ module.exports.default = ({dev}) => ({
         filename: dev ? '[name].js' : '[name].[chunkhash].js',
     },
     optimization: {
-        splitChunks: {
-            chunks: "all",
-        },
+        splitChunks: false,
     },
     plugins: array(
         new HtmlWebpackPlugin({
+            inject: true,
             title: "Xianxia Game",
             template: dev ? "./src/index.dev.ejs" : "./src/index.prod.ejs",
             filename: 'index.html',
@@ -49,6 +51,18 @@ module.exports.default = ({dev}) => ({
         }),
         new HappyPack({
             loaders: ['babel-loader'],
+        }),
+        new AutoDllPlugin({
+            inject: true,
+            debug: true,
+            filename: '[name]_[hash].js',
+            path: './dll',
+            entry: {
+                vendor: [
+                    'core-js',
+                    ...Object.keys(pckg.dependencies),
+                ],
+            },
         }),
         !dev && new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output

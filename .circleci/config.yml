@@ -50,7 +50,7 @@ jobs:
             - v1-dll-
       - run: npm run build
       - save_cache:
-          key: v1-cache-{{ checksum "package.json" }}
+          key: v1-dll-{{ checksum "package.json" }}
           paths:
             - "dist/dll"
       - persist_to_workspace:

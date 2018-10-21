@@ -4,12 +4,16 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HappyPack = require('happypack');
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+// const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
 const gitRevisionPlugin = new GitRevisionPlugin();
+// const smp = new SpeedMeasurePlugin();
 
 const array = (...target) => target.filter(Boolean);
 
+// module.exports.default = ({dev}) => smp.wrap({
 module.exports.default = ({dev}) => ({
     entry: {
         main: "./src/index.js",
@@ -43,6 +47,9 @@ module.exports.default = ({dev}) => ({
             exclude: /node_modules/,
             failOnError: true,
         }),
+        new HappyPack({
+            loaders: ['babel-loader'],
+        }),
         !dev && new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
@@ -56,7 +63,7 @@ module.exports.default = ({dev}) => ({
         rules: [{
             test: /\.js$/,
             include: path.resolve(__dirname, 'src'),
-            loader: 'babel-loader',
+            use: 'happypack/loader',
         }, {
             test: /\.yml/,
             include: path.resolve(__dirname, 'data'),

@@ -52,7 +52,7 @@ jobs:
       - save_cache:
           key: v1-dll-{{ checksum "package.json" }}
           paths:
-            - "dist/dll"
+            - dist
       - persist_to_workspace:
           root: ~/repo
           paths:

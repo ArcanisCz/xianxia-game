@@ -46,12 +46,12 @@ jobs:
           at: ~/repo
       - restore_cache:
             keys:
-            -dll-v1-
+                - dll-v1-
       - run: npm run build
       - save_cache:
             key: dll-v1-
             paths:
-            - "dist/dll"
+                - "dist/dll"
       - persist_to_workspace:
           root: ~/repo
           paths:

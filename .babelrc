@@ -8,14 +8,15 @@
                 "not dead"
             ]
         }],
-        ["@babel/react", {
-            "useBuiltIns": true
-        }]
+        "@babel/react"
     ],
     "plugins": [
         "react-hot-loader/babel"
     ],
     "env": {
+        "development": {
+            "presets": [["@babel/preset-react", { "development": true }]]
+        },
         "production": {
             "plugins": [
                 "transform-react-remove-prop-types",

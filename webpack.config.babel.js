@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HappyPack = require('happypack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const AutoDllPlugin = require('autodll-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -72,9 +71,6 @@ module.exports.default = ({dev}) => smp.wrap({
             exclude: /node_modules/,
             failOnError: true,
         }),
-        new HappyPack({
-            loaders: ['babel-loader'],
-        }),
         !dev && new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
@@ -97,7 +93,12 @@ module.exports.default = ({dev}) => smp.wrap({
         rules: [{
             test: /\.js$/,
             include: path.resolve(__dirname, 'src'),
-            use: 'happypack/loader',
+            use: {
+                loader: "babel-loader",
+                options: {
+                    cacheDirectory: true,
+                },
+            },
         }, {
             test: /\.yml/,
             include: path.resolve(__dirname, 'data'),

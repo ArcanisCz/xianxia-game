@@ -5,10 +5,13 @@ const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HappyPack = require('happypack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const AutoDllPlugin = require('autodll-webpack-plugin');
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 // const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
 const gitRevisionPlugin = new GitRevisionPlugin();
+const pckg = require("./package");
 // const smp = new SpeedMeasurePlugin();
 
 const array = (...target) => target.filter(Boolean);
@@ -24,8 +27,27 @@ module.exports.default = ({dev}) => ({
     },
     optimization: {
         splitChunks: {
-            chunks: "all",
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+            },
         },
+        minimizer: [new UglifyJSPlugin({
+            exclude: /\/node_modules/,
+            cache: true,
+            parallel: true,
+            sourceMap: true,
+            uglifyOptions: {
+                mangle: true,
+                compress: true,
+                output: {
+                    comments: false,
+                },
+            },
+        })],
     },
     plugins: array(
         new HtmlWebpackPlugin({
@@ -33,6 +55,7 @@ module.exports.default = ({dev}) => ({
             template: dev ? "./src/index.dev.ejs" : "./src/index.prod.ejs",
             filename: 'index.html',
             publicPath: path.resolve(__dirname, "public"),
+            inject: true,
         }),
         new webpack.DefinePlugin({
             VERSION: {
@@ -41,7 +64,7 @@ module.exports.default = ({dev}) => ({
                 DATE: new Date().getTime(),
             },
         }),
-        new CircularDependencyPlugin({
+        dev && new CircularDependencyPlugin({
             exclude: /node_modules/,
             failOnError: true,
         }),
@@ -53,7 +76,15 @@ module.exports.default = ({dev}) => ({
             // both options are optional
             filename: "[contenthash].css",
         }),
-        dev && new webpack.NamedModulesPlugin(),
+        // for faster dev
+        dev && new AutoDllPlugin({
+            inject: true,
+            debug: true,
+            filename: '[name].js',
+            entry: {
+                vendor: Object.keys(pckg.dependencies),
+            },
+        }),
         dev && new webpack.HotModuleReplacementPlugin(), // https://webpack.js.org/configuration/dev-server/#devserver-hot
         // new BundleAnalyzerPlugin(),
     ),

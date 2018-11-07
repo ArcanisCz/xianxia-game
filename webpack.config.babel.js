@@ -8,16 +8,19 @@ const HappyPack = require('happypack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const AutoDllPlugin = require('autodll-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-// const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
+const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
+
+const PROFILE = false;
+const BUNDLE = false;
 
 const gitRevisionPlugin = new GitRevisionPlugin();
+const smp = PROFILE ? new SpeedMeasurePlugin() : {wrap: (x) => x};
 const pckg = require("./package");
-// const smp = new SpeedMeasurePlugin();
+
 
 const array = (...target) => target.filter(Boolean);
-// module.exports.default = ({dev}) => smp.wrap({
-module.exports.default = ({dev}) => ({
+module.exports.default = ({dev}) => smp.wrap({
     entry: {
         main: "./src/index.js",
     },
@@ -88,7 +91,7 @@ module.exports.default = ({dev}) => ({
         }),
         dev && new webpack.HotModuleReplacementPlugin(), // https://webpack.js.org/configuration/dev-server/#devserver-hot
         !dev && new CompressionPlugin(),
-        // new BundleAnalyzerPlugin(),
+        BUNDLE && new BundleAnalyzerPlugin(),
     ),
     module: {
         rules: [{
@@ -110,7 +113,7 @@ module.exports.default = ({dev}) => ({
                         importLoaders: 1,
                     },
                 }, {
-                    loader: "sass-loader",
+                    loader: "fast-sass-loader",
                     options: {
                         includePaths: ["src"],
                     },

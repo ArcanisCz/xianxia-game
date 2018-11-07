@@ -7,6 +7,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HappyPack = require('happypack');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const AutoDllPlugin = require('autodll-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 // const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
@@ -86,6 +87,7 @@ module.exports.default = ({dev}) => ({
             },
         }),
         dev && new webpack.HotModuleReplacementPlugin(), // https://webpack.js.org/configuration/dev-server/#devserver-hot
+        !dev && new CompressionPlugin(),
         // new BundleAnalyzerPlugin(),
     ),
     module: {

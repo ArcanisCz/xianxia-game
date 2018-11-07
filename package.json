@@ -43,6 +43,7 @@
     "chai": "4.2.0",
     "chai-enzyme": "1.0.0-beta.1",
     "circular-dependency-plugin": "5.0.2",
+    "compression-webpack-plugin": "2.0.0",
     "core-js": "2.5.7",
     "cross-env": "5.2.0",
     "css-loader": "1.0.1",

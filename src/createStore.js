@@ -17,11 +17,6 @@ export default (saga, initialActions = []) => {
 
     const store = createStore(reducer, middleware);
 
-    if (saga && module.hot) {
-        module.hot.accept('./reducer', () =>
-            store.replaceReducer(require('./reducer').default)); // eslint-disable-line
-    }
-
     initialActions.forEach(store.dispatch);
     if (saga) {
         sagaMiddleware.run(saga);

@@ -5,7 +5,6 @@ const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const AutoDllPlugin = require('autodll-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
@@ -76,16 +75,6 @@ module.exports.default = ({dev}) => smp.wrap({
             // both options are optional
             filename: "[contenthash].css",
         }),
-        // for faster dev
-        dev && new AutoDllPlugin({
-            inject: true,
-            debug: true,
-            filename: '[name].js',
-            entry: {
-                vendor: Object.keys(pckg.dependencies),
-            },
-        }),
-        dev && new webpack.HotModuleReplacementPlugin(), // https://webpack.js.org/configuration/dev-server/#devserver-hot
         !dev && new CompressionPlugin(),
         BUNDLE && new BundleAnalyzerPlugin(),
     ),
@@ -129,7 +118,6 @@ module.exports.default = ({dev}) => smp.wrap({
         },
     },
     devServer: {
-        hot: true,
         inline: true,
         port: 3000,
     },

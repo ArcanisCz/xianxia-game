@@ -14,8 +14,6 @@ const BUNDLE = false;
 
 const gitRevisionPlugin = new GitRevisionPlugin();
 const smp = PROFILE ? new SpeedMeasurePlugin() : {wrap: (x) => x};
-const pckg = require("./package");
-
 
 const array = (...target) => target.filter(Boolean);
 module.exports.default = ({dev}) => smp.wrap({

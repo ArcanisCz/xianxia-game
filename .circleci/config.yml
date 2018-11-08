@@ -12,13 +12,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "package.json" }}
+          - v1-dependencies-{{ checksum "package-lock.json" }}
           - v1-dependencies-
       - run: npm install --no-audit
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
       - persist_to_workspace:
           root: ~/repo
           paths:
@@ -33,8 +33,15 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/repo
+      - restore_cache:
+            keys:
+            - v1-eslint-{{ checksum "package-lock.json" }}
+            - v1-eslint-
       - run: npm run lint
-
+      - save_cache:
+            paths:
+            - .eslintcache
+            key: v1-eslint-{{ checksum "package-lock.json" }}
 
   build:
     docker:

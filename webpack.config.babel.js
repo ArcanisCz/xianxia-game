@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const sass = require('sass');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
@@ -92,18 +93,19 @@ module.exports.default = ({dev}) => smp.wrap({
             loader: ['json-loader', 'yaml-loader'],
         }, {
             test: /\.scss$/,
+            include: path.resolve(__dirname, 'src'),
             use: [
                 dev ? 'style-loader' : MiniCssExtractPlugin.loader,
                 {
                     loader: 'css-loader',
                     options: {
                         modules: true,
-                        importLoaders: 1,
                     },
                 }, {
-                    loader: "fast-sass-loader",
+                    loader: "sass-loader",
                     options: {
                         includePaths: ["src"],
+                        implementation: sass,
                     },
                 },
             ],

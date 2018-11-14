@@ -30,7 +30,6 @@
     "@babel/core": "7.1.5",
     "@babel/plugin-transform-react-constant-elements": "7.0.0",
     "@babel/plugin-transform-runtime": "7.1.0",
-    "@babel/polyfill": "7.0.0",
     "@babel/preset-env": "7.1.5",
     "@babel/preset-react": "7.0.0",
     "@babel/register": "7.0.0",
@@ -43,7 +42,6 @@
     "chai-enzyme": "1.0.0-beta.1",
     "circular-dependency-plugin": "5.0.2",
     "compression-webpack-plugin": "2.0.0",
-    "core-js": "2.5.7",
     "cross-env": "5.2.0",
     "css-loader": "1.0.1",
     "dirty-chai": "2.0.1",
@@ -76,6 +74,7 @@
     "yaml-loader": "0.5.0"
   },
   "dependencies": {
+    "@babel/polyfill": "7.0.0",
     "immutable": "4.0.0-rc.12",
     "intl-messageformat": "2.2.0",
     "prop-types": "15.6.2",

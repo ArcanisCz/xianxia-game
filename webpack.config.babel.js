@@ -6,7 +6,6 @@ const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 
@@ -20,6 +19,7 @@ const array = (...target) => target.filter(Boolean);
 module.exports.default = ({dev}) => smp.wrap({
     entry: {
         main: "./src/index.js",
+        message: "./src/index.message.js",
     },
     devtool: dev ? "cheap-module-source-map " : false,
     output: {
@@ -65,7 +65,7 @@ module.exports.default = ({dev}) => smp.wrap({
                 DATE: new Date().getTime(),
             },
         }),
-        dev && new CircularDependencyPlugin({
+        new CircularDependencyPlugin({
             exclude: /node_modules/,
             failOnError: true,
         }),
@@ -74,7 +74,6 @@ module.exports.default = ({dev}) => smp.wrap({
             // both options are optional
             filename: "[contenthash].css",
         }),
-        !dev && new CompressionPlugin(),
         BUNDLE && new BundleAnalyzerPlugin(),
     ),
     module: {

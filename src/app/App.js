@@ -21,18 +21,18 @@ import Meditate from "./Meditate";
 const App = ({loading, resources, techniques}) => !loading && (
     <div className={style.display}>
         {resources.map((resource) => (
-            <div key={resource}>
+            <>
                 <Resource resource={resource} />
                 <hr />
-            </div>
+            </>
         )).toJS()}
         <Meditate />
         <hr />
         {techniques.map((technique) => (
-            <div key={technique}>
+            <>
                 <Technique technique={technique} />
                 <hr />
-            </div>
+            </>
         )).toJS()}
         <ComponentShowcase />
     </div>

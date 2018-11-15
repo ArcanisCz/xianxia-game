@@ -5,14 +5,16 @@
             "targets": "ie 11"
         }],
         ["@babel/react", {
-            "pragma": "h"
+            "pragma": "h",
+            "pragmaFrag": "x-fragment"
         }]
     ],
     "env": {
         "development": {
             "presets": [["@babel/preset-react", {
                 "pragma": "h",
-                "development": true,
+                "pragmaFrag": "\"span\"",
+                "development": true
             }]]
         },
         "production": {

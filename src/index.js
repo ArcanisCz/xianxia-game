@@ -8,9 +8,11 @@ import App from './Root';
 import createStore from './createStore';
 import messages from "../data/en.yml";
 
+/* eslint-disable */
 if (process.env.NODE_ENV === "development") {
-    require("./preactPropTypes");
+    require("./util/preactPropTypes");
 }
+/* eslint-enable */
 
 const store = createStore(saga, [
     i18n.loadMessages(messages),

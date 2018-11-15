@@ -93,21 +93,26 @@ module.exports.default = ({dev}) => smp.wrap({
         }, {
             test: /\.scss$/,
             include: path.resolve(__dirname, 'src'),
-            use: [
-                dev ? 'style-loader' : MiniCssExtractPlugin.loader,
-                {
-                    loader: 'css-loader',
-                    options: {
-                        modules: true,
-                    },
-                }, {
-                    loader: "sass-loader",
-                    options: {
-                        includePaths: ["src"],
-                        implementation: sass,
-                    },
+            use: array(dev ? "style-loader" : MiniCssExtractPlugin.loader, {
+                loader: 'css-loader',
+                options: {
+                    modules: true,
                 },
-            ],
+            }, {
+                loader: 'postcss-loader',
+                options: {
+                    plugins: () => array(
+                        require('autoprefixer'),
+                        require('postcss-flexbugs-fixes'),
+                        !dev && require('cssnano')(),
+                    ),
+                },
+            }, {
+                loader: 'sass-loader',
+                options: {
+                    implementation: sass,
+                },
+            }),
         }],
     },
     resolve: {

@@ -13,6 +13,7 @@ import {
 
 import Resource from "./Resource";
 import Technique from "./Technique";
+import {ComponentShowcase} from "./ComponentShowcase";
 
 import style from "./pokus.scss";
 import Meditate from "./Meditate";
@@ -33,6 +34,7 @@ const App = ({loading, resources, techniques}) => !loading && (
                 <hr />
             </div>
         )).toJS()}
+        <ComponentShowcase />
     </div>
 );
 

@@ -119,6 +119,7 @@ module.exports.default = ({dev}) => smp.wrap({
         alias: {
             core: path.resolve(__dirname, 'src/core'),
             game: path.resolve(__dirname, 'src/game'),
+            components: path.resolve(__dirname, 'src/components'),
         },
     },
     devServer: {

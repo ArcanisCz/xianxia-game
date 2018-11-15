@@ -38,7 +38,6 @@
     "babel-plugin-module-resolver": "3.1.1",
     "babel-plugin-transform-react-remove-prop-types": "0.4.20",
     "chai": "4.2.0",
-    "chai-enzyme": "1.0.0-beta.1",
     "circular-dependency-plugin": "5.0.2",
     "cross-env": "5.2.0",
     "css-loader": "1.0.1",

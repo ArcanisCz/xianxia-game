@@ -1,7 +1,7 @@
-import React from 'react';
+import {h} from 'preact';
 
 import PropTypes from "prop-types";
-import {connect} from "react-redux";
+import {connect} from "preact-redux";
 
 import {getResourceAmount, getResourceMax, getResourcePerSecond} from "game";
 

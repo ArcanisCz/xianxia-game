@@ -1,7 +1,7 @@
-import React, {Fragment} from 'react';
+import {h} from 'preact';
 import PropTypes from "prop-types";
 import IPropTypes from "react-immutable-proptypes";
-import {connect} from "react-redux";
+import {connect} from "preact-redux";
 
 import init from "core/init";
 import {
@@ -20,19 +20,19 @@ import Meditate from "./Meditate";
 const App = ({loading, resources, techniques}) => !loading && (
     <div className={style.display}>
         {resources.map((resource) => (
-            <Fragment key={resource}>
+            <div key={resource}>
                 <Resource resource={resource} />
                 <hr />
-            </Fragment>
-        ))}
+            </div>
+        )).toJS()}
         <Meditate />
         <hr />
         {techniques.map((technique) => (
-            <Fragment key={technique}>
+            <div key={technique}>
                 <Technique technique={technique} />
                 <hr />
-            </Fragment>
-        ))}
+            </div>
+        )).toJS()}
     </div>
 );
 

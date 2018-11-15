@@ -4,18 +4,22 @@
             "useBuiltIns": "entry",
             "targets": "ie 11"
         }],
-        "@babel/react"
+        ["@babel/react", {
+            "pragma": "h"
+        }]
     ],
     "env": {
         "development": {
-            "presets": [["@babel/preset-react", { "development": true }]]
+            "presets": [["@babel/preset-react", {
+                "pragma": "h",
+                "development": true,
+            }]]
         },
         "production": {
             "plugins": [
                 ["transform-react-remove-prop-types", {
                     "removeImport": true
-                }],
-                "@babel/plugin-transform-react-constant-elements"
+                }]
             ]
         },
         "test": {

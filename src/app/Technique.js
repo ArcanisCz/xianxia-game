@@ -1,8 +1,8 @@
-import React from 'react';
+import {h} from 'preact';
 
 import PropTypes from "prop-types";
 import IPropTypes from "react-immutable-proptypes";
-import {connect} from "react-redux";
+import {connect} from "preact-redux";
 
 import {
     getTechniqueLevel,

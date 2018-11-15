@@ -1,5 +1,5 @@
 {
-    "extends": "airbnb",
+    "extends": ["airbnb", "standard-preact"],
     "parser": "babel-eslint",
     "env": {
         "browser": true,

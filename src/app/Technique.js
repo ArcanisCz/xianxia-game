@@ -15,7 +15,7 @@ import {
 const Technique = ({technique, level, onLevelUp, canLevelUp, prices}) => (
     <div>
         {technique} ({level})&nbsp;
-        <button type='button' disabled={!canLevelUp} onClick={onLevelUp}>Level up</button>
+        <button type="button" disabled={!canLevelUp} onClick={onLevelUp}>Level up</button>
         {/* eslint-disable react/no-array-index-key */}
         {/* immutable map's second argument is key, not index */}
         {prices.map((price, resource) => (

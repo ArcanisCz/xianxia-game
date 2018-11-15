@@ -2,15 +2,24 @@
 
 .button {
     display: inline-block;
-    position: relative;
-    background: white;
+    background-color: white;
     border: 1px solid $color-grey;
+    color: $color-grey;
     cursor: pointer;
     padding: 8px;
     user-select: none;
-    transition: border-color $transition-duration-standard $easing-easeInOut;
+    box-sizing: border-box;
+    font-size: $font-size-normal;
+    @include transition(border-color, color, background-color);
 
     &:hover {
+        color: $color-dark-grey;
+        border-color: $color-dark-grey;
+    }
+
+    &:active {
+        background: #eee;
+        color: $color-dark-grey;
         border-color: $color-dark-grey;
     }
 }
@@ -20,9 +29,16 @@
 }
 
 .disabled {
-    background: $color-light-grey;
+    //background: $color-light-grey;
+    border: 1px solid $color-light-grey;
+    color: $color-light-grey;
     cursor: default;
     &:hover {
-        border-color: $color-grey;
+        border-color: $color-light-grey;
+        color: $color-light-grey;
+    }
+
+    &:active {
+        background-color: white;
     }
 }

@@ -15,25 +15,24 @@ import Resource from "./Resource";
 import Technique from "./Technique";
 import {ComponentShowcase} from "./ComponentShowcase";
 
-import style from "./pokus.scss";
 import Meditate from "./Meditate";
 
 const App = ({loading, resources, techniques}) => !loading && (
-    <div className={style.display}>
-        {resources.map((resource) => (
+    <div>
+        {resources.toJS().map((resource) => (
             <Fragment key={resource}>
                 <Resource resource={resource} />
                 <hr />
             </Fragment>
-        )).toJS()}
+        ))}
         <Meditate />
         <hr />
-        {techniques.map((technique) => (
+        {techniques.toJS().map((technique) => (
             <Fragment key={technique}>
                 <Technique technique={technique} />
                 <hr />
             </Fragment>
-        )).toJS()}
+        ))}
         <ComponentShowcase />
     </div>
 );

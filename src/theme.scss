@@ -1,9 +1,13 @@
-$a: green;
+$color-grey: #999;
+$color-dark-grey: #2f3941;
+$color-light-grey: #d8dcde;
 
-$color-grey: grey;
-$color-dark-grey: darken($color-grey, 20%);
-$color-light-grey: lighten($color-grey, 20%);
+$font-size-normal: 1rem;
+$font-size-large: 1.5rem;
+$font-size-small: 0.5rem;
 
-$transition-duration-standard: 300ms;
-
-$easing-easeInOut: cubic-bezier(0.4, 0, 0.2, 1)
+@mixin transition($properties...) {
+    transition-property: $properties;
+    transition-duration: 200ms;
+    transition-timing-function: ease;
+}

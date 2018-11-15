@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {canMeditate, meditate} from "game";
 
 export const Meditate = ({disabled, onClick}) => (
-    <button type='button' disabled={disabled} onClick={onClick}>Meditate</button>
+    <button type="button" disabled={disabled} onClick={onClick}>Meditate</button>
 );
 
 Meditate.propTypes = {

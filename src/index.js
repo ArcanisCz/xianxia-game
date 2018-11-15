@@ -9,6 +9,7 @@ import saga from './saga';
 import App from './Root';
 import createStore from './createStore';
 import messages from "../data/en.yml";
+import "./global.scss";
 
 const store = createStore(saga, [
     i18n.loadMessages(messages),

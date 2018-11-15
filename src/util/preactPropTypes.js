@@ -50,7 +50,7 @@ function statelessComponentHook(Ctor) {
     Wrapped = wrapStatelessComponent(Ctor);
 
     Object.defineProperty(Wrapped, COMPONENT_WRAPPER_KEY, {configurable: true, value: true});
-    Wrapped.displayName = Ctor.displayName;
+    Wrapped.displayName = Ctor.name || Ctor.displayName;
     Wrapped.propTypes = Ctor.propTypes;
     Wrapped.defaultProps = Ctor.defaultProps;
     Wrapped.__docgenInfo = Ctor.__docgenInfo;

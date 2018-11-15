@@ -97,6 +97,7 @@ module.exports.default = ({dev}) => smp.wrap({
                 loader: 'css-loader',
                 options: {
                     modules: true,
+                    localIdentName: dev ? '[name]__[local]--[hash:base64:5]' : undefined,
                 },
             }, {
                 loader: 'postcss-loader',

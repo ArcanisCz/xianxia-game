@@ -4,6 +4,8 @@ import {Button} from "components";
 
 export const ComponentShowcase = () => (
     <div>
-        <Button />
+        <Button text='Button' />
+        <Button text='Button disabled' disabled />
+        <Button text='Button block' block />
     </div>
 );

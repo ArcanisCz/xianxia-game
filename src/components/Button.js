@@ -1,5 +1,26 @@
 import {h} from 'preact';
+import PropTypes from "prop-types";
+import classnames from "classnames";
 
-export const Button = () => (
-    <div>aaa</div>
+import style from "./Button.scss";
+
+export const Button = ({
+    text,
+    block = false,
+    disabled = false,
+}) => (
+    <div
+        className={classnames(style.button, {
+            [style.block]: block,
+            [style.disabled]: disabled,
+        })}
+    >
+        {text}
+    </div>
 );
+
+Button.propTypes = {
+    text: PropTypes.string.isRequired,
+    block: PropTypes.bool,
+    disabled: PropTypes.bool,
+};

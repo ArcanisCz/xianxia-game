@@ -1,0 +1,28 @@
+@import "../theme";
+
+.button {
+    display: inline-block;
+    position: relative;
+    background: white;
+    border: 1px solid $color-grey;
+    cursor: pointer;
+    padding: 8px;
+    user-select: none;
+    transition: border-color $transition-duration-standard $easing-easeInOut;
+
+    &:hover {
+        border-color: $color-dark-grey;
+    }
+}
+
+.block {
+    display: block;
+}
+
+.disabled {
+    background: $color-light-grey;
+    cursor: default;
+    &:hover {
+        border-color: $color-grey;
+    }
+}

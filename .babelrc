@@ -6,7 +6,7 @@
         }],
         ["@babel/react", {
             "pragma": "h",
-            "pragmaFrag": "x-fragment"
+            "pragmaFrag": "\"span\""
         }]
     ],
     "env": {

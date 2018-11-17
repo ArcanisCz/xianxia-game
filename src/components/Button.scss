@@ -18,7 +18,7 @@
     }
 
     &:active {
-        background: #eee;
+        background-color: #eee;
         color: $color-dark-grey;
         border-color: $color-dark-grey;
     }
@@ -33,10 +33,10 @@
 .block {
     display: block;
     text-align: center;
+    width: 100%;
 }
 
 .disabled {
-    //background: $color-light-grey;
     border: 1px solid $color-light-grey;
     color: $color-light-grey;
     cursor: default;

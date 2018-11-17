@@ -17,6 +17,7 @@ export const Button = ({
         })}
         onClick={!disabled ? () => onClick() : undefined}
         type="button"
+        disabled={disabled}
     >
         {text}
     </button>

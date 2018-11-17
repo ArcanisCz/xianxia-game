@@ -10,15 +10,16 @@ export const Button = ({
     block = false,
     disabled = false,
 }) => (
-    <div
+    <button
         className={classnames(style.button, {
             [style.block]: block,
             [style.disabled]: disabled,
         })}
         onClick={!disabled ? () => onClick() : undefined}
+        type="button"
     >
         {text}
-    </div>
+    </button>
 );
 
 Button.propTypes = {

@@ -10,7 +10,7 @@
     user-select: none;
     box-sizing: border-box;
     font-size: $font-size-normal;
-    @include transition(border-color, color, background-color);
+    @include transition(border-color, color, box-shadow, background-color);
 
     &:hover {
         color: $color-dark-grey;
@@ -21,6 +21,12 @@
         background: #eee;
         color: $color-dark-grey;
         border-color: $color-dark-grey;
+    }
+
+    &:focus{
+        outline: none;
+        box-shadow: 0 0 0 2px rgba($color-grey, 0.5),
+        0 0 0 0.5px rgba($color-light-grey, 0.5);
     }
 }
 

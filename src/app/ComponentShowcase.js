@@ -1,4 +1,4 @@
-import {h} from 'preact';
+import React, {Fragment} from 'react';
 
 import {Button} from "components";
 

@@ -1,5 +1,5 @@
-import {h} from 'preact';
-import {Provider} from 'preact-redux';
+import React from 'react';
+import {Provider} from 'react-redux';
 
 import App from './app/App';
 

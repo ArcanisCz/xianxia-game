@@ -4,24 +4,18 @@
             "useBuiltIns": "entry",
             "targets": "ie 11"
         }],
-        ["@babel/react", {
-            "pragma": "h",
-            "pragmaFrag": "\"span\""
-        }]
+        "@babel/react"
     ],
     "env": {
         "development": {
-            "presets": [["@babel/preset-react", {
-                "pragma": "h",
-                "pragmaFrag": "\"span\"",
-                "development": true
-            }]]
+            "presets": [["@babel/preset-react", { "development": true }]]
         },
         "production": {
             "plugins": [
                 ["transform-react-remove-prop-types", {
                     "removeImport": true
-                }]
+                }],
+                "@babel/plugin-transform-react-constant-elements"
             ]
         },
         "test": {

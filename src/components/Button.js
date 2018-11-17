@@ -1,4 +1,4 @@
-import {h} from 'preact';
+import React, {Fragment} from 'react';
 import PropTypes from "prop-types";
 import classnames from "classnames";
 

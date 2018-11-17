@@ -6,8 +6,10 @@ const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
+
 
 const PROFILE = false;
 const BUNDLE = false;
@@ -19,7 +21,7 @@ const array = (...target) => target.filter(Boolean);
 module.exports.default = ({dev}) => smp.wrap({
     entry: {
         main: "./src/index.js",
-        message: "./src/index.message.js",
+        ...(dev ? {} : {message: "./src/index.message.js"}),
     },
     devtool: dev ? "cheap-module-source-map " : false,
     output: {
@@ -36,19 +38,22 @@ module.exports.default = ({dev}) => smp.wrap({
                 },
             },
         },
-        minimizer: [new UglifyJSPlugin({
-            exclude: /\/node_modules/,
-            cache: true,
-            parallel: true,
-            sourceMap: true,
-            uglifyOptions: {
-                mangle: true,
-                compress: true,
-                output: {
-                    comments: false,
+        minimizer: [
+            new UglifyJSPlugin({
+                exclude: /\/node_modules/,
+                cache: true,
+                parallel: true,
+                sourceMap: true,
+                uglifyOptions: {
+                    mangle: true,
+                    compress: true,
+                    output: {
+                        comments: false,
+                    },
                 },
-            },
-        })],
+            }),
+            new OptimizeCssAssetsPlugin({}),
+        ],
     },
     plugins: array(
         new HtmlWebpackPlugin({
@@ -56,7 +61,6 @@ module.exports.default = ({dev}) => smp.wrap({
             template: dev ? "./src/index.dev.ejs" : "./src/index.prod.ejs",
             filename: 'index.html',
             publicPath: path.resolve(__dirname, "public"),
-            inject: true,
         }),
         new webpack.DefinePlugin({
             VERSION: {
@@ -80,6 +84,7 @@ module.exports.default = ({dev}) => smp.wrap({
         rules: [{
             test: /\.js$/,
             include: path.resolve(__dirname, 'src'),
+            sideEffects: false,
             use: {
                 loader: "babel-loader",
                 options: {
@@ -93,27 +98,37 @@ module.exports.default = ({dev}) => smp.wrap({
         }, {
             test: /\.scss$/,
             include: path.resolve(__dirname, 'src'),
-            use: array(dev ? "style-loader" : MiniCssExtractPlugin.loader, {
-                loader: 'css-loader',
-                options: {
-                    modules: true,
-                    localIdentName: dev ? '[name]__[local]--[hash:base64:5]' : undefined,
+            use: [
+                !dev ? MiniCssExtractPlugin.loader : {
+                    loader: "style-loader",
+                    options: {
+                        sourceMap: true,
+                    },
+                }, {
+                    loader: 'css-loader',
+                    options: {
+                        modules: true,
+                        sourceMap: true,
+                        importLoaders: 2,
+                        localIdentName: dev ? '[name]__[local]--[hash:base64:5]' : undefined,
+                    },
+                }, {
+                    loader: 'postcss-loader',
+                    options: {
+                        sourceMap: true,
+                        plugins: () => array(
+                            require('autoprefixer'),
+                            require('postcss-flexbugs-fixes'),
+                        ),
+                    },
+                }, {
+                    loader: 'sass-loader',
+                    options: {
+                        sourceMap: true,
+                        implementation: sass,
+                    },
                 },
-            }, {
-                loader: 'postcss-loader',
-                options: {
-                    plugins: () => array(
-                        require('autoprefixer'),
-                        require('postcss-flexbugs-fixes'),
-                        !dev && require('cssnano')(),
-                    ),
-                },
-            }, {
-                loader: 'sass-loader',
-                options: {
-                    implementation: sass,
-                },
-            }),
+            ],
         }],
     },
     resolve: {

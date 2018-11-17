@@ -15,7 +15,7 @@ export const Button = ({
             [style.block]: block,
             [style.disabled]: disabled,
         })}
-        onClick={!disabled ? onClick : undefined}
+        onClick={!disabled ? () => onClick() : undefined}
     >
         {text}
     </div>

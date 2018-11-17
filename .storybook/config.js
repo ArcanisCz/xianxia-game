@@ -1,12 +1,20 @@
-import {configure, addDecorator} from '@storybook/react';
+import React from 'react';
+import {configure, addDecorator, storiesOf} from '@storybook/react';
 import {withKnobs} from '@storybook/addon-knobs';
-import { checkA11y } from '@storybook/addon-a11y';
+
+const req = require.context('../src/components', true, /\.story\.js$/);
+const regexp = /\.\/(.*?)\.story\.js/;
 
 function loadStories() {
-    require('../src/story');
+    req.keys().forEach((filename) => {
+        const [Component, props] = req(filename).default;
+        const name = regexp.exec(filename)[1];
+        storiesOf(name, module).add("Default", () => (
+            <Component {...props}/>
+        ));
+    });
 }
 
-addDecorator(checkA11y);
 addDecorator(withKnobs);
 
 configure(loadStories, module);

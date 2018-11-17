@@ -15,7 +15,7 @@
     "test:base": "cross-env NODE_ENV=test mocha --require @babel/register testSetup.js \"src/**/*.spec.js\"",
     "test": "npm run test:base -- --reporter spec",
     "test:watch": "npm run test:base -- --reporter min --watch",
-    "storybook": "start-storybook -p 6006 -c .storybook --quiet"
+    "storybook": "start-storybook -p 6006 -c .storybook --quiet --ci"
   },
   "repository": {
     "type": "git",
@@ -34,7 +34,6 @@
     "@babel/preset-env": "7.1.6",
     "@babel/preset-react": "7.0.0",
     "@babel/register": "7.0.0",
-    "@storybook/addon-a11y": "4.0.7",
     "@storybook/addon-actions": "4.0.7",
     "@storybook/addon-knobs": "4.0.7",
     "@storybook/react": "4.0.7",

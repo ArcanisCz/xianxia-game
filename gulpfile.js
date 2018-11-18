@@ -8,6 +8,7 @@ const args = minimist(process.argv.slice(2));
 
 const remotePath = '/';
 const storybookPath = '/storybook';
+const storybookStaticPath = '/storybook/static';
 const ftpConfig = {
     host: 'ftp.gransy.com',
     user: args.user,
@@ -24,9 +25,12 @@ gulp.task('upload', ["clean"], () => {
     gulp.src(['./dist/index.html', './dist/*.js', './dist/*.css', './public/**/*'])
         .pipe(conn.newer(remotePath))
         .pipe(conn.dest(remotePath));
-    gulp.src(['./dist/storybook/*.html', './dist/storybook/*.js', './dist/storybook/*.css'])
+    gulp.src(['./dist/storybook/*.html', './dist/storybook/*.ico', './dist/storybook/*.css'])
         .pipe(conn.newer(storybookPath))
         .pipe(conn.dest(storybookPath));
+    gulp.src(['./dist/storybook/*.js'])
+        .pipe(conn.newer(storybookStaticPath))
+        .pipe(conn.dest(storybookStaticPath));
 });
 
 const options = {

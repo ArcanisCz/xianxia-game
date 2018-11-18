@@ -2,7 +2,8 @@
     "presets": [
         ["@babel/env", {
             "useBuiltIns": "entry",
-            "targets": "ie 11"
+            "targets": "ie 11",
+            "modules": false
         }],
         "@babel/react"
     ],

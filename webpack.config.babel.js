@@ -10,7 +10,6 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 
-
 const PROFILE = false;
 const BUNDLE = false;
 
@@ -81,55 +80,11 @@ module.exports.default = ({dev}) => smp.wrap({
         BUNDLE && new BundleAnalyzerPlugin(),
     ),
     module: {
-        rules: [{
-            test: /\.js$/,
-            include: path.resolve(__dirname, 'src'),
-            sideEffects: false,
-            use: {
-                loader: "babel-loader",
-                options: {
-                    cacheDirectory: true,
-                },
-            },
-        }, {
-            test: /\.yml/,
-            include: path.resolve(__dirname, 'data'),
-            loader: ['json-loader', 'yaml-loader'],
-        }, {
-            test: /\.scss$/,
-            include: path.resolve(__dirname, 'src'),
-            use: [
-                !dev ? MiniCssExtractPlugin.loader : {
-                    loader: "style-loader",
-                    options: {
-                        sourceMap: true,
-                    },
-                }, {
-                    loader: 'css-loader',
-                    options: {
-                        modules: true,
-                        sourceMap: true,
-                        importLoaders: 2,
-                        localIdentName: dev ? '[name]__[local]--[hash:base64:5]' : undefined,
-                    },
-                }, {
-                    loader: 'postcss-loader',
-                    options: {
-                        sourceMap: true,
-                        plugins: () => array(
-                            require('autoprefixer'),
-                            require('postcss-flexbugs-fixes'),
-                        ),
-                    },
-                }, {
-                    loader: 'sass-loader',
-                    options: {
-                        sourceMap: true,
-                        implementation: sass,
-                    },
-                },
-            ],
-        }],
+        rules: [
+            createJsLoader(dev),
+            createYamlLoader(dev),
+            createCssLoader(dev),
+        ],
     },
     resolve: {
         alias: {
@@ -143,3 +98,59 @@ module.exports.default = ({dev}) => smp.wrap({
         port: 3000,
     },
 });
+
+const createJsLoader = () => ({
+    test: /\.js$/,
+    include: path.resolve(__dirname, 'src'),
+    sideEffects: false,
+    use: {
+        loader: "babel-loader",
+        options: {
+            cacheDirectory: true,
+        },
+    },
+});
+
+const createYamlLoader = () => ({
+    test: /\.yml/,
+    include: path.resolve(__dirname, 'data'),
+    loader: ['json-loader', 'yaml-loader'],
+});
+
+const createCssLoader = (dev) => ({
+    test: /\.scss$/,
+    include: path.resolve(__dirname, 'src'),
+    use: [
+        !dev ? MiniCssExtractPlugin.loader : {
+            loader: "style-loader",
+            options: {
+                sourceMap: true,
+            },
+        }, {
+            loader: 'css-loader',
+            options: {
+                modules: true,
+                sourceMap: true,
+                importLoaders: 2,
+                localIdentName: dev ? '[name]__[local]--[hash:base64:5]' : undefined,
+            },
+        }, {
+            loader: 'postcss-loader',
+            options: {
+                sourceMap: true,
+                plugins: () => array(
+                    require('autoprefixer'),
+                    require('postcss-flexbugs-fixes'),
+                ),
+            },
+        }, {
+            loader: 'sass-loader',
+            options: {
+                sourceMap: true,
+                implementation: sass,
+            },
+        },
+    ],
+});
+
+module.exports.createCssLoader = createCssLoader;

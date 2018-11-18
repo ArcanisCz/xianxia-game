@@ -9,13 +9,15 @@
     "lint": "eslint --cache --quiet --ext .js src",
     "lintf": "eslint --cache --quiet --ext .js src --fix",
     "prebuild": "rimraf ./dist",
-    "build": "cross-env NODE_ENV=production webpack-cli --mode production --env",
+    "build": "npm run build:app && npm run storybook:build",
+    "build:app": "cross-env NODE_ENV=production webpack-cli --mode production --env",
     "postversion": "git push && git push --tags",
     "deploy": "gulp deploy",
     "test:base": "cross-env NODE_ENV=test mocha --require @babel/register testSetup.js \"src/**/*.spec.js\"",
     "test": "npm run test:base -- --reporter spec",
     "test:watch": "npm run test:base -- --reporter min --watch",
-    "storybook": "start-storybook -p 6006 -c .storybook --quiet --ci"
+    "storybook": "start-storybook -p 6006 -c .storybook --quiet --ci",
+    "storybook:build": "build-storybook -o dist/storybook -c .storybook"
   },
   "repository": {
     "type": "git",

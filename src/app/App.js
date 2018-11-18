@@ -13,7 +13,6 @@ import {
 
 import Resource from "./Resource";
 import Technique from "./Technique";
-import {ComponentShowcase} from "./ComponentShowcase";
 
 import Meditate from "./Meditate";
 
@@ -33,7 +32,6 @@ const App = ({loading, resources, techniques}) => !loading && (
                 <hr />
             </Fragment>
         ))}
-        <ComponentShowcase />
     </div>
 );
 

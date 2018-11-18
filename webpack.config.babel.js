@@ -73,8 +73,6 @@ module.exports.default = ({dev}) => smp.wrap({
             failOnError: true,
         }),
         !dev && new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
             filename: "[contenthash].css",
         }),
         BUNDLE && new BundleAnalyzerPlugin(),

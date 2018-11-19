@@ -80,7 +80,9 @@ jobs:
           at: ~/repo
       - run: npm run deploy -- --user $FTP_USER --password $FTP_PASSWORD --rollbar $ROLLBAR_ACCESS
       - store_artifacts:
-          path: ~/repo/dist
+          paths:
+            - ~/repo/dist
+            - ~/repo/public
 
 workflows:
   version: 2

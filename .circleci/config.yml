@@ -67,7 +67,8 @@ jobs:
       - checkout
       - attach_workspace:
           at: ~/repo
-      - run: npm test
+      - run: npm run test:ci
+
 
   deploy:
     docker:

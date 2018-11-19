@@ -4,3 +4,4 @@ node_modules/
 .eslintcache
 coverage
 .cache
+test-results.xml

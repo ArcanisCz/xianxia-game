@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
@@ -38,18 +38,9 @@ module.exports.default = ({dev}) => smp.wrap({
             },
         },
         minimizer: [
-            new UglifyJSPlugin({
-                exclude: /\/node_modules/,
+            new TerserPlugin({
                 cache: true,
                 parallel: true,
-                sourceMap: true,
-                uglifyOptions: {
-                    mangle: true,
-                    compress: true,
-                    output: {
-                        comments: false,
-                    },
-                },
             }),
             new OptimizeCssAssetsPlugin({}),
         ],

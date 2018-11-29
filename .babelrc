@@ -14,7 +14,8 @@
         "production": {
             "plugins": [
                 ["transform-react-remove-prop-types", {
-                    "removeImport": true
+                    "removeImport": true,
+                    "additionalLibraries": ["react-immutable-proptypes"]
                 }],
                 "@babel/plugin-transform-react-constant-elements"
             ]

@@ -4,9 +4,10 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
 import {canMeditate, meditate} from "game";
+import {Button} from "components/atoms";
 
 export const Meditate = ({disabled, onClick}) => (
-    <button type="button" disabled={disabled} onClick={onClick}>Meditate</button>
+    <Button onClick={onClick} text="Meditate" disabled={disabled} />
 );
 
 Meditate.propTypes = {

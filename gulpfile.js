@@ -22,7 +22,7 @@ gulp.task('clean', () => {
 
 gulp.task('upload', ["clean"], () => {
     const conn = ftp.create(ftpConfig);
-    gulp.src(['./dist/index.html', './dist/*.js', './dist/*.css', './public/.htaccess'])
+    gulp.src(['./dist/index.html', './dist/*.js', './dist/*.css', './public/.htaccess', './public/favicon.ico'])
         .pipe(conn.newer(remotePath))
         .pipe(conn.dest(remotePath));
     gulp.src(['./dist/storybook/*.html', './dist/storybook/*.ico', './dist/storybook/*.css'])

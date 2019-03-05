@@ -25,7 +25,7 @@ gulp.task('upload', ["clean"], () => {
     gulp.src(['./dist/index.html', './dist/*.js', './dist/*.css', './public/.htaccess', './public/favicon.ico'])
         .pipe(conn.newer(remotePath))
         .pipe(conn.dest(remotePath));
-    gulp.src(['./dist/storybook/*.html', './dist/storybook/*.ico', './dist/storybook/*.css'])
+    gulp.src(['./dist/storybook/*.html', './dist/storybook/*.ico', './dist/storybook/*.css', './dist/storybook/*.js'])
         .pipe(conn.newer(storybookPath))
         .pipe(conn.dest(storybookPath));
     gulp.src(['./dist/storybook/static/*.js'])

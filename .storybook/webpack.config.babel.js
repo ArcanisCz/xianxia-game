@@ -3,15 +3,15 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const {createCssLoader} = require("../webpack.config.babel");
 
-module.exports = (baseConfig, env) => {
-    const dev = env === "DEVELOPMENT";
+module.exports = ({config, mode}) => {
+    const dev = mode === "DEVELOPMENT";
 
     if(!dev) {
-        baseConfig.plugins.push(new MiniCssExtractPlugin());
+        config.plugins.push(new MiniCssExtractPlugin());
     }
-    baseConfig.resolve.alias.story = path.resolve(__dirname, '../src/story');
-    baseConfig.module.rules.push(createCssLoader(dev));
+    config.resolve.alias.story = path.resolve(__dirname, '../src/story');
+    config.module.rules.push(createCssLoader(dev));
 
-    return baseConfig;
+    return config;
 };
 

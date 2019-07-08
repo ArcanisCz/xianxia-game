@@ -1,4 +1,6 @@
-import "@babel/polyfill"; // Cannot be in webpack, where it imports whole polyfill. needs to be here
+// Cannot be in webpack, where it imports whole polyfill. needs to be here
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 
 import React from 'react';
 import {render} from 'react-dom';

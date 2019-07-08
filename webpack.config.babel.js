@@ -118,10 +118,11 @@ const createCssLoader = (dev) => ({
         }, {
             loader: 'css-loader',
             options: {
-                modules: true,
+                modules: {
+                    localIdentName: dev ? '[name]__[local]--[hash:base64:5]' : undefined,
+                },
                 sourceMap: true,
                 importLoaders: 2,
-                localIdentName: dev ? '[name]__[local]--[hash:base64:5]' : undefined,
             },
         }, {
             loader: 'postcss-loader',

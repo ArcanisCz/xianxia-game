@@ -16,7 +16,7 @@ const PROFILE = false;
 const BUNDLE = false;
 
 const gitRevisionPlugin = new GitRevisionPlugin();
-const smp = PROFILE ? new SpeedMeasurePlugin() : {wrap: (x) => x};
+const smp = new SpeedMeasurePlugin({disable: !PROFILE});
 
 const array = (...target) => target.filter(Boolean);
 module.exports.default = ({dev}) => smp.wrap({
@@ -89,11 +89,10 @@ module.exports.default = ({dev}) => smp.wrap({
     },
     resolve: {
         modules: ["src", "node_modules"],
-        // alias: {
-        //     core: path.resolve(__dirname, 'src/core'),
-        //     game: path.resolve(__dirname, 'src/game'),
-        //     components: path.resolve(__dirname, 'src/components'),
-        // },
+        alias: {
+            react: "preact/compat",
+            "react-dom": "preact/compat",
+        },
     },
     devServer: {
         inline: true,

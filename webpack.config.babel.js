@@ -88,11 +88,12 @@ module.exports.default = ({dev}) => smp.wrap({
         ],
     },
     resolve: {
-        alias: {
-            core: path.resolve(__dirname, 'src/core'),
-            game: path.resolve(__dirname, 'src/game'),
-            components: path.resolve(__dirname, 'src/components'),
-        },
+        modules: ["src", "node_modules"],
+        // alias: {
+        //     core: path.resolve(__dirname, 'src/core'),
+        //     game: path.resolve(__dirname, 'src/game'),
+        //     components: path.resolve(__dirname, 'src/components'),
+        // },
     },
     devServer: {
         inline: true,
@@ -114,7 +115,7 @@ const createJsLoader = () => ({
 
 const createYamlLoader = () => ({
     test: /\.yml/,
-    include: path.resolve(__dirname, 'data'),
+    include: path.resolve(__dirname, 'src'),
     loader: ['json-loader', 'yaml-loader'],
 });
 

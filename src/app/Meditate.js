@@ -1,19 +1,6 @@
-import React from 'react';
-
-import PropTypes from "prop-types";
-import {connect} from "react-redux";
-
 import {canMeditate, meditate} from "game";
+import {app} from "core/util";
 import {Button} from "components/atoms";
-
-export const Meditate = ({disabled, onClick}) => (
-    <Button onClick={onClick} text="Meditate" disabled={disabled} />
-);
-
-Meditate.propTypes = {
-    disabled: PropTypes.bool.isRequired,
-    onClick: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = (state) => ({
     disabled: !canMeditate(state),
@@ -23,4 +10,10 @@ const mapDispatchToProps = (dispatch) => ({
     onClick: () => dispatch(meditate()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Meditate);
+const mergeProps = ({disabled}, {onClick}, {t}) => ({
+    disabled,
+    onClick,
+    text: t("aaa.neco"),
+});
+
+export default app.connect(mapStateToProps, mapDispatchToProps, mergeProps)(Button);

@@ -1,7 +1,7 @@
+import {useTranslation, withTranslation} from "react-i18next";
+
 import {NAME} from './constants';
-import {getMessage, createGetMessages} from './selectors';
-import reducer from './reducer';
-import {loadMessages} from './actions';
+import instance from "./instance";
 
 /**
  * INTERNATIONALIZATION MODULE
@@ -14,9 +14,11 @@ import {loadMessages} from './actions';
  */
 const translate = {
     NAME,
-    getMessage,
-    createGetMessages,
-    loadMessages,
-    reducer,
+    addTranslations: (language, translations) => instance.addResourceBundle(language, 'translation', translations, true, false),
+    useTranslation: () => {
+        const {t} = useTranslation();
+        return t;
+    },
+    withTranslation,
 };
 export default translate;

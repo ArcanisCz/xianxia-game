@@ -9,6 +9,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const PROFILE = false;
 const BUNDLE = false;
@@ -47,10 +49,13 @@ module.exports.default = ({dev}) => smp.wrap({
     },
     plugins: array(
         new HtmlWebpackPlugin({
-            title: "Xianxia Game",
-            template: dev ? "./src/index.dev.ejs" : "./src/index.prod.ejs",
+            template: dev ? "./src/index.dev.html" : "./src/index.prod.html",
             filename: 'index.html',
             publicPath: path.resolve(__dirname, "public"),
+        }),
+        new PreloadWebpackPlugin({
+            rel: 'preload',
+            include: 'allAssets',
         }),
         new webpack.DefinePlugin({
             VERSION: {
@@ -63,16 +68,23 @@ module.exports.default = ({dev}) => smp.wrap({
             exclude: /node_modules/,
             failOnError: true,
         }),
-        !dev && new MiniCssExtractPlugin({
-            filename: "[contenthash].css",
+        new MiniCssExtractPlugin({
+            filename: "[name]-[contenthash].css",
+            ignoreOrder: true,
         }),
+        new CopyPlugin([
+            './static',
+        ]),
         BUNDLE && new BundleAnalyzerPlugin(),
     ),
     module: {
         rules: [
             createJsLoader(dev),
             createYamlLoader(dev),
-            createCssLoader(dev),
+            {
+                test: [/\.scss$/, /\.css$/],
+                use: createCssModuleLoader(dev, true),
+            },
         ],
     },
     resolve: {
@@ -106,41 +118,43 @@ const createYamlLoader = () => ({
     loader: ['json-loader', 'yaml-loader'],
 });
 
-const createCssLoader = (dev) => ({
-    test: /\.scss$/,
-    include: path.resolve(__dirname, 'src'),
-    use: [
-        !dev ? MiniCssExtractPlugin.loader : {
-            loader: "style-loader",
-            options: {
-                sourceMap: true,
-            },
-        }, {
-            loader: 'css-loader',
-            options: {
-                modules: {
-                    localIdentName: dev ? '[name]__[local]--[hash:base64:5]' : undefined,
-                },
-                sourceMap: true,
-                importLoaders: 2,
-            },
-        }, {
-            loader: 'postcss-loader',
-            options: {
-                sourceMap: true,
-                plugins: () => array(
-                    require('autoprefixer'),
-                    require('postcss-flexbugs-fixes'),
-                ),
-            },
-        }, {
-            loader: 'sass-loader',
-            options: {
-                sourceMap: true,
-                implementation: sass,
-            },
+const createCssModuleLoader = (dev, isModule = false) => ([
+    {
+        loader: MiniCssExtractPlugin.loader,
+        options: {
+            hmr: dev,
+            reloadAll: dev,
         },
-    ],
-});
+    }, {
+        loader: 'css-loader',
+        options: {
+            modules: isModule ? {
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+            } : undefined,
+            sourceMap: dev,
+            importLoaders: 2,
+        },
+    }, {
+        loader: 'resolve-url-loader',
+        options: {
+            sourceMap: dev,
+        },
+    }, {
+        loader: 'postcss-loader',
+        options: {
+            sourceMap: true,
+            plugins: () => array(
+                require('autoprefixer'),
+                require('postcss-flexbugs-fixes'),
+            ),
+        },
+    }, {
+        loader: 'sass-loader',
+        options: {
+            sourceMap: dev,
+            implementation: sass,
+        },
+    },
+]);
 
-module.exports.createCssLoader = createCssLoader;
+module.exports.createCssLoader = createCssModuleLoader;

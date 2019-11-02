@@ -5,12 +5,15 @@ const {createCssLoader} = require("../webpack.config.babel");
 
 module.exports = ({config, mode}) => {
     const dev = mode === "DEVELOPMENT";
+    const cssLoaderIndex = config.module.rules.findIndex(({ test }) => test.toString().includes('css'));
+    config.module.rules.splice(cssLoaderIndex, 1);
 
-    if(!dev) {
-        config.plugins.push(new MiniCssExtractPlugin());
-    }
+    config.plugins.push(new MiniCssExtractPlugin());
     config.resolve.alias.story = path.resolve(__dirname, '../src/story');
-    config.module.rules.push(createCssLoader(dev));
+    config.module.rules.push({
+        test: [/\.scss$/, /\.css$/],
+        use: createCssLoader(dev, true),
+    });
 
     return config;
 };

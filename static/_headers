@@ -1,0 +1,11 @@
+/*
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: same-origin
+/
+  Link: </webpack-runtime-b0b3a0cf1744e3eb6364.js>; rel=preload; as=script
+  Link: </styles-ab86ffacef64accd7f93.js>; rel=preload; as=script
+  Link: </commons-f6783ede68f8c7ff9b6d.js>; rel=preload; as=script
+  Link: </app-4fc8cb779a8c2de1f42a.js>; rel=preload; as=script
+  Link: </component---src-pages-index-js-a906f903489523e712f1.js>; rel=preload; as=script

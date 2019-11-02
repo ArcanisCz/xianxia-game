@@ -9,7 +9,7 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
-const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
 const PROFILE = false;
@@ -53,10 +53,7 @@ module.exports.default = ({dev}) => smp.wrap({
             filename: 'index.html',
             publicPath: path.resolve(__dirname, "public"),
         }),
-        new PreloadWebpackPlugin({
-            rel: 'preload',
-            include: 'allAssets',
-        }),
+        new ResourceHintWebpackPlugin(),
         new webpack.DefinePlugin({
             VERSION: {
                 VERSION: JSON.stringify(gitRevisionPlugin.version()),

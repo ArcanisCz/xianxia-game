@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import IPropTypes from "react-immutable-proptypes";
 import {connect} from "react-redux";
 
-import {Button} from "components/atoms";
 import init from "core/init";
 import {
     RESOURCES,
@@ -19,7 +18,7 @@ import Meditate from "./Meditate";
 
 const App = ({loading, resources, techniques}) => (
     <div>
-        <Button onClick={() => {}} text="layout" />
+        Layout TODO
         {!loading && (
             <div>
                 {resources.toJS().map((resource) => (

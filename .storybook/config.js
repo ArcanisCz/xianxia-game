@@ -2,6 +2,8 @@ import React from 'react';
 import {configure, addDecorator, storiesOf} from '@storybook/react';
 import {withKnobs} from '@storybook/addon-knobs';
 
+import "../src/components/theme.css";
+
 const FILENAME_REGEXP = /\..*\/(.*?)\.story\.js/;
 
 const atomsContext = require.context('../src/components/atoms', true, /\.story\.js$/);

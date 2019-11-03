@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const sass = require('sass');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
@@ -11,6 +10,7 @@ const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const postcssPresetEnv = require('postcss-preset-env');
 
 const PROFILE = false;
 const BUNDLE = false;
@@ -79,9 +79,9 @@ module.exports.default = ({dev}) => smp.wrap({
             createJsLoader(dev),
             createYamlLoader(dev),
             {
-                test: [/\.scss$/, /\.css$/],
+                test: [/\.css$/],
                 oneOf: [{
-                    test: /\.module\.scss$/,
+                    test: /\.module\.css$/,
                     use: createCssModuleLoader(dev, true),
                 }, {
                     use: createCssModuleLoader(dev, false),
@@ -137,26 +137,12 @@ const createCssModuleLoader = (dev, isModule = false) => ([
             importLoaders: 2,
         },
     }, {
-        loader: 'resolve-url-loader',
-        options: {
-            sourceMap: dev,
-        },
-    }, {
         loader: 'postcss-loader',
         options: {
             sourceMap: true,
-            plugins: () => array(
-                require('autoprefixer'),
-                require('postcss-flexbugs-fixes'),
-            ),
-        },
-    }, {
-        loader: 'sass-loader',
-        options: {
-            sourceMap: dev,
-            implementation: sass,
+            plugins: () => [postcssPresetEnv()],
         },
     },
 ]);
 
-module.exports.createCssLoader = createCssModuleLoader;
+module.exports.createCssModuleLoader = createCssModuleLoader;

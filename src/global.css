@@ -1,4 +1,5 @@
 @import "~nprogress/nprogress.css";
+@import "./components/theme.css";
 
 html, body {
     padding: 0;

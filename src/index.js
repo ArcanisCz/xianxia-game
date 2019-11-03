@@ -8,7 +8,7 @@ import saga from './saga';
 import reducer from "./reducer";
 import App from './Root';
 import createStore from './createStore';
-import "./global.scss";
+import "./global.css";
 
 const store = createStore(saga, reducer);
 

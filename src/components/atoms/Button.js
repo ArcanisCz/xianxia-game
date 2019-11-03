@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 import classnames from "classnames";
 
-import style from "./Button.scss";
+import style from "./Button.module.scss";
 
 export const Button = ({
     text,

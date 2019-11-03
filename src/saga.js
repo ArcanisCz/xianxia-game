@@ -1,4 +1,4 @@
-import {call} from "redux-saga/effects";
+import {call, delay} from "redux-saga/effects";
 
 import {translationApi} from "./api";
 import {init, i18n} from "./core";
@@ -11,5 +11,6 @@ export default function* () {
 
 function* blocking() {
     const messages = yield call(translationApi.getTranslations);
+    yield delay(2000);
     yield call(i18n.addTranslations, "en", messages);
 }

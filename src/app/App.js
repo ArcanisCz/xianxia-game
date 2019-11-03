@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import IPropTypes from "react-immutable-proptypes";
 import {connect} from "react-redux";
 
+import {Button} from "components/atoms";
 import init from "core/init";
 import {
     RESOURCES,
@@ -16,22 +17,27 @@ import Technique from "./Technique";
 
 import Meditate from "./Meditate";
 
-const App = ({loading, resources, techniques}) => !loading && (
+const App = ({loading, resources, techniques}) => (
     <div>
-        {resources.toJS().map((resource) => (
-            <Fragment key={resource}>
-                <Resource resource={resource} />
+        <Button onClick={() => {}} text="layout" />
+        {!loading && (
+            <div>
+                {resources.toJS().map((resource) => (
+                    <Fragment key={resource}>
+                        <Resource resource={resource} />
+                        <hr />
+                    </Fragment>
+                ))}
+                <Meditate />
                 <hr />
-            </Fragment>
-        ))}
-        <Meditate />
-        <hr />
-        {techniques.toJS().map((technique) => (
-            <Fragment key={technique}>
-                <Technique technique={technique} />
-                <hr />
-            </Fragment>
-        ))}
+                {techniques.toJS().map((technique) => (
+                    <Fragment key={technique}>
+                        <Technique technique={technique} />
+                        <hr />
+                    </Fragment>
+                ))}
+            </div>
+        )}
     </div>
 );
 

@@ -49,7 +49,7 @@ module.exports.default = ({dev}) => smp.wrap({
     },
     plugins: array(
         new HtmlWebpackPlugin({
-            template: dev ? "./src/index.dev.html" : "./src/index.prod.html",
+            template: dev ? "./src/index.dev.html" : "!!prerender-loader?string&entry=./src/index.ssr.js!./src/index.prod.html",
             filename: 'index.html',
             publicPath: path.resolve(__dirname, "public"),
         }),
@@ -80,7 +80,12 @@ module.exports.default = ({dev}) => smp.wrap({
             createYamlLoader(dev),
             {
                 test: [/\.scss$/, /\.css$/],
-                use: createCssModuleLoader(dev, true),
+                oneOf: [{
+                    test: /\.module\.scss$/,
+                    use: createCssModuleLoader(dev, true),
+                }, {
+                    use: createCssModuleLoader(dev, false),
+                }],
             },
         ],
     },

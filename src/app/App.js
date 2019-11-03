@@ -19,7 +19,7 @@ import Meditate from "./Meditate";
 const App = ({loading, resources, techniques}) => (
     <div>
         Layout TODO
-        {!loading && (
+        {!loading ? (
             <div>
                 {resources.toJS().map((resource) => (
                     <Fragment key={resource}>
@@ -36,6 +36,8 @@ const App = ({loading, resources, techniques}) => (
                     </Fragment>
                 ))}
             </div>
+        ) : (
+            <div>Loading...</div>
         )}
     </div>
 );

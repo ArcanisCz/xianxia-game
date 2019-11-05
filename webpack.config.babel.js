@@ -125,7 +125,6 @@ const createCssModuleLoader = (dev, isModule = false) => ([
         loader: MiniCssExtractPlugin.loader,
         options: {
             hmr: dev,
-            reloadAll: dev,
         },
     }, {
         loader: 'css-loader',

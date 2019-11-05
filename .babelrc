@@ -18,25 +18,11 @@
         "production": {
             "plugins": [
                 ["transform-react-remove-prop-types", {
-                    "removeImport": true,
-                    "additionalLibraries": ["react-immutable-proptypes"]
+                    "removeImport": true
                 }],
-                "@babel/plugin-transform-react-constant-elements"
+                "@babel/plugin-transform-react-constant-elements",
+                "@babel/plugin-transform-react-inline-elements"
             ]
-        },
-        "test": {
-            "presets": [
-                "@babel/env"
-            ],
-            "plugins": [
-                ["@babel/plugin-transform-runtime", {
-                    "regenerator": true
-                }],
-                ["module-resolver", {
-                    "root": ["src"]
-                }]
-            ]
-
         }
     }
 }

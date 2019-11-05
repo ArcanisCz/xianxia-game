@@ -1,5 +1,5 @@
 import {NAME} from './constants';
 
-const getModel = (state) => state.get(NAME);
+const getModel = (state) => state[NAME];
 
-export const isInitialized = (state) => getModel(state).get("initialized");
+export const isInitialized = (state) => getModel(state).initialized;

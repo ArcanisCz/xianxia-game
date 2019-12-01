@@ -1,7 +1,6 @@
-import {combineReducers} from 'redux';
-
 import {reducers} from './core';
+import {app} from './core/util';
 
-export default combineReducers({
+export default app.combineReducers({
     ...reducers,
-});
+}, true);

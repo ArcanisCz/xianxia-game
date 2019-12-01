@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import init from "core/init";
 
 import {Qi} from "./Qi";
+import {Tick} from "./Tick";
 
 export const App = () => {
     const loading = !useSelector(init.isInitialized);
@@ -11,6 +12,7 @@ export const App = () => {
     return (
         <div>
             Layout TODO
+            <Tick />
             {!loading ? (
                 <div>
                     <Qi />

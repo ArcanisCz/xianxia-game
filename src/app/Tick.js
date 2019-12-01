@@ -9,7 +9,7 @@ export const Tick = () => {
 
     return (
         <Button
-            onClick={() => dispatch(time.tick())}
+            onClick={() => dispatch(time.tick(1000))}
             text="tick"
         />
     );

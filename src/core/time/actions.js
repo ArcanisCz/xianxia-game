@@ -7,7 +7,7 @@ export const start = () => ({
     type: START,
 });
 
-export const tick = () => ({
+export const tick = (ms) => ({
     type: TICK,
+    payload: {ms},
 });
-

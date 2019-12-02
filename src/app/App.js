@@ -6,12 +6,14 @@ import {gameSelectors} from "core/game";
 
 import {Resource} from "./Resource";
 import {Technique} from "./Technique";
+import {Activity} from "./Activity";
 import {Tick} from "./Tick";
 
 export const App = () => {
     const loading = !useSelector(init.isInitialized);
     const resources = useSelector(gameSelectors.getResources);
     const techniques = useSelector(gameSelectors.getTechniques);
+    const activities = useSelector(gameSelectors.getActivities);
 
     return (
         <div>
@@ -26,6 +28,12 @@ export const App = () => {
                             <hr />
                         </Fragment>
                     ))}
+                    <br />
+                    <div>
+                        {activities.toJS().map((activity) => (
+                            <Activity key={activity} activity={activity} />
+                        ))}
+                    </div>
                     <br />
                     {techniques.toJS().map((technique) => (
                         <Fragment key={technique}>

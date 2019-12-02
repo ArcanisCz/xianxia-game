@@ -1,7 +1,7 @@
 import {List} from "immutable";
 import {app} from "core/util";
 
-import {NAME, RESOURCES, TECHNIQUES} from "./constants";
+import {NAME, RESOURCES, TECHNIQUES, ACTIVITIES} from "./constants";
 import {resourceMaxMap, resourcePerSecondMap, techniquePriceMap} from "./definitions";
 
 const getModel = app.createGetModel(NAME);
@@ -34,3 +34,6 @@ export const canPayTechniqueLevelUp = (state, technique) => {
         return amount >= price;
     });
 };
+
+export const getActivities = () => List(ACTIVITIES);
+export const getActiveActivity = (state) => getModel(state).get("activeActivity");

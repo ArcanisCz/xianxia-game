@@ -4,7 +4,7 @@ import {app} from "core/util";
 import time from "core/time";
 
 import {RESOURCES, TECHNIQUES} from "./constants";
-import {TECHNIQUE_LEVEL_UP} from "./actions";
+import {TECHNIQUE_LEVEL_UP, ACTIVATE_ACTIVITY} from "./actions";
 import {
     getResourcePerSecond,
     getResourceMax,
@@ -39,6 +39,16 @@ const resources = (state = ReourcesRecord({}), {type, payload}, wholeState) => {
     }
 };
 
+const activeActivity = (state = TechniquesRecord({}), {type, payload}) => {
+    switch (type) {
+        case ACTIVATE_ACTIVITY: {
+            return payload.activity;
+        }
+        default:
+            return state;
+    }
+};
+
 const techniqueLevels = (state = TechniquesRecord({}), {type, payload}, wholeState) => {
     switch (type) {
         case TECHNIQUE_LEVEL_UP: {
@@ -55,4 +65,5 @@ const techniqueLevels = (state = TechniquesRecord({}), {type, payload}, wholeSta
 export default app.combineReducers({
     resources,
     techniqueLevels,
+    activeActivity,
 });

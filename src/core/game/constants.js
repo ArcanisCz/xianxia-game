@@ -12,4 +12,5 @@ export const TECHNIQUES = [TECHNIQUE_TEST, TECHNIQUE_QI, TECHNIQUE_LONGEVITY];
 
 export const ACTIVITY_MEDITATE = "action.meditate";
 export const ACTIVITY_TEST = "action.test";
-export const ACTIVITIES = [ACTIVITY_MEDITATE, ACTIVITY_TEST];
+export const ACTIVITY_NOTHING = "activity.nothing";
+export const ACTIVITIES = [ACTIVITY_MEDITATE, ACTIVITY_TEST, ACTIVITY_NOTHING];

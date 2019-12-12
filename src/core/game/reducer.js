@@ -3,7 +3,7 @@ import {Map, Record} from "immutable";
 import {app} from "core/util";
 import time from "core/time";
 
-import {RESOURCES, TECHNIQUES} from "./constants";
+import {RESOURCES, TECHNIQUES, ACTIVITY_NOTHING} from "./constants";
 import {TECHNIQUE_LEVEL_UP, ACTIVATE_ACTIVITY} from "./actions";
 import {
     getResourcePerSecond,
@@ -39,7 +39,7 @@ const resources = (state = ReourcesRecord({}), {type, payload}, wholeState) => {
     }
 };
 
-const activeActivity = (state = TechniquesRecord({}), {type, payload}) => {
+const activeActivity = (state = ACTIVITY_NOTHING, {type, payload}) => {
     switch (type) {
         case ACTIVATE_ACTIVITY: {
             return payload.activity;

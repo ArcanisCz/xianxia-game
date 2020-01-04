@@ -6,7 +6,6 @@
                 "last 2 Chrome versions",
                 "last 2 Firefox versions"
             ],
-            "modules": false,
             "corejs": "3"
         }],
         "@babel/react"

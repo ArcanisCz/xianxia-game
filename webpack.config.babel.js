@@ -29,6 +29,7 @@ module.exports.default = ({dev}) => smp.wrap({
         path: path.resolve(__dirname, 'dist'),
         filename: dev ? '[name].js' : '[name].[chunkhash].js',
     },
+    stats: 'minimal',
     optimization: {
         splitChunks: {
             cacheGroups: {
@@ -42,7 +43,6 @@ module.exports.default = ({dev}) => smp.wrap({
         minimizer: [
             new TerserPlugin({
                 cache: true,
-                parallel: true,
             }),
             new OptimizeCssAssetsPlugin({}),
         ],
@@ -72,7 +72,10 @@ module.exports.default = ({dev}) => smp.wrap({
         new CopyPlugin([
             './static',
         ]),
-        BUNDLE && new BundleAnalyzerPlugin(),
+        BUNDLE && new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            openAnalyzer: false,
+        }),
     ),
     module: {
         rules: [

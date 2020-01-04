@@ -7,7 +7,7 @@ import {gameActions, gameSelectors} from "core/game";
 
 export const Activity = ({activity}) => {
     const dispatch = useDispatch();
-    const activeActivity= useSelector(gameSelectors.getActiveActivity);
+    const activeActivity = useSelector(gameSelectors.getActiveActivity);
 
     return (
         <Button

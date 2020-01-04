@@ -7,7 +7,7 @@ export default function* () {
     yield call(init.saga, blocking);
 
     yield fork(time.saga);
-    // yield put(time.start());
+    yield put(time.start());
 }
 
 function* blocking() {

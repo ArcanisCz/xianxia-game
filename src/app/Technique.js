@@ -23,6 +23,7 @@ export const Technique = ({technique}) => {
                 Level up
             </button>
             {prices.map((price, resource) => (
+                // eslint-disable-next-line react/no-array-index-key
                 <div key={resource}>{resource}: {price}</div>
             )).toList().toArray()}
         </div>

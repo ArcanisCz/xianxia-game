@@ -69,9 +69,9 @@ module.exports.default = ({dev}) => smp.wrap({
             filename: "[name]-[contenthash].css",
             ignoreOrder: true,
         }),
-        new CopyPlugin([
-            './static',
-        ]),
+        new CopyPlugin({
+            patterns: ["./static"],
+        }),
         BUNDLE && new BundleAnalyzerPlugin({
             analyzerMode: 'static',
             openAnalyzer: false,

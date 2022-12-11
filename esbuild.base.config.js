@@ -1,17 +1,23 @@
-const esbuild = require('esbuild');
 const {htmlPlugin} = require('@craftamap/esbuild-plugin-html');
-const devServer = require('esbuild-plugin-dev-server');
 
-const options = {
+module.exports = {
   entryPoints: ['src/index.tsx'],
-  bundle: true,
   metafile: true,
-  incremental: true,
-  target: ["es6"],
-  minify: true,
+  target: [
+    'es2020',
+    'chrome58',
+    'edge16',
+    'firefox57',
+    'node12',
+    'safari11',
+  ],
+  bundle: true,
   format: 'cjs',
   sourcemap: true,
   outdir: 'dist/',
+  jsx: "automatic",
+  entryNames: "js/[name]-[hash]",
+  assetNames: "asset/[name]-[hash]",
   plugins: [
     htmlPlugin({
       files: [
@@ -24,11 +30,6 @@ const options = {
         }
       ]
     }),
-    devServer({public: './dist', port: 3000})
   ],
 }
-
-esbuild.build(options).then(() => {
-  // return process.exit(0);
-},() => process.exit(1))
 

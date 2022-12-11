@@ -7,7 +7,8 @@
   "scripts": {
     "build": "node esbuild.build.config.js",
     "start": "node esbuild.run.config.js",
-    "lint": "eslint --max-warnings 0 --ext=ts,tsx src scripts --cache",
+    "lint": "eslint --max-warnings 0 --ext=ts,tsx src --cache",
+    "lint:ci": "eslint --max-warnings 0 --ext=ts,tsx src",
     "lint:fix": "eslint --ext=ts,tsx src --fix --cache",
     "ts-errors": "rm -rf build/ && cross-env TSC_NONPOLLING_WATCHER=1 tsc --watch --pretty",
     "ts-errors:ci": "rm -rf build/ && tsc --pretty"

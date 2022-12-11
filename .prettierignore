@@ -1,0 +1,11 @@
+api/src/db/migrations/*
+api/doc/openapi.json
+*.diff
+k8s/
+
+# Ignore files generated with ts-interface-builder.
+*-ti.ts
+
+# Create-react-app might update tsconfig due to aliases on each start using
+# different formatting rules than prettier.
+webapp/tsconfig.json

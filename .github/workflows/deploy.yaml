@@ -9,6 +9,7 @@ jobs:
   check:
     name: Check & Deploy
     runs-on: ubuntu-latest
+    environment: actions
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3

@@ -6,6 +6,6 @@
     "baseUrl": "./",
     "esModuleInterop": true,
     "isolatedModules": true,
-    "jsx": "react-jsxdev",
+    "jsx": "react-jsx",
   }
 }

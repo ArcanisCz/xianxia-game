@@ -19,9 +19,10 @@ jobs:
           run_install: false
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version-file: '.nvmrc'
+          check-latest: true
           cache: 'pnpm'
-      - run: pnpm i
+      - run: pnpm i --frozen-lockfile
       - run: pnpm run lint:ci
       - run: pnpm run ts-errors:ci
       - run: pnpm run build

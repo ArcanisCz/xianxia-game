@@ -1,10 +1,10 @@
-import { medidate, raid } from './game/activities';
-import { Activity } from './core/activity';
 import { withRootStore } from './gameProvider';
 
 export const App = withRootStore(({ game }) => {
   const pokus = () => {
-    game.init(new Activity(raid), new Activity(medidate));
+    const { activityRegistry } = game;
+
+    game.init(activityRegistry.get('meditate'), activityRegistry.get('raid'));
   };
 
   return (

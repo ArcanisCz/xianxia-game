@@ -1,10 +1,11 @@
 import { observable, makeObservable, action } from 'mobx';
 import { Activity } from './activity';
 
-export class Game {
-  constructor() {
+export class Game<ActivityKeys extends string> {
+  constructor(readonly activityRegistry: Map<ActivityKeys, Activity>) {
     makeObservable(this);
   }
+
   @observable
   public idleActivity: Activity;
   @observable

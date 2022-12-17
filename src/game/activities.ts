@@ -1,11 +1,18 @@
-import { ActivityInit } from 'core/activity';
+import { Activity } from 'core/activity';
 
-export const medidate: ActivityInit = {
-  name: 'Meditate',
-  id: 'meditate',
-};
+const definitions = [
+  {
+    name: 'Meditate',
+    id: 'meditate',
+  },
+  {
+    name: 'Raid',
+    id: 'raid',
+  },
+] as const;
 
-export const raid: ActivityInit = {
-  name: 'Raid',
-  id: 'raid',
-};
+export type ActivityKeys = typeof definitions[number]['id'];
+
+export const activities: Map<ActivityKeys, Activity> = new Map(
+  definitions.map(def => [def.id, new Activity(def)]),
+);

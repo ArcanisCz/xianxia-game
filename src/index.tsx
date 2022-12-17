@@ -3,8 +3,7 @@ import { configure } from 'mobx';
 import { Game } from 'core/game';
 import { App } from './App';
 import { GameProvider } from './gameProvider';
-import { Activity } from './core/activity';
-import { medidate, raid } from './game/activities';
+import { activities } from './game/activities';
 
 configure({
   enforceActions: 'always',
@@ -14,9 +13,12 @@ configure({
 });
 
 const root = createRoot(document.getElementById('root'));
-const newGame = new Game();
+const newGame = new Game(activities);
 
-newGame.init(new Activity(medidate), new Activity(raid));
+newGame.init(
+  newGame.activityRegistry.get('raid'),
+  newGame.activityRegistry.get('meditate'),
+);
 
 root.render(
   <GameProvider game={newGame}>

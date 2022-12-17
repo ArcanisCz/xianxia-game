@@ -7,12 +7,17 @@ import {
   useContext,
 } from 'react';
 import { observer } from 'mobx-react';
+import { ActivityKeys } from 'game/activities';
 import { Game } from './core/game';
 
-export const StoreContext = createContext<{ game: Game }>({ game: new Game() });
+type CurrentGame = Game<ActivityKeys>;
+
+export const StoreContext = createContext<{ game: CurrentGame }>({
+  game: new Game(new Map()),
+});
 
 export const GameProvider: FC<{
-  game: Game;
+  game: CurrentGame;
   children: ReactNode;
 }> = ({ children, game }): ReactElement => {
   return (
@@ -21,13 +26,13 @@ export const GameProvider: FC<{
 };
 
 export function useGame(): {
-  game: Game;
+  game: CurrentGame;
 } {
   return useContext(StoreContext);
 }
 
 export function withRootStore<Props>(
-  Component: ComponentType<Props & { game: Game }>,
+  Component: ComponentType<Props & { game: CurrentGame }>,
 ): ComponentType<Props> {
   const WrappedComponent = observer(Component);
   const ComponentWithStore = props => {

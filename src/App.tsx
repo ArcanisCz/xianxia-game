@@ -1,18 +1,27 @@
 import { withRootStore } from './gameProvider';
 
-export const App = withRootStore(({ game, gameClient }) => {
+export const App = withRootStore(({ game }) => {
   const pokus = () => {
-    const { activityRegistry } = game;
+    const { currentLocation, changeLocation } = game;
 
-    game.init(activityRegistry.get('meditate'), activityRegistry.get('raid'));
-
-    gameClient.aaa();
+    if (currentLocation.id === 'graveyard') {
+      changeLocation('sect');
+    } else {
+      changeLocation('graveyard');
+    }
   };
 
   return (
     <div>
-      <div>{game.idleActivity.name}</div>
-      <div>{game.activeActivity.name}</div>
+      <div>Idle: {game.idleActivity.name}</div>
+      <div>Active: {game.activeActivity.name}</div>
+      <hr />
+      <div>Loc: {game.currentLocation.name}</div>
+      <hr />
+      <div>
+        Activities:{' '}
+        {game.currentLocation.activities.map(a => a.name).join(', ')}
+      </div>
       <button onClick={pokus}>aaa</button>
     </div>
   );

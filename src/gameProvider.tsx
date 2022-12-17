@@ -8,11 +8,12 @@ import {
 } from 'react';
 import { observer } from 'mobx-react';
 import { ActivityKeys } from 'game/activities';
+import { LocationKeys } from 'game/locations';
 import { Game } from './core/game';
 import { GameClient } from './core/gameClient';
 
-type CurrentGame = Game<ActivityKeys>;
-type CurrentGameClient = GameClient<ActivityKeys>;
+type CurrentGame = Game<ActivityKeys, LocationKeys>;
+type CurrentGameClient = GameClient<ActivityKeys, LocationKeys>;
 
 type GameContext = {
   game: CurrentGame;

@@ -2,12 +2,16 @@ import { Activity } from 'core/activity';
 
 const definitions = [
   {
-    name: 'Meditate',
     id: 'meditate',
+    name: 'Meditate',
   },
   {
-    name: 'Raid',
     id: 'raid',
+    name: 'Raid',
+  },
+  {
+    id: 'idle',
+    name: 'Idle',
   },
 ] as const;
 

@@ -5,11 +5,7 @@ module.exports = {
   metafile: true,
   target: [
     'es2020',
-    'chrome58',
-    'edge16',
-    'firefox57',
-    'node12',
-    'safari11',
+    'chrome90',
   ],
   bundle: true,
   format: 'cjs',

@@ -3,11 +3,11 @@
   "compilerOptions": {
     "target": "es2020",
     "alwaysStrict": true,
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
     "moduleResolution": "Node16",
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
   }
 }

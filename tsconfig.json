@@ -9,5 +9,6 @@
     "jsx": "react-jsx",
     "moduleResolution": "Node16",
     "experimentalDecorators": true,
+    "useDefineForClassFields": true,
   }
 }

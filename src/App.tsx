@@ -1,27 +1,17 @@
-import { useEffect, useState } from 'react';
-import { Game } from './core/game';
-import { PokusActivity } from './game/pokusActivity';
+import { medidate, raid } from './game/activities';
+import { Activity } from './core/activity';
+import { withRootStore } from './gameProvider';
 
-export const App = () => {
-  const [game, setGame] = useState<Game | undefined>();
-
-  useEffect(() => {
-    const newGame = new Game();
-
-    newGame.init(new PokusActivity(), new PokusActivity());
-    setGame(newGame);
-  }, []);
+export const App = withRootStore(({ game }) => {
+  const pokus = () => {
+    game.init(new Activity(raid), new Activity(medidate));
+  };
 
   return (
     <div>
-      {game ? (
-        <>
-          <div>{game.idleActivity.name}</div>
-          <div>{game.activeActivity.name}</div>
-        </>
-      ) : (
-        'loading'
-      )}
+      <div>{game.idleActivity.name}</div>
+      <div>{game.activeActivity.name}</div>
+      <button onClick={pokus}>aaa</button>
     </div>
   );
-};
+});

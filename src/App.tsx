@@ -2,12 +2,10 @@ import { withRootStore } from './gameProvider';
 
 export const App = withRootStore(({ game }) => {
   const pokus = () => {
-    const { currentLocation, changeLocation } = game;
-
-    if (currentLocation.id === 'graveyard') {
-      changeLocation('sect');
+    if (game.currentLocation.id === 'graveyard') {
+      game.changeLocation('sect');
     } else {
-      changeLocation('graveyard');
+      game.changeLocation('graveyard');
     }
   };
 

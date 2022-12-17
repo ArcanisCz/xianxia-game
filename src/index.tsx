@@ -4,6 +4,7 @@ import { Game } from 'core/game';
 import { App } from './App';
 import { GameProvider } from './gameProvider';
 import { activities } from './game/activities';
+import { GameClient } from './core/gameClient';
 
 configure({
   enforceActions: 'always',
@@ -14,6 +15,7 @@ configure({
 
 const root = createRoot(document.getElementById('root'));
 const newGame = new Game(activities);
+const newGameClient = new GameClient(newGame);
 
 newGame.init(
   newGame.activityRegistry.get('raid'),
@@ -21,7 +23,7 @@ newGame.init(
 );
 
 root.render(
-  <GameProvider game={newGame}>
+  <GameProvider game={newGame} gameClient={newGameClient}>
     <App />
   </GameProvider>,
 );

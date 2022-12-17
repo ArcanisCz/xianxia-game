@@ -1,10 +1,12 @@
 import { withRootStore } from './gameProvider';
 
-export const App = withRootStore(({ game }) => {
+export const App = withRootStore(({ game, gameClient }) => {
   const pokus = () => {
     const { activityRegistry } = game;
 
     game.init(activityRegistry.get('meditate'), activityRegistry.get('raid'));
+
+    gameClient.aaa();
   };
 
   return (

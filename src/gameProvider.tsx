@@ -9,36 +9,44 @@ import {
 import { observer } from 'mobx-react';
 import { ActivityKeys } from 'game/activities';
 import { Game } from './core/game';
+import { GameClient } from './core/gameClient';
 
 type CurrentGame = Game<ActivityKeys>;
+type CurrentGameClient = GameClient<ActivityKeys>;
 
-export const StoreContext = createContext<{ game: CurrentGame }>({
-  game: new Game(new Map()),
-});
-
-export const GameProvider: FC<{
+type GameContext = {
   game: CurrentGame;
-  children: ReactNode;
-}> = ({ children, game }): ReactElement => {
+  gameClient: CurrentGameClient;
+};
+
+export const StoreContext = createContext<GameContext>(
+  {} as { game: CurrentGame; gameClient: CurrentGameClient },
+);
+
+export const GameProvider: FC<
+  {
+    children: ReactNode;
+  } & GameContext
+> = ({ children, game, gameClient }): ReactElement => {
   return (
-    <StoreContext.Provider value={{ game }}>{children}</StoreContext.Provider>
+    <StoreContext.Provider value={{ game, gameClient }}>
+      {children}
+    </StoreContext.Provider>
   );
 };
 
-export function useGame(): {
-  game: CurrentGame;
-} {
+export function useGame(): GameContext {
   return useContext(StoreContext);
 }
 
 export function withRootStore<Props>(
-  Component: ComponentType<Props & { game: CurrentGame }>,
+  Component: ComponentType<Props & GameContext>,
 ): ComponentType<Props> {
   const WrappedComponent = observer(Component);
   const ComponentWithStore = props => {
-    const { game } = useGame();
+    const { game, gameClient } = useGame();
 
-    return <WrappedComponent {...props} game={game} />;
+    return <WrappedComponent {...props} game={game} gameClient={gameClient} />;
   };
 
   return ComponentWithStore;

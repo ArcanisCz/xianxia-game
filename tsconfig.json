@@ -1,11 +1,13 @@
 {
   "include": ["src"],
   "compilerOptions": {
-//    "target": "es2020",
+    "target": "es2020",
     "alwaysStrict": true,
     "baseUrl": "./",
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
+    "moduleResolution": "Node16",
+    "experimentalDecorators": true
   }
 }

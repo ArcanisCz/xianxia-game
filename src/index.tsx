@@ -1,4 +1,19 @@
 import { createRoot } from 'react-dom/client';
+import { makeObservable, observable, computed } from 'mobx';
+
+class TodoList {
+  @observable
+  todos = [];
+
+  @computed
+  get unfinishedTodoCount() {
+    return this.todos.filter(todo => !todo.finished).length;
+  }
+  constructor(todos) {
+    this.todos = todos;
+    makeObservable(this);
+  }
+}
 
 const App = () => (
   <div>

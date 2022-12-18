@@ -25,9 +25,11 @@
   "homepage": "https://github.com/ArcanisCz/xianxia-game#readme",
   "devDependencies": {
     "@craftamap/esbuild-plugin-html": "0.4.0",
+    "@types/node": "18.11.17",
     "@types/react": "18.0.26",
     "@typescript-eslint/eslint-plugin": "5.46.0",
     "@typescript-eslint/parser": "5.46.0",
+    "cross-env": "7.0.3",
     "esbuild": "0.16.4",
     "esbuild-plugin-dev-server": "1.1.3",
     "eslint": "8.29.0",

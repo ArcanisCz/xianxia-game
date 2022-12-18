@@ -4,6 +4,7 @@ export class GameClient<Activities extends string, Locations extends string> {
   constructor(private readonly game: Game<Activities, Locations>) {}
 
   aaa(): void {
-    console.log("aaa");
+    // eslint-disable-next-line no-console
+    console.log('aaa');
   }
 }

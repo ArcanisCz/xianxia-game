@@ -1,4 +1,5 @@
 const {htmlPlugin} = require('@craftamap/esbuild-plugin-html');
+const cssModulesPlugin = require('esbuild-css-modules-plugin');
 
 module.exports = {
   entryPoints: ['src/index.tsx'],
@@ -25,6 +26,10 @@ module.exports = {
           htmlTemplate: "./src/index.html"
         }
       ]
+    }),
+    cssModulesPlugin({
+      inject: true,
+      v2: true,
     }),
   ],
 }

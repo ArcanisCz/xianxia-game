@@ -1,4 +1,7 @@
 import { withRootStore } from './gameProvider';
+import css from './app.modules.css';
+
+console.log(css);
 
 export const App = withRootStore(({ game }) => {
   const pokus = () => {
@@ -10,7 +13,7 @@ export const App = withRootStore(({ game }) => {
   };
 
   return (
-    <div>
+    <div className={css.pokus}>
       <div>Idle: {game.idleActivity?.name}</div>
       <div>Active: {game.activeActivity?.name}</div>
       <hr />

@@ -32,6 +32,7 @@
     "@typescript-eslint/parser": "5.46.0",
     "cross-env": "7.0.3",
     "esbuild": "0.16.4",
+    "esbuild-css-modules-plugin": "2.6.3",
     "esbuild-plugin-dev-server": "1.1.3",
     "eslint": "8.29.0",
     "eslint-config-prettier": "8.5.0",
@@ -46,6 +47,7 @@
     "typescript": "4.9.4"
   },
   "dependencies": {
+    "classnames": "2.3.2",
     "mobx": "6.7.0",
     "mobx-react": "7.6.0",
     "react": "18.2.0",

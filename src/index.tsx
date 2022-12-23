@@ -18,15 +18,19 @@ const newGame = new Game(activities, locations);
 const newGameClient = new GameClient(newGame);
 
 newGame.init(
-  newGame.activityRegistry.get('raid'),
-  newGame.activityRegistry.get('meditate'),
+  newGame.activityRegistry.raid,
+  newGame.activityRegistry.meditate,
   newGame.locationRegistry.get('graveyard'),
 );
 
-const root = createRoot(document.getElementById('root'));
+const element = document.getElementById('root');
 
-root.render(
-  <GameProvider game={newGame} gameClient={newGameClient}>
-    <App />
-  </GameProvider>,
-);
+if (element) {
+  const root = createRoot(element);
+
+  root.render(
+    <GameProvider game={newGame} gameClient={newGameClient}>
+      <App />
+    </GameProvider>,
+  );
+}

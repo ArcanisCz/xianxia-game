@@ -5,12 +5,12 @@ const definitions = [
   {
     id: 'graveyard',
     name: 'Graveyard',
-    activities: [activities.get('raid')],
+    activities: [activities.raid],
   },
   {
     id: 'sect',
     name: 'Sect',
-    activities: [activities.get('meditate')],
+    activities: [activities.meditate],
   },
 ] as const;
 

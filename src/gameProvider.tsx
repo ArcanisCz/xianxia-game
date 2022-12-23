@@ -44,7 +44,7 @@ export function withRootStore<Props>(
   Component: ComponentType<Props & GameContext>,
 ): ComponentType<Props> {
   const WrappedComponent = observer(Component);
-  const ComponentWithStore = props => {
+  const ComponentWithStore = (props: Props) => {
     const { game, gameClient } = useGame();
 
     return <WrappedComponent {...props} game={game} gameClient={gameClient} />;

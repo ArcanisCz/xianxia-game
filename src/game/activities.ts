@@ -17,6 +17,9 @@ const definitions = [
 
 export type ActivityKeys = typeof definitions[number]['id'];
 
-export const activities: Map<ActivityKeys, Activity> = new Map(
-  definitions.map(def => [def.id, new Activity(def)]),
-);
+export const activities: { [key in ActivityKeys]: Activity } =
+  definitions.reduce((acc, def) => {
+    acc[def.id] = new Activity(def);
+
+    return acc;
+  }, {} as { [key in ActivityKeys]: Activity });

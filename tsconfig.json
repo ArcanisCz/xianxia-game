@@ -7,10 +7,11 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "moduleResolution": "Node16",
+    "moduleResolution": "Node",
     "experimentalDecorators": true,
     "useDefineForClassFields": true,
     "strict": true,
     "noEmit": true,
+    "plugins": [{ "name": "typescript-plugin-css-modules" }],
   }
 }

@@ -1,5 +1,5 @@
 import { withRootStore } from './gameProvider';
-import css from './app.modules.css';
+import css from './app.module.css';
 
 console.log(css);
 

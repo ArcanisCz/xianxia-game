@@ -22,12 +22,6 @@ const newGame = new Game(
 );
 const newGameClient = new GameClient(newGame);
 
-newGame.init(
-  newGame.activityRegistry.raid,
-  newGame.activityRegistry.meditate,
-  newGame.locationRegistry.graveyard,
-);
-
 const element = document.getElementById('root');
 
 if (element) {

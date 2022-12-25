@@ -13,8 +13,8 @@ export const App = withRootStore(({ game }) => {
 
   return (
     <div className={css.pokus}>
-      <div>Idle: {game.idleActivity.name}</div>
-      <div>Active: {game.activeActivity.name}</div>
+      <div>Day: {game.activeActivity.day.name}</div>
+      <div>Night: {game.activeActivity.night.name}</div>
       <hr />
       <div>Loc: {game.currentLocation.name}</div>
       <hr />

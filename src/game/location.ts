@@ -4,7 +4,9 @@ import { activities, ActivityKeys } from './activities';
 
 export type LocationKeys = 'empty' | 'graveyard' | 'sect';
 
+// TODO: how to type error non existing location and also duolicate?
 const definitions: LocationDef<LocationKeys, ActivityKeys>[] = [
+  { id: 'empty', name: 'Empty', activities: {} },
   {
     id: 'graveyard',
     name: 'Graveyard',

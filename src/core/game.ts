@@ -11,17 +11,20 @@ export class Game<Activities extends string, Locations extends string> {
     emptyActivity: Activity<Activities>,
     emptyLocation: Location<Locations, Activities>,
   ) {
-    makeObservable(this);
-
-    this.idleActivity = emptyActivity;
-    this.activeActivity = emptyActivity;
+    this.activeActivity = {
+      day: emptyActivity,
+      night: emptyActivity,
+    };
     this.currentLocation = emptyLocation;
+
+    makeObservable(this);
   }
 
   @observable
-  idleActivity: Activity<Activities>;
-  @observable
-  activeActivity: Activity<Activities>;
+  activeActivity: {
+    [ActivityTime.Day]: Activity<Activities>;
+    [ActivityTime.Night]: Activity<Activities>;
+  };
   @observable
   currentLocation: Location<Locations, Activities>;
 
@@ -43,16 +46,5 @@ export class Game<Activities extends string, Locations extends string> {
   @action
   changeLocation(newLocation: Locations) {
     this.currentLocation = this.locationRegistry[newLocation];
-  }
-
-  @action
-  init(
-    idleActivity: Activity<Activities>,
-    activeActivity: Activity<Activities>,
-    location: Location<Locations, Activities>,
-  ) {
-    this.activeActivity = activeActivity;
-    this.idleActivity = idleActivity;
-    this.currentLocation = location;
   }
 }

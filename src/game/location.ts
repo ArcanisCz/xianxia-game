@@ -7,12 +7,12 @@ const definitions: LocationDef<LocationKeys, ActivityKeys>[] = [
   {
     id: 'graveyard',
     name: 'Graveyard',
-    activities: ['raid'],
+    dayActivities: ['raid'],
   },
   {
     id: 'sect',
     name: 'Sect',
-    activities: ['meditate'],
+    nightActivities: ['meditate'],
   },
 ];
 
@@ -24,7 +24,8 @@ export const locations: {
   acc[def.id] = new Location({
     id: def.id,
     name: def.name,
-    activities: def.activities.map(a => activities[a]),
+    dayActivities: (def.dayActivities || []).map(a => activities[a]),
+    nightActivities: (def.nightActivities || []).map(a => activities[a]),
   });
 
   return acc;

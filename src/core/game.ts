@@ -27,7 +27,7 @@ export class Game<Activities extends string, Locations extends string> {
 
   @computed
   get availableActivities(): Activity<Activities>[] {
-    return [...(this.currentLocation.activities || [])];
+    return [...this.currentLocation.activities];
   }
 
   @action

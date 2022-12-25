@@ -3,21 +3,27 @@ import { Activity } from './activity';
 export type LocationDef<LocationKeys, ActivityKeys> = {
   id: LocationKeys;
   name: string;
-  activities: ActivityKeys[];
+  dayActivities?: ActivityKeys[];
+  nightActivities?: ActivityKeys[];
 };
 
 export class Location<LocationKeys, ActivityKeys> {
   constructor(init: {
     id: LocationKeys;
     name: string;
-    activities: Activity<ActivityKeys>[];
+    dayActivities: Activity<ActivityKeys>[];
+    nightActivities: Activity<ActivityKeys>[];
   }) {
     this.name = init.name;
     this.id = init.id;
-    this.activities = init.activities;
+    this.dayActivities = init.dayActivities;
+    this.nightActivities = init.nightActivities;
   }
 
   readonly name: string;
   readonly id: LocationKeys;
-  readonly activities: Activity<ActivityKeys>[];
+  readonly dayActivities: Activity<ActivityKeys>[];
+  readonly nightActivities: Activity<ActivityKeys>[];
+  // Danger Level
+  // Spiritual particles density
 }

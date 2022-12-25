@@ -5,7 +5,7 @@ import { ActivityKeys } from './game/activities';
 import { ActivityTagKeys } from './game/activityTags';
 
 export const App = withRootStore(({ game }) => {
-  const pokus = () => {
+  const changeLocation = () => {
     if (game.currentLocation.id === 'graveyard') {
       game.changeLocation('sect');
     } else {
@@ -44,7 +44,7 @@ export const App = withRootStore(({ game }) => {
       <hr />
       <div>Loc: {game.currentLocation.name}</div>
       <hr />
-      <button onClick={pokus}>Change Location</button>
+      <button onClick={changeLocation}>Change Location</button>
     </div>
   );
 });

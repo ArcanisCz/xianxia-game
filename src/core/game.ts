@@ -1,5 +1,5 @@
 import { observable, makeObservable, action, computed } from 'mobx';
-import { Activity } from './activity';
+import { Activity, ActivityTime } from './activity';
 import { Location } from './location';
 
 export class Game<Activities extends string, Locations extends string> {
@@ -26,8 +26,18 @@ export class Game<Activities extends string, Locations extends string> {
   currentLocation: Location<Locations, Activities>;
 
   @computed
-  get availableActivities(): Activity<Activities>[] {
-    return [...this.currentLocation.activities];
+  get availableDayActivities(): {
+    [ActivityTime.Day]: Activity<Activities>[];
+    [ActivityTime.Night]: Activity<Activities>[];
+  } {
+    return {
+      [ActivityTime.Day]: [
+        ...this.currentLocation.activities[ActivityTime.Day],
+      ],
+      [ActivityTime.Night]: [
+        ...this.currentLocation.activities[ActivityTime.Night],
+      ],
+    };
   }
 
   @action

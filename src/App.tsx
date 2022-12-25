@@ -1,5 +1,6 @@
 import { withRootStore } from './gameProvider';
 import css from './app.module.css';
+import { ActivityTime } from './core/activity';
 
 export const App = withRootStore(({ game }) => {
   const pokus = () => {
@@ -19,11 +20,15 @@ export const App = withRootStore(({ game }) => {
       <hr />
       <div>
         Day activities:{' '}
-        {game.currentLocation.dayActivities.map(a => a.name).join(', ')}
+        {game.availableDayActivities[ActivityTime.Day]
+          .map(a => a.name)
+          .join(', ')}
       </div>
       <div>
         Night activities:{' '}
-        {game.currentLocation.nightActivities.map(a => a.name).join(', ')}
+        {game.availableDayActivities[ActivityTime.Night]
+          .map(a => a.name)
+          .join(', ')}
       </div>
       <button onClick={pokus}>aaa</button>
     </div>

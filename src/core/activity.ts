@@ -12,3 +12,8 @@ export class Activity<ActivityKeys> {
   name: string;
   id: ActivityKeys;
 }
+
+export enum ActivityTime {
+  Day = 'day',
+  Night = 'night',
+}

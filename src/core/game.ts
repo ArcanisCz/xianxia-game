@@ -1,5 +1,4 @@
 import { action, computed, makeObservable, observable } from 'mobx';
-import { computedFn } from 'mobx-utils';
 import { Activity } from './activity';
 import { Location } from './location';
 import { ActivityTagDef } from './activityTag';
@@ -47,23 +46,22 @@ export class Game<
     return [this.emptyActivity, ...this.currentLocation.activities];
   }
 
-  availableActivitiesByTag = computedFn(
-    (tag: ActivityTags): Activity<Activities, ActivityTags>[] =>
-      this.availableActivities.filter(a => a.tags.has(tag)),
-  );
+  availableActivitiesByTag(
+    tag: ActivityTags,
+  ): Activity<Activities, ActivityTags>[] {
+    return this.availableActivities.filter(a => a.tags.has(tag));
+  }
 
   @computed
   get availableActivitiesSet(): Set<Activities> {
     return new Set(this.availableActivities.map(a => a.id));
   }
 
-  availableActivitiesSetByTag = computedFn(
-    (tag: ActivityTags): Set<Activities> => {
-      return new Set(
-        this.availableActivities.filter(a => a.tags.has(tag)).map(a => a.id),
-      );
-    },
-  );
+  availableActivitiesSetByTag(tag: ActivityTags): Set<Activities> {
+    return new Set(
+      this.availableActivities.filter(a => a.tags.has(tag)).map(a => a.id),
+    );
+  }
 
   @action
   changeLocation(newLocation: Locations) {

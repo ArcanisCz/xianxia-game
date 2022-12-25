@@ -10,9 +10,6 @@ import { activityTags } from './game/activityTags';
 
 configure({
   enforceActions: 'always',
-  computedRequiresReaction: true,
-  reactionRequiresObservable: true,
-  observableRequiresReaction: true,
 });
 
 const newGame = new Game(

@@ -8,7 +8,7 @@ import {
 } from 'react';
 import { observer } from 'mobx-react';
 import { ActivityKeys } from 'game/activities';
-import { LocationKeys } from 'game/locations';
+import { LocationKeys } from 'game/location';
 import { Game } from './core/game';
 import { GameClient } from './core/gameClient';
 

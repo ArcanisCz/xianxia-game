@@ -19,7 +19,7 @@ export const App = withRootStore(({ game }) => {
       <hr />
       <div>
         Activities:{' '}
-        {game.currentLocation?.activities.map(a => a.name).join(', ')}
+        {game.currentLocation.activities.map(a => a.name).join(', ')}
       </div>
       <button onClick={pokus}>aaa</button>
     </div>

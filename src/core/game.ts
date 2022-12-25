@@ -5,13 +5,17 @@ import { Location } from './location';
 export class Game<Activities extends string, Locations extends string> {
   constructor(
     readonly activityRegistry: { [key in Activities]: Activity<Activities> },
-    readonly locationRegistry: Map<Locations, Location<Locations>>,
+    readonly locationRegistry: {
+      [key in Locations]: Location<Locations, Activities>;
+    },
     emptyActivity: Activity<Activities>,
+    emptyLocation: Location<Locations, Activities>,
   ) {
     makeObservable(this);
 
     this.idleActivity = emptyActivity;
     this.activeActivity = emptyActivity;
+    this.currentLocation = emptyLocation;
   }
 
   @observable
@@ -19,23 +23,23 @@ export class Game<Activities extends string, Locations extends string> {
   @observable
   activeActivity: Activity<Activities>;
   @observable
-  currentLocation?: Location<Locations>;
+  currentLocation: Location<Locations, Activities>;
 
   @computed
   get availableActivities(): Activity<Activities>[] {
-    return [...(this.currentLocation?.activities || [])];
+    return [...(this.currentLocation.activities || [])];
   }
 
   @action
   changeLocation(newLocation: Locations) {
-    this.currentLocation = this.locationRegistry.get(newLocation);
+    this.currentLocation = this.locationRegistry[newLocation];
   }
 
   @action
   init(
     idleActivity: Activity<Activities>,
     activeActivity: Activity<Activities>,
-    location: Location<Locations>,
+    location: Location<Locations, Activities>,
   ) {
     this.activeActivity = activeActivity;
     this.idleActivity = idleActivity;

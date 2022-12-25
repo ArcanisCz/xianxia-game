@@ -1,13 +1,11 @@
-import {
-  Activity,
-  ActivityDef,
-  CoreActivityKeys,
-  CoreActivities,
-} from 'core/activity';
+import { Activity, ActivityDef } from 'core/activity';
 
-export type ActivityKeys = CoreActivityKeys | 'meditate' | 'raid' | 'idle';
+export type ActivityKeys = 'empty' | 'meditate' | 'raid' | 'idle';
 const definitions: ActivityDef<ActivityKeys>[] = [
-  ...CoreActivities,
+  {
+    id: 'empty',
+    name: 'Empty',
+  },
   {
     id: 'meditate',
     name: 'Meditate',
@@ -22,9 +20,11 @@ const definitions: ActivityDef<ActivityKeys>[] = [
   },
 ];
 
-export const activities: { [key in ActivityKeys]: Activity<ActivityKeys> } =
+export type GameActivities = Activity<ActivityKeys>;
+
+export const activities: { [key in ActivityKeys]: GameActivities } =
   definitions.reduce((acc, def) => {
     acc[def.id] = new Activity(def);
 
     return acc;
-  }, {} as { [key in ActivityKeys]: Activity<ActivityKeys> });
+  }, {} as { [key in ActivityKeys]: GameActivities });

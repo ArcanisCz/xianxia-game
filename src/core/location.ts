@@ -1,16 +1,20 @@
 import { Activity } from './activity';
 
-export type LocationInit<LocationKeys, ActivityKeys> = {
+export type LocationDef<LocationKeys, ActivityKeys> = {
   id: LocationKeys;
   name: string;
   activities: ActivityKeys[];
 };
 
 export class Location<LocationKeys, ActivityKeys> {
-  constructor(init: LocationInit<LocationKeys, ActivityKeys>) {
+  constructor(init: {
+    id: LocationKeys;
+    name: string;
+    activities: Activity<ActivityKeys>[];
+  }) {
     this.name = init.name;
     this.id = init.id;
-    // this.activities = [...init.activities];
+    this.activities = init.activities;
   }
 
   readonly name: string;

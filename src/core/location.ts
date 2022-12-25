@@ -1,22 +1,23 @@
-import { Activity, ActivityTime } from './activity';
+import { Activity } from './activity';
 
-export type LocationDef<LocationKeys, ActivityKeys> = {
+export type LocationDef<
+  LocationKeys extends string,
+  ActivityKeys extends string,
+> = {
   id: LocationKeys;
   name: string;
-  activities: {
-    [ActivityTime.Day]?: ActivityKeys[];
-    [ActivityTime.Night]?: ActivityKeys[];
-  };
+  activities?: ActivityKeys[];
 };
 
-export class Location<LocationKeys, ActivityKeys> {
+export class Location<
+  LocationKeys extends string,
+  ActivityKeys extends string,
+  ActivityTagKeys extends string,
+> {
   constructor(init: {
     id: LocationKeys;
     name: string;
-    activities: {
-      [ActivityTime.Day]: Activity<ActivityKeys>[];
-      [ActivityTime.Night]: Activity<ActivityKeys>[];
-    };
+    activities: Activity<ActivityKeys, ActivityTagKeys>[];
   }) {
     this.name = init.name;
     this.id = init.id;
@@ -25,10 +26,7 @@ export class Location<LocationKeys, ActivityKeys> {
 
   readonly name: string;
   readonly id: LocationKeys;
-  readonly activities: {
-    [ActivityTime.Day]: Activity<ActivityKeys>[];
-    [ActivityTime.Night]: Activity<ActivityKeys>[];
-  };
+  readonly activities: Activity<ActivityKeys, ActivityTagKeys>[];
   // Danger Level
   // Spiritual particles density
 }

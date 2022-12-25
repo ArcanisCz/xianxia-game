@@ -6,6 +6,7 @@ import { GameProvider } from './gameProvider';
 import { activities } from './game/activities';
 import { GameClient } from './core/gameClient';
 import { locations } from './game/location';
+import { activityTags } from './game/activityTags';
 
 configure({
   enforceActions: 'always',
@@ -17,8 +18,10 @@ configure({
 const newGame = new Game(
   activities,
   locations,
+  activityTags,
   activities.empty,
   locations.empty,
+  ['day', 'night'],
 );
 const newGameClient = new GameClient(newGame);
 

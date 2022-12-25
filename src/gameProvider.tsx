@@ -11,8 +11,9 @@ import { ActivityKeys } from 'game/activities';
 import { LocationKeys } from 'game/location';
 import { Game } from './core/game';
 import { GameClient } from './core/gameClient';
+import { ActivityTagKeys } from './game/activityTags';
 
-type CurrentGame = Game<ActivityKeys, LocationKeys>;
+type CurrentGame = Game<ActivityKeys, LocationKeys, ActivityTagKeys>;
 type CurrentGameClient = GameClient<ActivityKeys, LocationKeys>;
 
 type GameContext = {

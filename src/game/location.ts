@@ -1,29 +1,29 @@
 import { Location, LocationDef } from 'core/location';
-import { ActivityTime } from '../core/activity';
 import { activities, ActivityKeys } from './activities';
+import { ActivityTagKeys } from './activityTags';
 
 export type LocationKeys = 'empty' | 'graveyard' | 'sect';
 
 // TODO: how to type error non existing location and also duolicate?
 const definitions: LocationDef<LocationKeys, ActivityKeys>[] = [
-  { id: 'empty', name: 'Empty', activities: {} },
+  { id: 'empty', name: 'Empty' },
   {
     id: 'graveyard',
     name: 'Graveyard',
-    activities: {
-      day: ['raid'],
-    },
+    activities: ['raid'],
   },
   {
     id: 'sect',
     name: 'Sect',
-    activities: {
-      night: ['meditate'],
-    },
+    activities: ['meditate'],
   },
 ];
 
-export type GameLocation = Location<LocationKeys, ActivityKeys>;
+export type GameLocation = Location<
+  LocationKeys,
+  ActivityKeys,
+  ActivityTagKeys
+>;
 
 export const locations: {
   [key in LocationKeys]: GameLocation;
@@ -31,14 +31,7 @@ export const locations: {
   acc[def.id] = new Location({
     id: def.id,
     name: def.name,
-    activities: {
-      [ActivityTime.Day]: (def.activities[ActivityTime.Day] || []).map(
-        a => activities[a],
-      ),
-      [ActivityTime.Night]: (def.activities[ActivityTime.Night] || []).map(
-        a => activities[a],
-      ),
-    },
+    activities: (def.activities || []).map(a => activities[a]),
   });
 
   return acc;

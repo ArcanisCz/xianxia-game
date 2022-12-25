@@ -22,6 +22,7 @@ specifiers:
   eslint-plugin-react-hooks: 4.6.0
   mobx: 6.7.0
   mobx-react: 7.6.0
+  mobx-utils: 6.0.5
   prettier: 2.8.1
   react: 18.2.0
   react-dom: 18.2.0
@@ -33,6 +34,7 @@ dependencies:
   classnames: 2.3.2
   mobx: 6.7.0
   mobx-react: 7.6.0_jofyzmwkboewm6mjrhi25mngky
+  mobx-utils: 6.0.5_mobx@6.7.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
 
@@ -2756,6 +2758,14 @@ packages:
       mobx-react-lite: 3.4.0_jofyzmwkboewm6mjrhi25mngky
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+    dev: false
+
+  /mobx-utils/6.0.5_mobx@6.7.0:
+    resolution: {integrity: sha512-QOduwicYedD4mwYZRl8+c3BalljFDcubg+PUGqBkn8tOuBoj2q7GhjXBP6JXM9J+Zh+2mePK8IoToeLfqr3Z/w==}
+    peerDependencies:
+      mobx: ^6.0.0
+    dependencies:
+      mobx: 6.7.0
     dev: false
 
   /mobx/6.7.0:

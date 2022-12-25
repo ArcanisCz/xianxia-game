@@ -4,21 +4,25 @@ import { Location } from './location';
 
 export class Game<Activities extends string, Locations extends string> {
   constructor(
-    readonly activityRegistry: { [key in Activities]: Activity},
+    readonly activityRegistry: { [key in Activities]: Activity<Activities> },
     readonly locationRegistry: Map<Locations, Location<Locations>>,
+    emptyActivity: Activity<Activities>,
   ) {
     makeObservable(this);
+
+    this.idleActivity = emptyActivity;
+    this.activeActivity = emptyActivity;
   }
 
   @observable
-  idleActivity?: Activity;
+  idleActivity: Activity<Activities>;
   @observable
-  activeActivity?: Activity;
+  activeActivity: Activity<Activities>;
   @observable
   currentLocation?: Location<Locations>;
 
   @computed
-  get availableActivities(): Activity[] {
+  get availableActivities(): Activity<Activities>[] {
     return [...(this.currentLocation?.activities || [])];
   }
 
@@ -29,8 +33,8 @@ export class Game<Activities extends string, Locations extends string> {
 
   @action
   init(
-    idleActivity: Activity,
-    activeActivity: Activity,
+    idleActivity: Activity<Activities>,
+    activeActivity: Activity<Activities>,
     location: Location<Locations>,
   ) {
     this.activeActivity = activeActivity;

@@ -1,8 +1,6 @@
 import { withRootStore } from './gameProvider';
 import css from './app.module.css';
 
-console.log(css);
-
 export const App = withRootStore(({ game }) => {
   const pokus = () => {
     if (game.currentLocation?.id === 'graveyard') {
@@ -14,8 +12,8 @@ export const App = withRootStore(({ game }) => {
 
   return (
     <div className={css.pokus}>
-      <div>Idle: {game.idleActivity?.name}</div>
-      <div>Active: {game.activeActivity?.name}</div>
+      <div>Idle: {game.idleActivity.name}</div>
+      <div>Active: {game.activeActivity.name}</div>
       <hr />
       <div>Loc: {game.currentLocation?.name}</div>
       <hr />

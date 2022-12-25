@@ -14,7 +14,7 @@ configure({
   observableRequiresReaction: true,
 });
 
-const newGame = new Game(activities, locations);
+const newGame = new Game(activities, locations, activities.empty);
 const newGameClient = new GameClient(newGame);
 
 newGame.init(

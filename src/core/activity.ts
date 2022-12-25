@@ -1,14 +1,22 @@
-export type ActivityInit = {
-  id: string;
+export type ActivityDef<ActivityKeys> = {
+  id: ActivityKeys;
   name: string;
 };
 
-export class Activity {
-  constructor(init: ActivityInit) {
+export type CoreActivityKeys = 'empty';
+export const CoreActivities: ActivityDef<CoreActivityKeys>[] = [
+  {
+    id: 'empty',
+    name: 'Empty',
+  },
+];
+
+export class Activity<ActivityKeys> {
+  constructor(init: { id: ActivityKeys; name: string }) {
     this.name = init.name;
     this.id = init.id;
   }
 
   name: string;
-  id: string;
+  id: ActivityKeys;
 }

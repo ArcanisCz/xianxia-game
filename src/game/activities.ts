@@ -1,6 +1,13 @@
-import { Activity } from 'core/activity';
+import {
+  Activity,
+  ActivityDef,
+  CoreActivityKeys,
+  CoreActivities,
+} from 'core/activity';
 
-const definitions = [
+export type ActivityKeys = CoreActivityKeys | 'meditate' | 'raid' | 'idle';
+const definitions: ActivityDef<ActivityKeys>[] = [
+  ...CoreActivities,
   {
     id: 'meditate',
     name: 'Meditate',
@@ -13,13 +20,11 @@ const definitions = [
     id: 'idle',
     name: 'Idle',
   },
-] as const;
+];
 
-export type ActivityKeys = typeof definitions[number]['id'];
-
-export const activities: { [key in ActivityKeys]: Activity } =
+export const activities: { [key in ActivityKeys]: Activity<ActivityKeys> } =
   definitions.reduce((acc, def) => {
     acc[def.id] = new Activity(def);
 
     return acc;
-  }, {} as { [key in ActivityKeys]: Activity });
+  }, {} as { [key in ActivityKeys]: Activity<ActivityKeys> });

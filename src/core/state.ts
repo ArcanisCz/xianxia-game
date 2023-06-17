@@ -10,11 +10,7 @@ export class GameState<
 > {
   constructor(
     private readonly emptyActivity: Activity<Activities, ActivityTags>,
-    private readonly emptyLocation: Location<
-      Locations,
-      Activities,
-      ActivityTags
-    >,
+    readonly startingLocation: Location<Locations, Activities, ActivityTags>,
     private readonly registry: GameRegistry<
       Activities,
       Locations,
@@ -30,7 +26,7 @@ export class GameState<
       {} as { [key in ActivityTags]: Activity<Activities, ActivityTags> },
     );
 
-    this.currentLocation = emptyLocation;
+    this.currentLocation = startingLocation;
 
     makeObservable(this);
   }
@@ -46,6 +42,11 @@ export class GameState<
     // TODO: remove duplicates?
     // TODO: maybe categories?
     return [this.emptyActivity, ...this.currentLocation.activities];
+  }
+
+  @computed
+  get availableLocations(): Location<Locations, Activities, ActivityTags>[] {
+    return [...this.currentLocation.locations];
   }
 
   availableActivitiesByTag(
@@ -67,7 +68,11 @@ export class GameState<
 
   @action
   changeLocation(newLocation: Locations) {
-    this.currentLocation = this.registry.locations[newLocation];
+    const newLocationInst = this.registry.locations[newLocation];
+
+    if (this.availableLocations.includes(newLocationInst)) {
+      this.currentLocation = newLocationInst;
+    }
 
     this.checkActiveActivities();
   }

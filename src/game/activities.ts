@@ -1,4 +1,5 @@
 import { Activity, ActivityDef } from 'core/activity';
+import { keyBy, mapValues } from 'lodash';
 import { ActivityTagKeys } from './activityTags';
 
 export type ActivityKeys = 'empty' | 'meditate' | 'raid' | 'idle';
@@ -27,13 +28,13 @@ const definitions: ActivityDef<ActivityKeys, ActivityTagKeys>[] = [
 
 export type GameActivities = Activity<ActivityKeys, ActivityTagKeys>;
 
-export const activities: { [key in ActivityKeys]: GameActivities } =
-  definitions.reduce((acc, def) => {
-    acc[def.id] = new Activity({
+export const activities: { [key in ActivityKeys]: GameActivities } = mapValues(
+  keyBy(definitions, 'id'),
+  def => {
+    return new Activity({
       id: def.id,
       name: def.name,
       tags: new Set(def.tags),
     });
-
-    return acc;
-  }, {} as { [key in ActivityKeys]: GameActivities });
+  },
+) as { [key in ActivityKeys]: GameActivities };

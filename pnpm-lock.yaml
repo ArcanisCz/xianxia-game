@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@craftamap/esbuild-plugin-html': 0.4.0
+  '@types/lodash': 4.14.195
   '@types/react': 18.2.12
   '@types/react-dom': 18.2.5
   '@typescript-eslint/eslint-plugin': 5.59.11
@@ -19,6 +20,7 @@ specifiers:
   eslint-plugin-prettier: 4.2.1
   eslint-plugin-react: 7.32.2
   eslint-plugin-react-hooks: 4.6.0
+  lodash: 4.17.21
   mobx: 6.9.0
   mobx-react: 7.6.0
   mobx-utils: 6.0.6
@@ -32,6 +34,7 @@ specifiers:
 
 dependencies:
   classnames: 2.3.2
+  lodash: 4.17.21
   mobx: 6.9.0
   mobx-react: 7.6.0_lrdhi4fih7ii4kmeak7ov4c3ha
   mobx-utils: 6.0.6_mobx@6.9.0
@@ -40,6 +43,7 @@ dependencies:
 
 devDependencies:
   '@craftamap/esbuild-plugin-html': 0.4.0_esbuild@0.16.17
+  '@types/lodash': 4.14.195
   '@types/react': 18.2.12
   '@types/react-dom': 18.2.5
   '@typescript-eslint/eslint-plugin': 5.59.11_khxwfo2nlv6qliptqsbqa3vjsm
@@ -490,6 +494,10 @@ packages:
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    dev: true
+
+  /@types/lodash/4.14.195:
+    resolution: {integrity: sha512-Hwx9EUgdwf2GLarOjQp5ZH8ZmblzcbTBC2wtQWNKARBSxM9ezRIAUpeDTgoQRAFB0+8CNWXVA9+MaSOzOF3nPg==}
     dev: true
 
   /@types/node/20.3.0:
@@ -2845,7 +2853,6 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-    dev: true
 
   /loose-envify/1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}

@@ -1,3 +1,4 @@
+import { mapValues, keyBy, map } from 'lodash';
 import { Game } from './game';
 
 export class GameClient<
@@ -10,7 +11,17 @@ export class GameClient<
   ) {}
 
   aaa(): void {
+    const { gameState, gameRegistry } = this.game;
+
     // eslint-disable-next-line no-console
-    console.log('aaa');
+    console.log({
+      currentLocation: gameState.currentLocation.id,
+      currentActivities: mapValues(gameState.activeActivity, 'id'),
+      availableAbilities: mapValues(
+        keyBy(gameRegistry.parallelActivityTags),
+        tag => map(gameState.availableActivitiesByTag(tag), 'id'),
+      ),
+      availableLocations: map(gameState.availableLocations, 'id'),
+    });
   }
 }

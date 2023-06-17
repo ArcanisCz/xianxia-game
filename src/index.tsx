@@ -20,15 +20,23 @@ const gameRegistry = new GameRegistry(activities, locations, activityTags, [
 ]);
 const gameState = new GameState(
   activities.empty,
-  locations.empty,
+  gameRegistry.locations.sect,
   gameRegistry,
 );
 
 const newGame = new Game(gameRegistry, gameState);
 const newGameClient = new GameClient(newGame);
 
+// eslint-disable-next-line no-console
 console.log('Registry', newGame.gameRegistry);
+// eslint-disable-next-line no-console
 console.log('State', toJS(newGame.gameState));
+// eslint-disable-next-line no-console
+console.log('---------------------');
+newGameClient.aaa();
+
+// @ts-ignore
+window.gameClient = newGameClient;
 
 const element = document.getElementById('root');
 

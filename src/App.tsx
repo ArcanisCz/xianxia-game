@@ -22,7 +22,6 @@ export const App = withRootStore(({ game }) => {
       Console
       {/*{game.parallelActivityTags.map(tagId => {*/}
       {/*  const tag = game.activityTagsRegistry[tagId];*/}
-
       {/*  return (*/}
       {/*    <Fragment key={tagId}>*/}
       {/*      <div>*/}

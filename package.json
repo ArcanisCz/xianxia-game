@@ -11,7 +11,8 @@
     "lint:ci": "eslint --max-warnings 0 --ext=ts,tsx src",
     "lint:fix": "eslint --ext=ts,tsx src --fix --cache",
     "ts-errors": "rm -rf build/ && cross-env TSC_NONPOLLING_WATCHER=1 tsc --watch --pretty",
-    "ts-errors:ci": "rm -rf build/ && tsc --pretty"
+    "ts-errors:ci": "rm -rf build/ && tsc --pretty",
+    "test": "tap --no-coverage"
   },
   "repository": {
     "type": "git",
@@ -23,11 +24,19 @@
     "url": "https://github.com/ArcanisCz/xianxia-game/issues"
   },
   "homepage": "https://github.com/ArcanisCz/xianxia-game#readme",
+  "tap": {
+    "ts": true,
+    "timeout": 60000,
+    "test-regex": ".+\\.spec\\.ts$",
+    "color": true
+  },
   "devDependencies": {
     "@craftamap/esbuild-plugin-html": "0.4.0",
     "@types/lodash": "4.14.195",
+    "@types/node": "16",
     "@types/react": "18.2.12",
     "@types/react-dom": "18.2.5",
+    "@types/tap": "15.0.8",
     "@typescript-eslint/eslint-plugin": "5.59.11",
     "@typescript-eslint/parser": "5.59.11",
     "cross-env": "7.0.3",
@@ -43,6 +52,8 @@
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-react-hooks": "4.6.0",
     "prettier": "2.8.8",
+    "tap": "16.3.6",
+    "ts-node": "10.9.1",
     "tsx": "3.12.7",
     "typescript": "4.9.5",
     "typescript-plugin-css-modules": "4.2.3",

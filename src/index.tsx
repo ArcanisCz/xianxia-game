@@ -1,14 +1,11 @@
 import { createRoot } from 'react-dom/client';
 import { configure, toJS } from 'mobx';
-import { Game } from 'core/game';
-import { GameClient } from 'core/gameClient';
+import { Game, GameClient, GameState, GameRegistry } from 'core';
+import { activities } from 'game/activities';
+import { locations } from 'game/registry';
+import { activityTags } from 'game/activityTags';
 import { App } from './App';
 import { GameProvider } from './gameProvider';
-import { activities } from './game/activities';
-import { locations } from './game/location';
-import { activityTags } from './game/activityTags';
-import { GameState } from './core/state';
-import { GameRegistry } from './core/registry';
 
 configure({
   enforceActions: 'always',
@@ -18,6 +15,7 @@ const gameRegistry = new GameRegistry(activities, locations, activityTags, [
   'day',
   'night',
 ]);
+
 const gameState = new GameState(
   activities.empty,
   gameRegistry.locations.sect,

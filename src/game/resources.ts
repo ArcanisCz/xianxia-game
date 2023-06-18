@@ -14,7 +14,7 @@ const definitions: ResourceDef<ResourceKeys>[] = [
 
 export type GameResources = Resource<ResourceKeys>;
 
-export const activities: { [key in ResourceKeys]: GameResources } =
+export const resources: { [key in ResourceKeys]: GameResources } =
   definitions.reduce((acc, def) => {
     acc[def.id] = new Resource(def);
 

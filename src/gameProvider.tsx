@@ -7,16 +7,16 @@ import {
   useContext,
 } from 'react';
 import { observer } from 'mobx-react';
-import { ActivityKeys } from 'game/activities';
-import { LocationKeys } from 'game/location';
+import { Keys } from 'game/activities';
+import { Keys } from 'game/location';
 import { Game } from './core/game';
 import { GameClient } from './core/gameClient';
 import { ActivityTagKeys } from './game/activityTags';
 
-type CurrentGame = Game<ActivityKeys, LocationKeys, ActivityTagKeys>;
+type CurrentGame = Game<Keys, Keys, ActivityTagKeys>;
 type CurrentGameClient = GameClient<
-  ActivityKeys,
-  LocationKeys,
+  Keys,
+  Keys,
   ActivityTagKeys
 >;
 

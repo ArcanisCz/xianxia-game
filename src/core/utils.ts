@@ -1,41 +1,52 @@
-import { mapKeys } from 'lodash';
+import { keyBy, mapKeys, mapValues } from 'lodash';
 import { Location, LocationDef } from './location';
-import { Activity } from './activity';
+import { Activity, ActivityDef } from './activity';
 
-export function initLocations<
+export function initGame<
   LocationKeys extends string,
   ActivityKeys extends string,
   ActivityTagKeys extends string,
+  LocationType extends Location<LocationKeys, ActivityKeys, ActivityTagKeys>,
+  ActivityType extends Activity<ActivityKeys, ActivityTagKeys>,
 >(
-  definitions: LocationDef<LocationKeys, ActivityKeys>[],
+  locationDefinitions: LocationDef<LocationKeys, ActivityKeys>[],
+  activityDefinitions: ActivityDef<ActivityKeys, ActivityTagKeys>[],
+): {
+  locations: {
+    [key in LocationKeys]: LocationType;
+  };
   activities: {
-    [key in ActivityKeys]: Activity<ActivityKeys, ActivityTagKeys>;
-  },
-) {
-  const array = definitions.map(
+    [key in ActivityKeys]: ActivityType;
+  };
+} {
+  const activitiesMap = mapValues(keyBy(activityDefinitions, 'id'), def => {
+    return new Activity({
+      id: def.id,
+      name: def.name,
+      tags: new Set(def.tags),
+    });
+  }) as { [key in ActivityKeys]: ActivityType };
+
+  const locationsArray = locationDefinitions.map(
     def =>
       new Location({
         id: def.id,
         name: def.name,
-        activities: (def.activities || []).map(a => activities[a]),
+        activities: (def.activities || []).map(a => activitiesMap[a]),
         locations: [],
       }),
   );
 
-  const map = mapKeys(array, 'id') as {
-    [key in LocationKeys]: Location<
-      LocationKeys,
-      ActivityKeys,
-      ActivityTagKeys
-    >;
+  const locationsMap = mapKeys(locationsArray, 'id') as {
+    [key in LocationKeys]: LocationType;
   };
 
-  definitions.forEach(def => {
-    const loc = map[def.id];
+  locationDefinitions.forEach(def => {
+    const loc = locationsMap[def.id];
 
     // @ts-ignore
-    loc['locations'] = (def.locations || []).map(a => map[a]);
+    loc['locations'] = (def.locations || []).map(a => locationsMap[a]);
   });
 
-  return map;
+  return { locations: locationsMap, activities: activitiesMap };
 }

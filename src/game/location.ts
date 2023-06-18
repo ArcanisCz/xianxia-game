@@ -4,7 +4,7 @@ import { ActivityKeys } from './activities';
 export type LocationKeys = 'empty' | 'graveyard' | 'sect';
 
 // TODO: how to type error non existing location and also duplicate?
-export const definitions: LocationDef<LocationKeys, ActivityKeys>[] = [
+export const locationDefinitions: LocationDef<LocationKeys, ActivityKeys>[] = [
   {
     id: 'graveyard',
     name: 'Graveyard',

@@ -16,12 +16,16 @@ configure({
 });
 
 const newGame: XianxiaGame = new Game(
-  activityTagDefinitions,
-  locationDefinitions,
-  activityDefinitions,
-  ['day', 'night'],
-  'empty',
-  'sect',
+  {
+    activityTagDefinitions,
+    locationDefinitions,
+    activityDefinitions,
+  },
+  {
+    startingLocation: 'sect',
+    emptyActivity: 'empty',
+    parallelActivityTags: ['day', 'night'],
+  },
 );
 const newGameClient: XianxiaGameClient = new GameClient(newGame);
 

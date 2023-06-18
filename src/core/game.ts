@@ -17,12 +17,24 @@ export class Game<
   readonly gameState: GameState<Activities, Locations, ActivityTags>;
 
   constructor(
-    activityTagDefinitions: ActivityTagDef<ActivityTags>[],
-    locationDefinitions: LocationDef<Locations, Activities>[],
-    activityDefinitions: ActivityDef<Activities, ActivityTags>[],
-    parallelActivityTags: ActivityTags[],
-    emptyActivity: Activities,
-    startingLocation: Locations,
+    {
+      activityTagDefinitions,
+      locationDefinitions,
+      activityDefinitions,
+    }: {
+      activityTagDefinitions: ActivityTagDef<ActivityTags>[];
+      locationDefinitions: LocationDef<Locations, Activities>[];
+      activityDefinitions: ActivityDef<Activities, ActivityTags>[];
+    },
+    {
+      parallelActivityTags,
+      emptyActivity,
+      startingLocation,
+    }: {
+      parallelActivityTags: ActivityTags[];
+      emptyActivity: Activities;
+      startingLocation: Locations;
+    },
   ) {
     const activityTagsMap = mapValues(
       keyBy(activityTagDefinitions, 'id'),

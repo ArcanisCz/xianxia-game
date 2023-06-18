@@ -36,12 +36,16 @@ void tap.test('new Game()', group => {
 
   void group.test('should instantiate tags', async t => {
     const { gameRegistry } = new Game(
-      tagDefinition,
-      [],
-      [],
-      ['aaa', 'bbb'],
-      '',
-      '',
+      {
+        activityDefinitions: [],
+        locationDefinitions: [],
+        activityTagDefinitions: tagDefinition,
+      },
+      {
+        parallelActivityTags: ['aaa', 'bbb'],
+        emptyActivity: '',
+        startingLocation: '',
+      },
     );
 
     for (const tag of tagDefinition) {
@@ -60,12 +64,16 @@ void tap.test('new Game()', group => {
 
   void group.test('should instantiate activities', async t => {
     const { gameRegistry } = new Game(
-      tagDefinition,
-      [],
-      activityDefinition,
-      ['aaa', 'bbb'],
-      'first',
-      '',
+      {
+        activityDefinitions: activityDefinition,
+        locationDefinitions: [],
+        activityTagDefinitions: tagDefinition,
+      },
+      {
+        parallelActivityTags: ['aaa', 'bbb'],
+        emptyActivity: '',
+        startingLocation: '',
+      },
     );
 
     for (const activity of activityDefinition) {
@@ -94,12 +102,16 @@ void tap.test('new Game()', group => {
 
   void group.test('should instantiate locations', async t => {
     const { gameRegistry } = new Game(
-      tagDefinition,
-      locationDefinitions,
-      activityDefinition,
-      ['aaa', 'bbb'],
-      'first',
-      '',
+      {
+        activityDefinitions: activityDefinition,
+        locationDefinitions: locationDefinitions,
+        activityTagDefinitions: tagDefinition,
+      },
+      {
+        parallelActivityTags: ['aaa', 'bbb'],
+        emptyActivity: '',
+        startingLocation: '',
+      },
     );
 
     for (const locationDef of locationDefinitions) {

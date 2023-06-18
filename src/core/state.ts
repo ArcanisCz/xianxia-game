@@ -47,33 +47,17 @@ export class GameState<
   @observable
   currentLocation: Location<Locations, Activities, ActivityTags>;
 
-  @computed
-  get availableActivities(): Activity<Activities, ActivityTags>[] {
-    // TODO: remove duplicates?
-    // TODO: maybe categories?
-    return [this.emptyActivity, ...this.currentLocation.activities];
+  availableActivitiesByTag(
+    tag: ActivityTags,
+  ): Activity<Activities, ActivityTags>[] {
+    return this.availableActivities.filter(
+      a => a.tags.has(tag) || a === this.emptyActivity,
+    );
   }
 
   @computed
   get availableLocations(): Location<Locations, Activities, ActivityTags>[] {
     return [...this.currentLocation.locations];
-  }
-
-  availableActivitiesByTag(
-    tag: ActivityTags,
-  ): Activity<Activities, ActivityTags>[] {
-    return this.availableActivities.filter(a => a.tags.has(tag));
-  }
-
-  @computed
-  get availableActivitiesSet(): Set<Activities> {
-    return new Set(this.availableActivities.map(a => a.id));
-  }
-
-  availableActivitiesSetByTag(tag: ActivityTags): Set<Activities> {
-    return new Set(
-      this.availableActivities.filter(a => a.tags.has(tag)).map(a => a.id),
-    );
   }
 
   @action
@@ -94,6 +78,26 @@ export class GameState<
     }
 
     this.checkActiveActivities();
+  }
+
+  availableActivitiesSetByTag(tag: ActivityTags): Set<Activities> {
+    return new Set(
+      this.availableActivities
+        .filter(a => a.tags.has(tag) || a === this.emptyActivity)
+        .map(a => a.id),
+    );
+  }
+
+  @computed
+  private get availableActivities(): Activity<Activities, ActivityTags>[] {
+    // TODO: remove duplicates?
+    // TODO: maybe categories?
+    return [this.emptyActivity, ...this.currentLocation.activities];
+  }
+
+  @computed
+  private get availableActivitiesSet(): Set<Activities> {
+    return new Set(this.availableActivities.map(a => a.id));
   }
 
   private checkActiveActivities() {

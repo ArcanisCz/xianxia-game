@@ -1,10 +1,7 @@
-export { Activity } from './activity';
-export { Location } from './location';
 export { Game } from './game';
 export { GameClient } from './gameClient';
-export { GameState } from './state';
-export { GameRegistry } from './registry';
-export { initGame } from './utils';
+export { Activity } from './activity';
+export { Location } from './location';
 
 export type { ActivityDef } from './activity';
 export type { LocationDef } from './location';

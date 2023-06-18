@@ -13,7 +13,8 @@
     "ts-errors": "rm -rf build/ && cross-env TSC_NONPOLLING_WATCHER=1 tsc --watch --pretty",
     "ts-errors:ci": "rm -rf build/ && tsc --pretty",
     "test": "tap --no-coverage",
-    "test:watch": "tap --watch --no-coverage-report --no-check-coverage"
+    "test:watch": "tap --watch --no-coverage-report --no-check-coverage",
+    "check": "pnpm run lint && pnpm run ts-errors:ci && pnpm test"
   },
   "repository": {
     "type": "git",

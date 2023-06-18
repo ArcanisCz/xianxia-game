@@ -7,23 +7,15 @@ import {
   ComponentType,
   useContext,
 } from 'react';
-import { Game, GameClient } from 'core';
-import { ActivityKeys, LocationKeys, ActivityTagKeys } from 'game';
-
-type CurrentGame = Game<ActivityKeys, LocationKeys, ActivityTagKeys>;
-type CurrentGameClient = GameClient<
-  ActivityKeys,
-  LocationKeys,
-  ActivityTagKeys
->;
+import { XianxiaGame, XianxiaGameClient } from 'game';
 
 type GameContext = {
-  game: CurrentGame;
-  gameClient: CurrentGameClient;
+  game: XianxiaGame;
+  gameClient: XianxiaGameClient;
 };
 
 export const StoreContext = createContext<GameContext>(
-  {} as { game: CurrentGame; gameClient: CurrentGameClient },
+  {} as { game: XianxiaGame; gameClient: XianxiaGameClient },
 );
 
 export const GameProvider: FC<

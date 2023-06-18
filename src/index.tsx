@@ -1,7 +1,13 @@
 import { configure, toJS } from 'mobx';
 import { createRoot } from 'react-dom/client';
-import { Game, GameClient, GameState, GameRegistry } from 'core';
-import { locations, activities, activityTags } from 'game';
+import { Game, GameClient } from 'core';
+import {
+  activityDefinitions,
+  activityTagDefinitions,
+  locationDefinitions,
+  XianxiaGame,
+  XianxiaGameClient,
+} from 'game';
 import { App } from './App';
 import { GameProvider } from './gameProvider';
 
@@ -9,19 +15,15 @@ configure({
   enforceActions: 'always',
 });
 
-const gameRegistry = new GameRegistry(activities, locations, activityTags, [
-  'day',
-  'night',
-]);
-
-const gameState = new GameState(
-  activities.empty,
-  gameRegistry.locations.sect,
-  gameRegistry,
+const newGame: XianxiaGame = new Game(
+  activityTagDefinitions,
+  locationDefinitions,
+  activityDefinitions,
+  ['day', 'night'],
+  'empty',
+  'sect',
 );
-
-const newGame = new Game(gameRegistry, gameState);
-const newGameClient = new GameClient(newGame);
+const newGameClient: XianxiaGameClient = new GameClient(newGame);
 
 // eslint-disable-next-line no-console
 console.log('Registry', newGame.gameRegistry);

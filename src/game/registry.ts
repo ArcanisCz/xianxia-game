@@ -1,7 +1,11 @@
-import { Activity, Location, initGame, ActivityTagDef } from 'core';
-import { activityDefinitions, ActivityKeys } from './activities';
-import { activityTagDefinitions, ActivityTagKeys } from './activityTags';
-import { locationDefinitions, LocationKeys } from './location';
+import { Activity, Location, ActivityTagDef } from 'core';
+import { ActivityKeys } from './activities';
+import { ActivityTagKeys } from './activityTags';
+import { LocationKeys } from './location';
+
+export { activityDefinitions } from './activities';
+export { activityTagDefinitions } from './activityTags';
+export { locationDefinitions } from './location';
 
 export type GameLocation = Location<
   LocationKeys,
@@ -10,9 +14,6 @@ export type GameLocation = Location<
 >;
 export type GameActivities = Activity<ActivityKeys, ActivityTagKeys>;
 export type GameActivityTags = ActivityTagDef<ActivityTagKeys>;
-
-export const { locations, activities, activityTags } = initGame(
-  activityTagDefinitions,
-  locationDefinitions,
-  activityDefinitions,
-);
+export type { ActivityKeys } from './activities';
+export type { ActivityTagKeys } from './activityTags';
+export type { LocationKeys } from './location';

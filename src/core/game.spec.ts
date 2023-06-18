@@ -2,6 +2,7 @@ import tap from 'tap';
 import { ActivityDef } from './activity';
 import { ActivityTagDef } from './activityTag';
 import { Game } from './game';
+import { LocationDef } from './location';
 
 void tap.test('new Game()', group => {
   const tagDefinition: ActivityTagDef<'aaa' | 'bbb'>[] = [
@@ -22,6 +23,15 @@ void tap.test('new Game()', group => {
     { id: 'first', name: 'First', tags: ['bbb', 'aaa'] },
     { id: 'second', name: 'Second', tags: ['aaa'] },
     { id: 'third', name: 'Third', tags: [] },
+  ];
+
+  const locationDefinitions: LocationDef<
+    'loc1' | 'loc2' | 'loc3',
+    'first' | 'second' | 'third'
+  >[] = [
+    { id: 'loc1', name: 'Loc 1' },
+    { id: 'loc2', name: 'Loc 2', activities: ['third', 'first'] },
+    { id: 'loc3', name: 'Loc 3', activities: ['second'], locations: ['loc1'] },
   ];
 
   void group.test('should instantiate tags', async t => {
@@ -82,7 +92,54 @@ void tap.test('new Game()', group => {
     }
   });
 
-  void group.test('should instantiate locations');
+  void group.test('should instantiate locations', async t => {
+    const { gameRegistry } = new Game(
+      tagDefinition,
+      locationDefinitions,
+      activityDefinition,
+      ['aaa', 'bbb'],
+      'first',
+      '',
+    );
+
+    for (const locationDef of locationDefinitions) {
+      const locationInstance = gameRegistry.locations[locationDef.id];
+
+      t.equal(
+        locationInstance.id,
+        locationDef.id,
+        'Location id should match a definition',
+      );
+      t.equal(
+        locationInstance.name,
+        locationDef.name,
+        'Location name should match a definition',
+      );
+      t.equal(
+        locationInstance.activities.length,
+        locationDef.activities?.length || 0,
+      );
+      for (const key in locationDef.activities || []) {
+        t.equal(
+          locationInstance.activities[key].id,
+          locationDef.activities![key],
+          'Location should have a proper activities',
+        );
+      }
+
+      t.equal(
+        locationInstance.locations.length,
+        locationDef.locations?.length || 0,
+      );
+      for (const key in locationDef.locations || []) {
+        t.equal(
+          locationInstance.locations[key].id,
+          locationDef.locations![key],
+          'Location should have a proper locations',
+        );
+      }
+    }
+  });
 
   group.end();
 });

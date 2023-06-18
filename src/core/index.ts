@@ -8,3 +8,4 @@ export { initGame } from './utils';
 
 export type { ActivityDef } from './activity';
 export type { LocationDef } from './location';
+export type { ActivityTagDef } from './activityTag';

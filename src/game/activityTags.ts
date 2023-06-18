@@ -1,4 +1,4 @@
-import { ActivityTagDef } from 'core/activityTag';
+import { ActivityTagDef } from 'core';
 
 export type ActivityTagKeys = 'day' | 'night';
 export const activityTagDefinitions: ActivityTagDef<ActivityTagKeys>[] = [
@@ -11,4 +11,3 @@ export const activityTagDefinitions: ActivityTagDef<ActivityTagKeys>[] = [
     name: 'Night',
   },
 ];
-

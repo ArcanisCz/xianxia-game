@@ -1,4 +1,4 @@
-import { LocationDef } from 'core/location';
+import { LocationDef } from 'core';
 import { ActivityKeys } from './activities';
 
 export type LocationKeys = 'empty' | 'graveyard' | 'sect';
@@ -18,5 +18,3 @@ export const locationDefinitions: LocationDef<LocationKeys, ActivityKeys>[] = [
     locations: ['graveyard'],
   },
 ];
-
-

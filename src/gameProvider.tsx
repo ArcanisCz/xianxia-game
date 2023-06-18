@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react';
 import {
   FC,
   createContext,
@@ -6,17 +7,13 @@ import {
   ComponentType,
   useContext,
 } from 'react';
-import { observer } from 'mobx-react';
-import { Keys } from 'game/activities';
-import { Keys } from 'game/location';
-import { Game } from './core/game';
-import { GameClient } from './core/gameClient';
-import { ActivityTagKeys } from './game/activityTags';
+import { Game, GameClient } from 'core';
+import { ActivityKeys, LocationKeys, ActivityTagKeys } from 'game';
 
-type CurrentGame = Game<Keys, Keys, ActivityTagKeys>;
+type CurrentGame = Game<ActivityKeys, LocationKeys, ActivityTagKeys>;
 type CurrentGameClient = GameClient<
-  Keys,
-  Keys,
+  ActivityKeys,
+  LocationKeys,
   ActivityTagKeys
 >;
 

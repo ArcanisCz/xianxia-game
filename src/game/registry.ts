@@ -1,7 +1,7 @@
 import { Activity, Location, initGame, ActivityTagDef } from 'core';
+import { activityDefinitions, ActivityKeys } from './activities';
 import { activityTagDefinitions, ActivityTagKeys } from './activityTags';
 import { locationDefinitions, LocationKeys } from './location';
-import { activityDefinitions, ActivityKeys } from './activities';
 
 export type GameLocation = Location<
   LocationKeys,

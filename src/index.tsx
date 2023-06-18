@@ -1,7 +1,7 @@
-import { createRoot } from 'react-dom/client';
 import { configure, toJS } from 'mobx';
+import { createRoot } from 'react-dom/client';
 import { Game, GameClient, GameState, GameRegistry } from 'core';
-import { locations, activities, activityTags } from 'game/registry';
+import { locations, activities, activityTags } from 'game';
 import { App } from './App';
 import { GameProvider } from './gameProvider';
 

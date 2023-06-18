@@ -141,35 +141,18 @@ module.exports = ({
       'error',
       {
         'newlines-between': 'never',
+        alphabetize: {
+          order: "asc",
+        },
         groups: ['builtin', 'external', 'parent'],
         pathGroups: [
           {
-            pattern: 'validators',
+            pattern: 'core',
             group: 'external',
             position: 'after',
           },
           {
-            pattern: 'shared',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: 'shared/**',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: 'rnnoise',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: 'app-core',
-            group: 'external',
-            position: 'after',
-          },
-          {
-            pattern: 'app-core/**',
+            pattern: 'game',
             group: 'external',
             position: 'after',
           },

@@ -1,7 +1,7 @@
 import { keyBy, mapKeys, mapValues } from 'lodash';
-import { Location, LocationDef } from './location';
 import { Activity, ActivityDef } from './activity';
 import { ActivityTagDef } from './activityTag';
+import { Location, LocationDef } from './location';
 
 export function initGame<
   LocationKeys extends string,

@@ -1,4 +1,4 @@
-import { ActivityDef } from 'core/activity';
+import { ActivityDef } from 'core';
 import { ActivityTagKeys } from './activityTags';
 
 export type ActivityKeys = 'empty' | 'meditate' | 'raid' | 'idle';

@@ -1,6 +1,6 @@
 import { Activity } from './activity';
-import { Location } from './location';
 import { ActivityTagDef } from './activityTag';
+import { Location } from './location';
 
 export class GameRegistry<
   Activities extends string,

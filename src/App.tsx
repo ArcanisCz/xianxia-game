@@ -1,9 +1,10 @@
 // import { Fragment } from 'react';
-import { withRootStore } from './gameProvider';
 import css from './app.module.css';
+import { withRootStore } from './gameProvider';
 // import { ActivityKeys } from './game/activities';
 // import { ActivityTagKeys } from './game/activityTags';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const App = withRootStore(({ game }) => {
   // const changeLocation = () => {
   //   if (game.currentLocation.id === 'graveyard') {

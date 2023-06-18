@@ -68,8 +68,8 @@ export class Game<
     );
 
     this.gameState = new GameState(
-      this.gameRegistry.activities[emptyActivity],
-      this.gameRegistry.locations[startingLocation],
+      emptyActivity,
+      startingLocation,
       this.gameRegistry,
     );
   }

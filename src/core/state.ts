@@ -8,25 +8,35 @@ export class GameState<
   Locations extends string,
   ActivityTags extends string,
 > {
+  private readonly emptyActivity: Activity<Activities, ActivityTags>;
+  private readonly startingLocation: Location<
+    Locations,
+    Activities,
+    ActivityTags
+  >;
+
   constructor(
-    private readonly emptyActivity: Activity<Activities, ActivityTags>,
-    readonly startingLocation: Location<Locations, Activities, ActivityTags>,
+    emptyActivityId: Activities,
+    startingLocationId: Locations,
     private readonly registry: GameRegistry<
       Activities,
       Locations,
       ActivityTags
     >,
   ) {
+    this.emptyActivity = registry.activities[emptyActivityId];
+    this.startingLocation = registry.locations[startingLocationId];
+
     this.activeActivity = this.registry.parallelActivityTags.reduce(
       (acc, item) => {
-        acc[item] = emptyActivity;
+        acc[item] = this.emptyActivity;
 
         return acc;
       },
       {} as { [key in ActivityTags]: Activity<Activities, ActivityTags> },
     );
 
-    this.currentLocation = startingLocation;
+    this.currentLocation = this.startingLocation;
 
     makeObservable(this);
   }

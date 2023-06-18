@@ -1,7 +1,7 @@
-import { Resource, ResourceDef } from 'core/resource';
+import { ResourceDef } from 'core/resource';
 
 export type ResourceKeys = 'qi' | 'rest';
-const definitions: ResourceDef<ResourceKeys>[] = [
+export const resourceDefinitions: ResourceDef<ResourceKeys>[] = [
   {
     id: 'qi',
     name: 'Qi',
@@ -11,12 +11,3 @@ const definitions: ResourceDef<ResourceKeys>[] = [
     name: 'Rest',
   },
 ];
-
-export type GameResources = Resource<ResourceKeys>;
-
-export const resources: { [key in ResourceKeys]: GameResources } =
-  definitions.reduce((acc, def) => {
-    acc[def.id] = new Resource(def);
-
-    return acc;
-  }, {} as { [key in ResourceKeys]: GameResources });

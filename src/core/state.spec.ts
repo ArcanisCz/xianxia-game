@@ -3,6 +3,7 @@ import { ActivityDef } from './activity';
 import { ActivityTagDef } from './activityTag';
 import { Game } from './game';
 import { LocationDef } from './location';
+import { ResourceDef } from './resource';
 
 const tagDefinition: ActivityTagDef<'aaa'>[] = [
   {
@@ -30,10 +31,16 @@ const locationDefinitions: LocationDef<
   { id: 'loc3', name: 'Loc 3', activities: ['second'], locations: ['loc1'] },
 ];
 
+const resourceDefinitions: ResourceDef<'a' | 'b'>[] = [
+  { id: 'a', name: 'A' },
+  { id: 'b', name: 'B' },
+];
+
 const config = {
   activityDefinitions: activityDefinition,
   locationDefinitions: locationDefinitions,
   activityTagDefinitions: tagDefinition,
+  resourceDefinitions: resourceDefinitions,
 };
 
 const createGame = (startingLocation: 'loc1' | 'loc2' | 'loc3') =>

@@ -3,28 +3,38 @@ import { Activity, ActivityDef } from './activity';
 import { ActivityTagDef } from './activityTag';
 import { Location, LocationDef } from './location';
 import { GameRegistry } from './registry';
+import { Resource, ResourceDef } from './resource';
 import { GameState } from './state';
 
 export class Game<
   Activities extends string,
   Locations extends string,
   ActivityTags extends string,
+  Resources extends string,
   ActivityTagType extends ActivityTagDef<ActivityTags>,
   LocationType extends Location<Locations, Activities, ActivityTags>,
   ActivityType extends Activity<Activities, ActivityTags>,
+  ResourceType extends Resource<Resources>,
 > {
-  readonly gameRegistry: GameRegistry<Activities, Locations, ActivityTags>;
-  readonly gameState: GameState<Activities, Locations, ActivityTags>;
+  readonly gameRegistry: GameRegistry<
+    Activities,
+    Locations,
+    ActivityTags,
+    Resources
+  >;
+  readonly gameState: GameState<Activities, Locations, ActivityTags, Resources>;
 
   constructor(
     {
       activityTagDefinitions,
       locationDefinitions,
       activityDefinitions,
+      resourceDefinitions,
     }: {
       activityTagDefinitions: ActivityTagDef<ActivityTags>[];
       locationDefinitions: LocationDef<Locations, Activities>[];
       activityDefinitions: ActivityDef<Activities, ActivityTags>[];
+      resourceDefinitions: ResourceDef<Resources>[];
     },
     {
       parallelActivityTags,
@@ -72,10 +82,20 @@ export class Game<
       loc['locations'] = (def.locations || []).map(a => locationsMap[a]);
     });
 
+    const resourcesMap = mapValues(
+      keyBy(resourceDefinitions, 'id'),
+      def =>
+        new Resource({
+          id: def.id,
+          name: def.name,
+        }),
+    ) as { [key in Resources]: ResourceType };
+
     this.gameRegistry = new GameRegistry(
       activitiesMap,
       locationsMap,
       activityTagsMap,
+      resourcesMap,
       parallelActivityTags,
     );
 

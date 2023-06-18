@@ -7,6 +7,7 @@ export class GameState<
   Activities extends string,
   Locations extends string,
   ActivityTags extends string,
+  Resources extends string,
 > {
   private readonly emptyActivity: Activity<Activities, ActivityTags>;
   private readonly startingLocation: Location<
@@ -21,7 +22,8 @@ export class GameState<
     private readonly registry: GameRegistry<
       Activities,
       Locations,
-      ActivityTags
+      ActivityTags,
+      Resources
     >,
   ) {
     this.emptyActivity = registry.activities[emptyActivityId];

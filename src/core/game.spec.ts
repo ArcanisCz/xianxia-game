@@ -40,6 +40,7 @@ void tap.test('new Game()', group => {
         activityDefinitions: [],
         locationDefinitions: [],
         activityTagDefinitions: tagDefinition,
+        resourceDefinitions: [],
       },
       {
         parallelActivityTags: ['aaa', 'bbb'],
@@ -68,6 +69,7 @@ void tap.test('new Game()', group => {
         activityDefinitions: activityDefinition,
         locationDefinitions: [],
         activityTagDefinitions: tagDefinition,
+        resourceDefinitions: [],
       },
       {
         parallelActivityTags: ['aaa', 'bbb'],
@@ -106,6 +108,7 @@ void tap.test('new Game()', group => {
         activityDefinitions: activityDefinition,
         locationDefinitions: locationDefinitions,
         activityTagDefinitions: tagDefinition,
+        resourceDefinitions: [],
       },
       {
         parallelActivityTags: ['aaa', 'bbb'],
@@ -152,6 +155,8 @@ void tap.test('new Game()', group => {
       }
     }
   });
+
+  void group.test('should instantiate resources');
 
   group.end();
 });

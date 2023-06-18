@@ -5,6 +5,7 @@ import {
   activityDefinitions,
   activityTagDefinitions,
   locationDefinitions,
+  resourceDefinitions,
   XianxiaGame,
   XianxiaGameClient,
 } from 'game';
@@ -20,6 +21,7 @@ const newGame: XianxiaGame = new Game(
     activityTagDefinitions,
     locationDefinitions,
     activityDefinitions,
+    resourceDefinitions,
   },
   {
     startingLocation: 'sect',

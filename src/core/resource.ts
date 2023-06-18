@@ -15,6 +15,7 @@ export class Resource<ResourceKeys> {
 
   name: string;
   id: ResourceKeys;
+
   @observable
   amount: number = 0;
   // TODO: category

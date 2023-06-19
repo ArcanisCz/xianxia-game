@@ -16,13 +16,24 @@ export class Game<
   ActivityType extends Activity<Activities, ActivityTags>,
   ResourceType extends Resource<Resources>,
 > {
-  readonly gameRegistry: GameRegistry<
+  readonly _gameRegistry: GameRegistry<
     Activities,
     Locations,
     ActivityTags,
     Resources
   >;
   readonly gameState: GameState<Activities, Locations, ActivityTags, Resources>;
+
+  get gameRegistry(): {
+    activities: {
+      [key in Activities]: Omit<
+        Activity<Activities, ActivityTags>,
+        'setActive'
+      >;
+    };
+  } {
+    return this._gameRegistry;
+  }
 
   constructor(
     {
@@ -91,7 +102,7 @@ export class Game<
         }),
     ) as { [key in Resources]: ResourceType };
 
-    this.gameRegistry = new GameRegistry(
+    this._gameRegistry = new GameRegistry(
       activitiesMap,
       locationsMap,
       activityTagsMap,
@@ -102,7 +113,7 @@ export class Game<
     this.gameState = new GameState(
       emptyActivity,
       startingLocation,
-      this.gameRegistry,
+      this._gameRegistry,
     );
   }
 }

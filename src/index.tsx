@@ -41,6 +41,8 @@ newGameClient.aaa();
 
 // @ts-ignore
 window.gameClient = newGameClient;
+// @ts-ignore
+window.game = newGame;
 
 const element = document.getElementById('root');
 

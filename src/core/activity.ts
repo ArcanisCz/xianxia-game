@@ -1,3 +1,5 @@
+import { action, makeObservable, observable } from 'mobx';
+
 export type ActivityDef<
   ActivityKeys extends string,
   ActivityTags extends string,
@@ -19,9 +21,23 @@ export class Activity<
     this.name = init.name;
     this.id = init.id;
     this.tags = init.tags;
+
+    makeObservable(this);
   }
 
   name: string;
   id: ActivityKeys;
   tags: Set<ActivityTags>;
+
+  @observable
+  active: Set<ActivityTags> = new Set();
+
+  @action
+  setActive(tag: ActivityTags, active: boolean) {
+    if (!active) {
+      this.active.delete(tag);
+    } else {
+      this.active.add(tag);
+    }
+  }
 }

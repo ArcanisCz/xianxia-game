@@ -17,9 +17,10 @@ void tap.test('new Game()', group => {
   ];
 
   const activityDefinition: ActivityDef<
-    'first' | 'second' | 'third',
+    'empty' | 'first' | 'second' | 'third',
     'aaa' | 'bbb'
   >[] = [
+    { id: 'empty', name: 'Empty', tags: [] },
     { id: 'first', name: 'First', tags: ['bbb', 'aaa'] },
     { id: 'second', name: 'Second', tags: ['aaa'] },
     { id: 'third', name: 'Third', tags: [] },
@@ -27,7 +28,7 @@ void tap.test('new Game()', group => {
 
   const locationDefinitions: LocationDef<
     'loc1' | 'loc2' | 'loc3',
-    'first' | 'second' | 'third'
+    'empty' | 'first' | 'second' | 'third'
   >[] = [
     { id: 'loc1', name: 'Loc 1' },
     { id: 'loc2', name: 'Loc 2', activities: ['third', 'first'] },
@@ -37,14 +38,14 @@ void tap.test('new Game()', group => {
   void group.test('should instantiate tags', async t => {
     const { gameRegistry } = new Game(
       {
-        activityDefinitions: [],
-        locationDefinitions: [],
+        activityDefinitions: activityDefinition,
+        locationDefinitions: locationDefinitions,
         activityTagDefinitions: tagDefinition,
         resourceDefinitions: [],
       },
       {
         parallelActivityTags: ['aaa', 'bbb'],
-        emptyActivity: '',
+        emptyActivity: 'empty',
         startingLocation: '',
       },
     );
@@ -67,13 +68,13 @@ void tap.test('new Game()', group => {
     const { gameRegistry } = new Game(
       {
         activityDefinitions: activityDefinition,
-        locationDefinitions: [],
+        locationDefinitions: locationDefinitions,
         activityTagDefinitions: tagDefinition,
         resourceDefinitions: [],
       },
       {
         parallelActivityTags: ['aaa', 'bbb'],
-        emptyActivity: '',
+        emptyActivity: 'empty',
         startingLocation: '',
       },
     );
@@ -112,7 +113,7 @@ void tap.test('new Game()', group => {
       },
       {
         parallelActivityTags: ['aaa', 'bbb'],
-        emptyActivity: '',
+        emptyActivity: 'empty',
         startingLocation: '',
       },
     );

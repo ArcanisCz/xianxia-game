@@ -1,3 +1,4 @@
+import { mapValues, find, keyBy } from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { Activity } from './activity';
 import { Location } from './location';
@@ -29,23 +30,26 @@ export class GameState<
     this.emptyActivity = registry.activities[emptyActivityId];
     this.startingLocation = registry.locations[startingLocationId];
 
-    this.activeActivity = this.registry.parallelActivityTags.reduce(
-      (acc, item) => {
-        acc[item] = this.emptyActivity;
-
-        return acc;
-      },
-      {} as { [key in ActivityTags]: Activity<Activities, ActivityTags> },
-    );
+    this.registry.parallelActivityTags.forEach(tag => {
+      this.emptyActivity.setActive(tag, true);
+    });
 
     this.currentLocation = this.startingLocation;
 
     makeObservable(this);
   }
-  @observable
-  activeActivity: {
+  @computed
+  get activeActivity(): {
     [key in ActivityTags]: Activity<Activities, ActivityTags>;
-  };
+  } {
+    return mapValues(keyBy(this.registry.parallelActivityTags), tag => {
+      return (
+        find(this.registry.activities, activity => activity.active.has(tag)) ||
+        this.emptyActivity
+      );
+    }) as { [key in ActivityTags]: Activity<Activities, ActivityTags> };
+  }
+
   @observable
   currentLocation: Location<Locations, Activities, ActivityTags>;
 
@@ -76,7 +80,8 @@ export class GameState<
   @action
   changeActivity(tag: ActivityTags, activity: Activities) {
     if (this.registry.parallelActivityTags.includes(tag)) {
-      this.activeActivity[tag] = this.registry.activities[activity];
+      this.activeActivity[tag].setActive(tag, false);
+      this.registry.activities[activity].setActive(tag, true);
     }
 
     this.checkActiveActivities();
@@ -107,7 +112,8 @@ export class GameState<
       if (
         !this.availableActivitiesSetByTag(tag).has(this.activeActivity[tag].id)
       ) {
-        this.activeActivity[tag] = this.emptyActivity;
+        this.activeActivity[tag].setActive(tag, false);
+        this.emptyActivity.setActive(tag, true);
       }
     });
   }

@@ -137,7 +137,7 @@ void tap.test('new Game()', group => {
       );
       for (const key in locationDef.activities || []) {
         t.equal(
-          locationInstance.activities[key].id,
+          locationInstance.activities[key],
           locationDef.activities![key],
           'Location should have a proper activities',
         );
@@ -149,7 +149,7 @@ void tap.test('new Game()', group => {
       );
       for (const key in locationDef.locations || []) {
         t.equal(
-          locationInstance.locations[key].id,
+          locationInstance.locations[key],
           locationDef.locations![key],
           'Location should have a proper locations',
         );

@@ -12,11 +12,11 @@ export class Game<
   ActivityTags extends string,
   Resources extends string,
   ActivityTagType extends ActivityTagDef<ActivityTags>,
-  LocationType extends Location<Locations, Activities, ActivityTags>,
+  LocationType extends Location<Locations, Activities>,
   ActivityType extends Activity<Activities, ActivityTags>,
   ResourceType extends Resource<Resources>,
 > {
-  readonly _gameRegistry: GameRegistry<
+  readonly gameRegistry: GameRegistry<
     Activities,
     Locations,
     ActivityTags,
@@ -24,16 +24,16 @@ export class Game<
   >;
   readonly gameState: GameState<Activities, Locations, ActivityTags, Resources>;
 
-  get gameRegistry(): {
-    activities: {
-      [key in Activities]: Omit<
-        Activity<Activities, ActivityTags>,
-        'setActive'
-      >;
-    };
-  } {
-    return this._gameRegistry;
-  }
+  // get gameRegistry(): {
+  //   activities: {
+  //     [key in Activities]: Omit<
+  //       Activity<Activities, ActivityTags>,
+  //       'setActive'
+  //     >;
+  //   };
+  // } {
+  //   return this._gameRegistry;
+  // }
 
   constructor(
     {
@@ -77,21 +77,14 @@ export class Game<
         new Location({
           id: def.id,
           name: def.name,
-          activities: (def.activities || []).map(a => activitiesMap[a]),
-          locations: [],
+          activities: def.activities || [],
+          locations: def.locations || [],
         }),
     );
 
     const locationsMap = mapKeys(locationsArray, 'id') as {
       [key in Locations]: LocationType;
     };
-
-    locationDefinitions.forEach(def => {
-      const loc = locationsMap[def.id];
-
-      // @ts-ignore
-      loc['locations'] = (def.locations || []).map(a => locationsMap[a]);
-    });
 
     const resourcesMap = mapValues(
       keyBy(resourceDefinitions, 'id'),
@@ -102,7 +95,7 @@ export class Game<
         }),
     ) as { [key in Resources]: ResourceType };
 
-    this._gameRegistry = new GameRegistry(
+    this.gameRegistry = new GameRegistry(
       activitiesMap,
       locationsMap,
       activityTagsMap,
@@ -113,7 +106,7 @@ export class Game<
     this.gameState = new GameState(
       emptyActivity,
       startingLocation,
-      this._gameRegistry,
+      this.gameRegistry,
     );
   }
 }

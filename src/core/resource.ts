@@ -10,13 +10,16 @@ export class Resource<ResourceKeys> {
     this.name = init.name;
     this.id = init.id;
 
-    makeObservable(this);
+    makeObservable(this, {
+      name: false,
+      id: false,
+      amount: observable,
+    });
   }
 
-  name: string;
-  id: ResourceKeys;
+  readonly id: ResourceKeys;
+  readonly name: string;
 
-  @observable
   amount: number = 0;
   // TODO: category
 }

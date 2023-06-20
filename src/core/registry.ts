@@ -13,7 +13,7 @@ export class GameRegistry<
       [key in Activities]: Activity<Activities, ActivityTags>;
     },
     readonly locations: {
-      [key in Locations]: Location<Locations, Activities, ActivityTags>;
+      [key in Locations]: Location<Locations, Activities>;
     },
     readonly activityTags: {
       [key in ActivityTags]: ActivityTagDef<ActivityTags>;

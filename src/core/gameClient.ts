@@ -11,7 +11,7 @@ export class GameClient<
   ActivityTags extends string,
   Resources extends string,
   ActivityTagType extends ActivityTagDef<ActivityTags>,
-  LocationType extends Location<Locations, Activities, ActivityTags>,
+  LocationType extends Location<Locations, Activities>,
   ActivityType extends Activity<Activities, ActivityTags>,
   ResourceType extends Resource<Resources>,
 > {
@@ -33,13 +33,13 @@ export class GameClient<
 
     // eslint-disable-next-line no-console
     console.log({
-      currentLocation: gameState.currentLocation.id,
-      currentActivities: mapValues(gameState.activeActivity, 'id'),
+      currentLocation: gameState.currentLocation,
+      currentActivities: gameState.activeActivity,
       availableAbilities: mapValues(
         keyBy(gameRegistry.parallelActivityTags),
-        tag => map(gameState.availableActivitiesByTag(tag), 'id'),
+        tag => gameState.availableActivitiesByTag(tag),
       ),
-      availableLocations: map(gameState.availableLocations, 'id'),
+      availableLocations: gameState.availableLocations,
     });
   }
 }

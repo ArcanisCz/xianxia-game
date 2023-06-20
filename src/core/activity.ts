@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { makeObservable, observable } from 'mobx';
 
 export type ActivityDef<
   ActivityKeys extends string,
@@ -31,9 +31,9 @@ export class Activity<
     });
   }
 
-  name: string;
-  id: ActivityKeys;
-  tags: Set<ActivityTags>;
+  readonly name: string;
+  readonly id: ActivityKeys;
+  readonly tags: Set<ActivityTags>;
 
   active: Set<ActivityTags> = new Set();
 

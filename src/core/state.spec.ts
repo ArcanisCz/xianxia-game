@@ -54,7 +54,7 @@ void tap.test('Game state - ', group => {
   void group.test('should set starting location', async t => {
     const { gameState } = createGame('loc1');
 
-    t.equal(gameState.currentLocation.id, 'loc1');
+    t.equal(gameState.currentLocation, 'loc1');
   });
 
   void group.test(
@@ -62,31 +62,25 @@ void tap.test('Game state - ', group => {
     async t => {
       const { gameState } = createGame('loc1');
 
-      t.equal(gameState.activeActivity.aaa.id, 'empty');
+      t.equal(gameState.activeActivity.aaa, 'empty');
     },
   );
 
   void group.test(
     'should provide available actions based on location',
     async t => {
-      const { gameState, gameRegistry } = createGame('loc2');
+      const { gameState } = createGame('loc2');
 
-      t.ok(
-        gameState
-          .availableActivitiesByTag('aaa')
-          .includes(gameRegistry.activities['first']),
-      );
+      t.ok(gameState.availableActivitiesByTag('aaa').includes('first'));
     },
   );
 
   void group.test(
     'should provide available locations based on location',
     async t => {
-      const { gameState, gameRegistry } = createGame('loc3');
+      const { gameState } = createGame('loc3');
 
-      t.ok(
-        gameState.availableLocations.includes(gameRegistry.locations['loc1']),
-      );
+      t.ok(gameState.availableLocations.includes('loc1'));
     },
   );
 
@@ -95,7 +89,7 @@ void tap.test('Game state - ', group => {
 
     gameState.changeLocation('loc2');
 
-    t.equal(gameState.currentLocation.id, 'loc3');
+    t.equal(gameState.currentLocation, 'loc3');
   });
 
   void group.test('can change location to available one', async t => {
@@ -103,27 +97,27 @@ void tap.test('Game state - ', group => {
 
     gameState.changeLocation('loc1');
 
-    t.equal(gameState.currentLocation.id, 'loc1');
+    t.equal(gameState.currentLocation, 'loc1');
   });
 
   void group.test('cannot change activity to unavailable one', async t => {
     const { gameState } = createGame('loc3');
 
-    t.equal(gameState.activeActivity.aaa.id, 'empty');
+    t.equal(gameState.activeActivity.aaa, 'empty');
 
     gameState.changeActivity('aaa', 'third');
 
-    t.equal(gameState.activeActivity.aaa.id, 'empty');
+    t.equal(gameState.activeActivity.aaa, 'empty');
   });
 
   void group.test('can change activity to available one', async t => {
     const { gameState } = createGame('loc3');
 
-    t.equal(gameState.activeActivity.aaa.id, 'empty');
+    t.equal(gameState.activeActivity.aaa, 'empty');
 
     gameState.changeActivity('aaa', 'second');
 
-    t.equal(gameState.activeActivity.aaa.id, 'second');
+    t.equal(gameState.activeActivity.aaa, 'second');
   });
 
   void group.test(
@@ -132,11 +126,11 @@ void tap.test('Game state - ', group => {
       const { gameState } = createGame('loc3');
 
       gameState.changeActivity('aaa', 'second');
-      t.equal(gameState.activeActivity.aaa.id, 'second');
+      t.equal(gameState.activeActivity.aaa, 'second');
 
       gameState.changeLocation('loc1');
 
-      t.equal(gameState.activeActivity.aaa.id, 'empty');
+      t.equal(gameState.activeActivity.aaa, 'empty');
     },
   );
 

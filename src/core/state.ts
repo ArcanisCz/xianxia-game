@@ -1,7 +1,5 @@
 import { mapValues, find, keyBy } from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
-import { Activity } from './activity';
-import { Location } from './location';
 import { GameRegistry } from './registry';
 
 export class GameState<
@@ -10,16 +8,9 @@ export class GameState<
   ActivityTags extends string,
   Resources extends string,
 > {
-  private readonly emptyActivity: Activity<Activities, ActivityTags>;
-  private readonly startingLocation: Location<
-    Locations,
-    Activities,
-    ActivityTags
-  >;
-
   constructor(
-    emptyActivityId: Activities,
-    startingLocationId: Locations,
+    private readonly emptyActivity: Activities,
+    private readonly startingLocation: Locations,
     private readonly registry: GameRegistry<
       Activities,
       Locations,
@@ -27,51 +18,43 @@ export class GameState<
       Resources
     >,
   ) {
-    this.emptyActivity = registry.activities[emptyActivityId];
-    this.startingLocation = registry.locations[startingLocationId];
-
-    this.registry.parallelActivityTags.forEach(tag => {
-      this.emptyActivity.setActive(tag, true);
-    });
-
     this.currentLocation = this.startingLocation;
 
     makeObservable(this);
+
+    this.init();
   }
   @computed
   get activeActivity(): {
-    [key in ActivityTags]: Activity<Activities, ActivityTags>;
+    [key in ActivityTags]: Activities;
   } {
     return mapValues(keyBy(this.registry.parallelActivityTags), tag => {
       return (
-        find(this.registry.activities, activity => activity.active.has(tag)) ||
-        this.emptyActivity
+        find(this.registry.activities, activity => activity.active.has(tag))
+          ?.id || this.registry.activities
       );
-    }) as { [key in ActivityTags]: Activity<Activities, ActivityTags> };
+    }) as { [key in ActivityTags]: Activities };
   }
 
   @observable
-  currentLocation: Location<Locations, Activities, ActivityTags>;
+  currentLocation: Locations;
 
-  availableActivitiesByTag(
-    tag: ActivityTags,
-  ): Activity<Activities, ActivityTags>[] {
+  availableActivitiesByTag(tag: ActivityTags): Activities[] {
     return this.availableActivities.filter(
-      a => a.tags.has(tag) || a === this.emptyActivity,
+      a =>
+        this.registry.activities[a].tags.has(tag) || a === this.emptyActivity,
     );
   }
 
   @computed
-  get availableLocations(): Location<Locations, Activities, ActivityTags>[] {
-    return [...this.currentLocation.locations];
+  get availableLocations(): Locations[] {
+    return [...this.registry.locations[this.currentLocation].locations];
   }
 
   @action
   changeLocation(newLocation: Locations) {
-    const newLocationInst = this.registry.locations[newLocation];
-
-    if (this.availableLocations.includes(newLocationInst)) {
-      this.currentLocation = newLocationInst;
+    if (this.availableLocations.includes(newLocation)) {
+      this.currentLocation = newLocation;
     }
 
     this.checkActiveActivities();
@@ -80,40 +63,56 @@ export class GameState<
   @action
   changeActivity(tag: ActivityTags, activity: Activities) {
     if (this.registry.parallelActivityTags.includes(tag)) {
-      this.activeActivity[tag].setActive(tag, false);
+      this.registry.activities[this.activeActivity[tag]].setActive(tag, false);
       this.registry.activities[activity].setActive(tag, true);
     }
 
     this.checkActiveActivities();
   }
 
+  @action
+  init() {
+    const emptyActivityInst = this.registry.activities[this.emptyActivity];
+
+    this.registry.parallelActivityTags.forEach(tag => {
+      emptyActivityInst.setActive(tag, true);
+    });
+  }
+
   availableActivitiesSetByTag(tag: ActivityTags): Set<Activities> {
     return new Set(
-      this.availableActivities
-        .filter(a => a.tags.has(tag) || a === this.emptyActivity)
-        .map(a => a.id),
+      this.availableActivities.filter(
+        a =>
+          this.registry.activities[a].tags.has(tag) || a === this.emptyActivity,
+      ),
     );
   }
 
   @computed
-  private get availableActivities(): Activity<Activities, ActivityTags>[] {
+  private get availableActivities(): Activities[] {
     // TODO: remove duplicates?
     // TODO: maybe categories?
-    return [this.emptyActivity, ...this.currentLocation.activities];
+    return [
+      this.emptyActivity,
+      ...this.registry.locations[this.currentLocation].activities,
+    ];
   }
 
   @computed
   private get availableActivitiesSet(): Set<Activities> {
-    return new Set(this.availableActivities.map(a => a.id));
+    return new Set(this.availableActivities);
   }
 
   private checkActiveActivities() {
     this.registry.parallelActivityTags.forEach(tag => {
       if (
-        !this.availableActivitiesSetByTag(tag).has(this.activeActivity[tag].id)
+        !this.availableActivitiesSetByTag(tag).has(this.activeActivity[tag])
       ) {
-        this.activeActivity[tag].setActive(tag, false);
-        this.emptyActivity.setActive(tag, true);
+        this.registry.activities[this.activeActivity[tag]].setActive(
+          tag,
+          false,
+        );
+        this.registry.activities[this.emptyActivity].setActive(tag, true);
       }
     });
   }

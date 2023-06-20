@@ -1,4 +1,4 @@
-import { mapValues, keyBy, map } from 'lodash';
+import { mapValues, keyBy } from 'lodash';
 import { Activity } from './activity';
 import { ActivityTagDef } from './activityTag';
 import { Game } from './game';

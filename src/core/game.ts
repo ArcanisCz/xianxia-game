@@ -16,7 +16,7 @@ export class Game<
   ActivityType extends Activity<Activities, ActivityTags>,
   ResourceType extends Resource<Resources>,
 > {
-  readonly gameRegistry: GameRegistry<
+  private readonly _gameRegistry: GameRegistry<
     Activities,
     Locations,
     ActivityTags,
@@ -24,16 +24,34 @@ export class Game<
   >;
   readonly gameState: GameState<Activities, Locations, ActivityTags, Resources>;
 
-  // get gameRegistry(): {
-  //   activities: {
-  //     [key in Activities]: Omit<
-  //       Activity<Activities, ActivityTags>,
-  //       'setActive'
-  //     >;
-  //   };
-  // } {
-  //   return this._gameRegistry;
-  // }
+  /**
+   * This is to force an interface to outside world - to express intention
+   * of limiting access to mainly setters - all actions needs to be called on
+   * Game/GameState classes.
+   */
+  get gameRegistry(): {
+    readonly activities: {
+      [key in Activities]: Pick<
+        Activity<Activities, ActivityTags>,
+        'id' | 'name' | 'tags' | 'active'
+      >;
+    };
+    readonly locations: {
+      [key in Locations]: Pick<
+        Location<Locations, Activities>,
+        'id' | 'name' | 'locations' | 'activities'
+      >;
+    };
+    readonly activityTags: {
+      [key in ActivityTags]: Pick<ActivityTagDef<ActivityTags>, 'id' | 'name'>;
+    };
+    readonly resources: {
+      [key in Resources]: Pick<ActivityTagDef<Resources>, 'id' | 'name'>;
+    };
+    readonly parallelActivityTags: ActivityTags[];
+  } {
+    return this._gameRegistry;
+  }
 
   constructor(
     {
@@ -95,7 +113,7 @@ export class Game<
         }),
     ) as { [key in Resources]: ResourceType };
 
-    this.gameRegistry = new GameRegistry(
+    this._gameRegistry = new GameRegistry(
       activitiesMap,
       locationsMap,
       activityTagsMap,
@@ -106,7 +124,7 @@ export class Game<
     this.gameState = new GameState(
       emptyActivity,
       startingLocation,
-      this.gameRegistry,
+      this._gameRegistry,
     );
   }
 }

@@ -10,7 +10,7 @@ export class GameRegistry<
 > {
   constructor(
     readonly activities: {
-      [key in Activities]: Activity<Activities, ActivityTags>;
+      [key in Activities]: Activity<Activities, ActivityTags, Resources>;
     },
     readonly locations: {
       [key in Locations]: Location<Locations, Activities>;

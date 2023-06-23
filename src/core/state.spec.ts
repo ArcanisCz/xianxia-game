@@ -14,7 +14,8 @@ const tagDefinition: ActivityTagDef<'aaa'>[] = [
 
 const activityDefinition: ActivityDef<
   'empty' | 'first' | 'second' | 'third',
-  'aaa'
+  'aaa',
+  'a' | 'b'
 >[] = [
   { id: 'empty', name: 'Empty', tags: [] },
   { id: 'first', name: 'First', tags: ['aaa'] },

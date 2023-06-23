@@ -18,7 +18,8 @@ void tap.test('new Game()', group => {
 
   const activityDefinition: ActivityDef<
     'empty' | 'first' | 'second' | 'third',
-    'aaa' | 'bbb'
+    'aaa' | 'bbb',
+    'qi'
   >[] = [
     { id: 'empty', name: 'Empty', tags: [] },
     { id: 'first', name: 'First', tags: ['bbb', 'aaa'] },

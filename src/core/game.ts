@@ -13,7 +13,7 @@ export class Game<
   Resources extends string,
   ActivityTagType extends ActivityTagDef<ActivityTags>,
   LocationType extends Location<Locations, Activities>,
-  ActivityType extends Activity<Activities, ActivityTags>,
+  ActivityType extends Activity<Activities, ActivityTags, Resources>,
   ResourceType extends Resource<Resources>,
 > {
   private readonly _gameRegistry: GameRegistry<
@@ -32,8 +32,8 @@ export class Game<
   get gameRegistry(): {
     readonly activities: {
       [key in Activities]: Pick<
-        Activity<Activities, ActivityTags>,
-        'id' | 'name' | 'tags' | 'active'
+        Activity<Activities, ActivityTags, Resources>,
+        'id' | 'name' | 'tags' | 'active' | 'resources'
       >;
     };
     readonly locations: {
@@ -62,7 +62,7 @@ export class Game<
     }: {
       activityTagDefinitions: ActivityTagDef<ActivityTags>[];
       locationDefinitions: LocationDef<Locations, Activities>[];
-      activityDefinitions: ActivityDef<Activities, ActivityTags>[];
+      activityDefinitions: ActivityDef<Activities, ActivityTags, Resources>[];
       resourceDefinitions: ResourceDef<Resources>[];
     },
     {
@@ -87,6 +87,7 @@ export class Game<
           id: def.id,
           name: def.name,
           tags: new Set(def.tags),
+          resources: def.resources || {},
         }),
     ) as { [key in Activities]: ActivityType };
 

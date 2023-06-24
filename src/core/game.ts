@@ -1,6 +1,7 @@
-import { keyBy, mapKeys, mapValues } from 'lodash';
+import { keyBy, map, mapKeys, mapValues } from 'lodash';
 import { Activity, ActivityDef } from './activity';
 import { ActivityTagDef } from './activityTag';
+import { Effect } from './effect';
 import { Location, LocationDef } from './location';
 import { GameRegistry } from './registry';
 import { Resource, ResourceDef } from './resource';
@@ -13,7 +14,7 @@ export class Game<
   Resources extends string,
   ActivityTagType extends ActivityTagDef<ActivityTags>,
   LocationType extends Location<Locations, Activities>,
-  ActivityType extends Activity<Activities, ActivityTags, Resources>,
+  ActivityType extends Activity<Activities, ActivityTags, Locations, Resources>,
   ResourceType extends Resource<Resources>,
 > {
   private readonly _gameRegistry: GameRegistry<
@@ -32,8 +33,8 @@ export class Game<
   get gameRegistry(): {
     readonly activities: {
       [key in Activities]: Pick<
-        Activity<Activities, ActivityTags, Resources>,
-        'id' | 'name' | 'tags' | 'active' | 'resources'
+        Activity<Activities, ActivityTags, Locations, Resources>,
+        'id' | 'name' | 'tags' | 'active' | 'effects'
       >;
     };
     readonly locations: {
@@ -87,7 +88,10 @@ export class Game<
           id: def.id,
           name: def.name,
           tags: new Set(def.tags),
-          resources: def.resources || {},
+          effects: map(
+            def.effects || [],
+            effectDef => new Effect(effectDef, { activity: def.id }),
+          ),
         }),
     ) as { [key in Activities]: ActivityType };
 

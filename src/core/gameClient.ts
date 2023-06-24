@@ -12,7 +12,7 @@ export class GameClient<
   Resources extends string,
   ActivityTagType extends ActivityTagDef<ActivityTags>,
   LocationType extends Location<Locations, Activities>,
-  ActivityType extends Activity<Activities, ActivityTags, Resources>,
+  ActivityType extends Activity<Activities, ActivityTags, Locations, Resources>,
   ResourceType extends Resource<Resources>,
 > {
   constructor(

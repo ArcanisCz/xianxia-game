@@ -72,32 +72,33 @@ export class GameState<
 
   @action
   changeResourcesTick() {
-    const result = reduce(
-      this.registry.parallelActivityTags,
-      (acc, tag) => {
-        const resources =
-          this.registry.activities[this.activeActivity[tag]].resources;
-
-        forEach(resources, (value, res) => {
-          if (!value) {
-            return;
-          }
-
-          if (!acc[res as Resources]) {
-            acc[res as Resources] = 0;
-          }
-
-          acc[res as Resources]! += value;
-        });
-
-        return acc;
-      },
-      {} as { [key in Resources]?: number },
-    );
-
-    forEach(result, (value, res) => {
-      this.registry.resources[res as Resources].add(value || 0);
-    });
+    // TODO
+    // const result = reduce(
+    //   this.registry.parallelActivityTags,
+    //   (acc, tag) => {
+    //     const resources =
+    //       this.registry.activities[this.activeActivity[tag]].resources;
+    //
+    //     forEach(resources, (value, res) => {
+    //       if (!value) {
+    //         return;
+    //       }
+    //
+    //       if (!acc[res as Resources]) {
+    //         acc[res as Resources] = 0;
+    //       }
+    //
+    //       acc[res as Resources]! += value;
+    //     });
+    //
+    //     return acc;
+    //   },
+    //   {} as { [key in Resources]?: number },
+    // );
+    //
+    // forEach(result, (value, res) => {
+    //   this.registry.resources[res as Resources].add(value || 0);
+    // });
   }
 
   @action

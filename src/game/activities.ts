@@ -17,24 +17,21 @@ export const activityDefinitions: ActivityDef<
     id: 'meditate',
     name: 'Meditate',
     tags: ['night'],
-    resources: {
-      qi: 1,
-    },
+    effects: [
+      {
+        resource: 'qi',
+        value: { baseAmnt: 1 },
+      },
+    ],
   },
   {
     id: 'raid',
     name: 'Raid',
     tags: ['day'],
-    resources: {
-      gold: 1,
-    },
   },
   {
     id: 'idle',
     name: 'Idle',
     tags: ['day', 'night'],
-    resources: {
-      qi: 0.5,
-    },
   },
 ];

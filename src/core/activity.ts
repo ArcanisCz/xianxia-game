@@ -1,4 +1,5 @@
 import { makeObservable, observable } from 'mobx';
+import { EffectDef, Effect } from './effect';
 
 export type ActivityDef<
   ActivityKeys extends string,
@@ -8,30 +9,31 @@ export type ActivityDef<
   id: ActivityKeys;
   name: string;
   tags: ActivityTags[];
-  resources?: { [key in ResourceKeys]?: number };
+  effects?: EffectDef<ResourceKeys>[];
 };
 
 export class Activity<
   ActivityKeys extends string,
   ActivityTags extends string,
+  LocationKeys extends string,
   ResourceKeys extends string,
 > {
   constructor(init: {
     id: ActivityKeys;
     name: string;
     tags: Set<ActivityTags>;
-    resources: { [key in ResourceKeys]?: number };
+    effects: Effect<ActivityKeys, LocationKeys, ResourceKeys>[];
   }) {
     this.name = init.name;
     this.id = init.id;
     this.tags = init.tags;
-    this.resources = init.resources;
+    this.effects = init.effects;
 
     makeObservable(this, {
       name: false,
       id: false,
       tags: false,
-      resources: false,
+      effects: false,
       setActive: false,
       active: observable,
     });
@@ -40,7 +42,7 @@ export class Activity<
   readonly name: string;
   readonly id: ActivityKeys;
   readonly tags: Set<ActivityTags>;
-  readonly resources: { [key in ResourceKeys]?: number };
+  readonly effects: Effect<ActivityKeys, LocationKeys, ResourceKeys>[];
 
   active: Set<ActivityTags> = new Set();
 

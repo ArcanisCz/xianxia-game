@@ -13,6 +13,7 @@ export type GameLocation = Location<LocationKeys, ActivityKeys>;
 export type GameActivities = Activity<
   ActivityKeys,
   ActivityTagKeys,
+  LocationKeys,
   ResourceKeys
 >;
 export type GameActivityTags = ActivityTagDef<ActivityTagKeys>;

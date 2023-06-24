@@ -29,7 +29,8 @@ void tap.test('new Game()', group => {
 
   const locationDefinitions: LocationDef<
     'loc1' | 'loc2' | 'loc3',
-    'empty' | 'first' | 'second' | 'third'
+    'empty' | 'first' | 'second' | 'third',
+    's'
   >[] = [
     { id: 'loc1', name: 'Loc 1' },
     { id: 'loc2', name: 'Loc 2', activities: ['third', 'first'] },
@@ -159,6 +160,8 @@ void tap.test('new Game()', group => {
   });
 
   void group.test('should instantiate resources');
+
+  void group.test('should instantiate effects');
 
   group.end();
 });

@@ -41,8 +41,6 @@ console.log('State', toJS(newGame.gameState));
 console.log('---------------------');
 newGameClient.aaa();
 
-console.log(newGame.gameRegistry.activities.meditate);
-
 // @ts-ignore
 window.gameClient = newGameClient;
 // @ts-ignore

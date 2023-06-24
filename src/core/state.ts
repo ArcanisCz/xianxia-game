@@ -1,5 +1,6 @@
-import { mapValues, find, keyBy, reduce, forEach } from 'lodash';
+import { mapValues, find, keyBy, reduce, forEach, chain } from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
+import { Effect } from './effect';
 import { GameRegistry } from './registry';
 
 export class GameState<
@@ -51,6 +52,26 @@ export class GameState<
     return [...this.registry.locations[this.currentLocation].locations];
   }
 
+  @computed
+  get activeEffects(): {
+    [key in ActivityTags]: Effect<Activities, Locations, Resources>[];
+  } {
+    return reduce(
+      this.registry.parallelActivityTags,
+      (acc, tag) => {
+        acc[tag] = [
+          ...this.registry.locations[this.currentLocation].effects,
+          ...this.registry.activities[this.activeActivity[tag]].effects,
+        ];
+
+        return acc;
+      },
+      {} as {
+        [key in ActivityTags]: Effect<Activities, Locations, Resources>[];
+      },
+    );
+  }
+
   @action
   changeLocation(newLocation: Locations) {
     if (this.availableLocations.includes(newLocation)) {
@@ -72,33 +93,48 @@ export class GameState<
 
   @action
   changeResourcesTick() {
-    // TODO
-    // const result = reduce(
-    //   this.registry.parallelActivityTags,
-    //   (acc, tag) => {
-    //     const resources =
-    //       this.registry.activities[this.activeActivity[tag]].resources;
-    //
-    //     forEach(resources, (value, res) => {
-    //       if (!value) {
-    //         return;
-    //       }
-    //
-    //       if (!acc[res as Resources]) {
-    //         acc[res as Resources] = 0;
-    //       }
-    //
-    //       acc[res as Resources]! += value;
-    //     });
-    //
-    //     return acc;
-    //   },
-    //   {} as { [key in Resources]?: number },
-    // );
-    //
-    // forEach(result, (value, res) => {
-    //   this.registry.resources[res as Resources].add(value || 0);
-    // });
+    const result = reduce(
+      this.registry.parallelActivityTags,
+      (acc, tag) => {
+        chain(this.activeEffects[tag])
+          .groupBy(effect => effect.resource)
+          .forEach((effects, res) => {
+            const baseValue = chain(effects)
+              .filter(effect => !!effect.value.baseAmnt)
+              .sumBy(effect => effect.value.baseAmnt || 0)
+              .value();
+
+            const additiveMult = chain(effects)
+              .filter(effect => !!effect.value.addMult)
+              .sumBy(effect => effect.value.addMult || 0)
+              .value();
+
+            const multiplicativeMult = chain(effects)
+              .filter(effect => !!effect.value.multMult)
+              .reduce((mul, effect) => mul * (effect.value.multMult || 1), 1)
+              .value();
+
+            if (!baseValue) {
+              return;
+            }
+
+            if (!acc[res as Resources]) {
+              acc[res as Resources] = 0;
+            }
+
+            acc[res as Resources]! +=
+              baseValue * (1 + additiveMult) * multiplicativeMult;
+          })
+          .value();
+
+        return acc;
+      },
+      {} as { [key in Resources]?: number },
+    );
+
+    forEach(result, (value, res) => {
+      this.registry.resources[res as Resources].add(value || 0);
+    });
   }
 
   @action

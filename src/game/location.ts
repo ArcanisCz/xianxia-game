@@ -19,7 +19,7 @@ export const locationDefinitions: LocationDef<
       {
         resource: 'qi',
         value: {
-          baseAmnt: 0.75,
+          baseAmnt: 1,
         },
       },
     ],
@@ -34,6 +34,12 @@ export const locationDefinitions: LocationDef<
         resource: 'qi',
         value: {
           baseAmnt: 1,
+        },
+      },
+      {
+        resource: 'qi',
+        value: {
+          addMult: -0.25,
         },
       },
     ],

@@ -22,6 +22,10 @@ export const activityDefinitions: ActivityDef<
         resource: 'qi',
         value: { multMult: 1.1 },
       },
+      {
+        resource: 'gold',
+        value: { baseAmnt: 1 },
+      },
     ],
   },
   {

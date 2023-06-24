@@ -43,6 +43,7 @@ export class GameClient<
       ),
       availableLocations: gameState.availableLocations,
       resources: mapValues(gameRegistry.resources, value => value.amount),
+      effects: gameState.activeEffects,
     });
   }
 }

@@ -12,9 +12,6 @@ export const activityDefinitions: ActivityDef<
     id: 'empty',
     name: 'Empty',
     tags: ['day', 'night'],
-    resources: {
-      rest: 1,
-    },
   },
   {
     id: 'meditate',
@@ -22,7 +19,6 @@ export const activityDefinitions: ActivityDef<
     tags: ['night'],
     resources: {
       qi: 1,
-      rest: -1,
     },
   },
   {
@@ -30,8 +26,7 @@ export const activityDefinitions: ActivityDef<
     name: 'Raid',
     tags: ['day'],
     resources: {
-      qi: -1,
-      rest: -1,
+      gold: 1,
     },
   },
   {
@@ -39,7 +34,7 @@ export const activityDefinitions: ActivityDef<
     name: 'Idle',
     tags: ['day', 'night'],
     resources: {
-      rest: 1,
+      qi: 0.5,
     },
   },
 ];

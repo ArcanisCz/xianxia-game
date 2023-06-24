@@ -31,6 +31,8 @@ export class GameClient<
   aaa(): void {
     const { gameState, gameRegistry } = this.game;
 
+    gameState.changeResourcesTick();
+
     // eslint-disable-next-line no-console
     console.log({
       currentLocation: gameState.currentLocation,
@@ -40,6 +42,7 @@ export class GameClient<
         tag => gameState.availableActivitiesByTag(tag),
       ),
       availableLocations: gameState.availableLocations,
+      resources: mapValues(gameRegistry.resources, value => value.amount),
     });
   }
 }

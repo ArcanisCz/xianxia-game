@@ -1,6 +1,7 @@
 import { Activity } from './activity';
 import { ActivityTagDef } from './activityTag';
 import { Location } from './location';
+import { Resource } from './resource';
 
 export class GameRegistry<
   Activities extends string,
@@ -19,7 +20,7 @@ export class GameRegistry<
       [key in ActivityTags]: ActivityTagDef<ActivityTags>;
     },
     readonly resources: {
-      [key in Resources]: ActivityTagDef<Resources>;
+      [key in Resources]: Resource<Resources>;
     },
     readonly parallelActivityTags: ActivityTags[],
   ) {}

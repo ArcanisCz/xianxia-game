@@ -31,6 +31,8 @@ const newGame: XianxiaGame = new Game(
 );
 const newGameClient: XianxiaGameClient = new GameClient(newGame);
 
+newGame.gameState.changeActivity('night', 'meditate');
+
 // eslint-disable-next-line no-console
 console.log('Registry', newGame.gameRegistry);
 // eslint-disable-next-line no-console

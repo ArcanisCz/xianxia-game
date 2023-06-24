@@ -46,7 +46,7 @@ export class Game<
       [key in ActivityTags]: Pick<ActivityTagDef<ActivityTags>, 'id' | 'name'>;
     };
     readonly resources: {
-      [key in Resources]: Pick<ActivityTagDef<Resources>, 'id' | 'name'>;
+      [key in Resources]: Pick<Resource<Resources>, 'id' | 'name' | 'amount'>;
     };
     readonly parallelActivityTags: ActivityTags[];
   } {

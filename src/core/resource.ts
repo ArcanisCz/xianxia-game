@@ -11,6 +11,7 @@ export class Resource<ResourceKeys> {
     this.id = init.id;
 
     makeObservable(this, {
+      add: false,
       name: false,
       id: false,
       amount: observable,
@@ -22,4 +23,8 @@ export class Resource<ResourceKeys> {
 
   amount: number = 0;
   // TODO: category
+
+  add(amount: number) {
+    this.amount += amount;
+  }
 }

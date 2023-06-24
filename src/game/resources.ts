@@ -1,13 +1,13 @@
 import { ResourceDef } from 'core/resource';
 
-export type ResourceKeys = 'qi' | 'rest';
+export type ResourceKeys = 'qi' | 'gold';
 export const resourceDefinitions: ResourceDef<ResourceKeys>[] = [
   {
     id: 'qi',
     name: 'Qi',
   },
   {
-    id: 'rest',
-    name: 'Rest',
+    id: 'gold',
+    name: 'Gold',
   },
 ];

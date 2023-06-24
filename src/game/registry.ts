@@ -9,7 +9,7 @@ export { activityTagDefinitions } from './activityTags';
 export { locationDefinitions } from './location';
 export { resourceDefinitions } from './resources';
 
-export type GameLocation = Location<LocationKeys, ActivityKeys>;
+export type GameLocation = Location<LocationKeys, ActivityKeys, ResourceKeys>;
 export type GameActivities = Activity<
   ActivityKeys,
   ActivityTagKeys,

@@ -13,7 +13,7 @@ export class Game<
   ActivityTags extends string,
   Resources extends string,
   ActivityTagType extends ActivityTagDef<ActivityTags>,
-  LocationType extends Location<Locations, Activities>,
+  LocationType extends Location<Locations, Activities, Resources>,
   ActivityType extends Activity<Activities, ActivityTags, Locations, Resources>,
   ResourceType extends Resource<Resources>,
 > {
@@ -33,21 +33,21 @@ export class Game<
   get gameRegistry(): {
     readonly activities: {
       [key in Activities]: Pick<
-        Activity<Activities, ActivityTags, Locations, Resources>,
+        ActivityType,
         'id' | 'name' | 'tags' | 'active' | 'effects'
       >;
     };
     readonly locations: {
       [key in Locations]: Pick<
-        Location<Locations, Activities>,
-        'id' | 'name' | 'locations' | 'activities'
+        LocationType,
+        'id' | 'name' | 'locations' | 'activities' | 'effects'
       >;
     };
     readonly activityTags: {
       [key in ActivityTags]: Pick<ActivityTagDef<ActivityTags>, 'id' | 'name'>;
     };
     readonly resources: {
-      [key in Resources]: Pick<Resource<Resources>, 'id' | 'name' | 'amount'>;
+      [key in Resources]: Pick<ResourceType, 'id' | 'name' | 'amount'>;
     };
     readonly parallelActivityTags: ActivityTags[];
   } {
@@ -62,7 +62,7 @@ export class Game<
       resourceDefinitions,
     }: {
       activityTagDefinitions: ActivityTagDef<ActivityTags>[];
-      locationDefinitions: LocationDef<Locations, Activities>[];
+      locationDefinitions: LocationDef<Locations, Activities, Resources>[];
       activityDefinitions: ActivityDef<Activities, ActivityTags, Resources>[];
       resourceDefinitions: ResourceDef<Resources>[];
     },
@@ -102,6 +102,10 @@ export class Game<
           name: def.name,
           activities: def.activities || [],
           locations: def.locations || [],
+          effects: map(
+            def.effects || [],
+            effectDef => new Effect(effectDef, { location: def.id }),
+          ),
         }),
     );
 

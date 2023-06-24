@@ -31,7 +31,7 @@ export type XianxiaGame = Game<
   ActivityTagKeys,
   ResourceKeys,
   ActivityTagDef<ActivityTagKeys>,
-  Location<LocationKeys, ActivityKeys>,
+  Location<LocationKeys, ActivityKeys, ResourceKeys>,
   Activity<ActivityKeys, ActivityTagKeys, LocationKeys, ResourceKeys>,
   Resource<ResourceKeys>
 >;
@@ -42,7 +42,7 @@ export type XianxiaGameClient = GameClient<
   ActivityTagKeys,
   ResourceKeys,
   ActivityTagDef<ActivityTagKeys>,
-  Location<LocationKeys, ActivityKeys>,
+  Location<LocationKeys, ActivityKeys, ResourceKeys>,
   Activity<ActivityKeys, ActivityTagKeys, LocationKeys, ResourceKeys>,
   Resource<ResourceKeys>
 >;

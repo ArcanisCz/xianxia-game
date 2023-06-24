@@ -11,7 +11,7 @@ export class GameClient<
   ActivityTags extends string,
   Resources extends string,
   ActivityTagType extends ActivityTagDef<ActivityTags>,
-  LocationType extends Location<Locations, Activities>,
+  LocationType extends Location<Locations, Activities, Resources>,
   ActivityType extends Activity<Activities, ActivityTags, Locations, Resources>,
   ResourceType extends Resource<Resources>,
 > {

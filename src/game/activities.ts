@@ -20,7 +20,7 @@ export const activityDefinitions: ActivityDef<
     effects: [
       {
         resource: 'qi',
-        value: { baseAmnt: 1 },
+        value: { multMult: 1.1 },
       },
     ],
   },

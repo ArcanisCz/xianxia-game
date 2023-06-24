@@ -19,7 +19,7 @@ export class GameRegistry<
       >;
     },
     readonly locations: {
-      [key in Locations]: Location<Locations, Activities>;
+      [key in Locations]: Location<Locations, Activities, Resources>;
     },
     readonly activityTags: {
       [key in ActivityTags]: ActivityTagDef<ActivityTags>;

@@ -25,7 +25,8 @@ const activityDefinition: ActivityDef<
 
 const locationDefinitions: LocationDef<
   'loc1' | 'loc2' | 'loc3',
-  'empty' | 'first' | 'second' | 'third'
+  'empty' | 'first' | 'second' | 'third',
+  'sss'
 >[] = [
   { id: 'loc1', name: 'Loc 1' },
   { id: 'loc2', name: 'Loc 2', activities: ['third', 'first'] },

@@ -70,8 +70,8 @@ export class Resource<
     return resolveEffects(this.getActiveMaxEffects);
   }
 
-  add(amount: number) {
-    this.amount += amount;
+  add(toAdd: number) {
+    this.amount = Math.min(this.amount + toAdd, this.max);
   }
 
   setGameState(gameState: GameState<ActivityKeys, LocationKeys, ResourceKeys>) {

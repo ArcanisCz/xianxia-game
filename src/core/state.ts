@@ -1,4 +1,4 @@
-import { find, forEach } from 'lodash';
+import { chain, find, forEach, groupBy } from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { Effect } from './effect';
 import { GameRegistry } from './registry';
@@ -54,6 +54,15 @@ export class GameState<
     ];
   }
 
+  @computed
+  get activeEffectsByResource(): {
+    [key in Resources]: Effect<Activities, Locations, Resources>[];
+  } {
+    return groupBy(this.activeEffects, effect => effect.resource) as {
+      [key in Resources]: Effect<Activities, Locations, Resources>[];
+    };
+  }
+
   @action
   changeLocation(newLocation: Locations) {
     if (this.availableLocations.includes(newLocation)) {
@@ -73,9 +82,14 @@ export class GameState<
 
   @action
   changeResourcesTick() {
-    forEach(this.registry.resources, resource => {
-      resource.add(resolveEffects(resource.getActiveGainEffects));
-    });
+    chain(this.activeEffectsByResource)
+      .keys()
+      .forEach(resourceKey => {
+        const resource = this.registry.resources[resourceKey as Resources];
+
+        resource.add(resolveEffects(resource.getActiveGainEffects));
+      })
+      .value();
   }
 
   @action

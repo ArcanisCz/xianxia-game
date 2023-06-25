@@ -12,10 +12,10 @@ export class GameRegistry<
       [key in Activities]: Activity<Activities, Locations, Resources>;
     },
     readonly locations: {
-      [key in Locations]: Location<Locations, Activities, Resources>;
+      [key in Locations]: Location<Activities, Locations, Resources>;
     },
     readonly resources: {
-      [key in Resources]: Resource<Resources>;
+      [key in Resources]: Resource<Activities, Locations, Resources>;
     },
   ) {}
 }

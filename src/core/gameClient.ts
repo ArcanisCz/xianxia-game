@@ -8,9 +8,9 @@ export class GameClient<
   Activities extends string,
   Locations extends string,
   Resources extends string,
-  LocationType extends Location<Locations, Activities, Resources>,
+  LocationType extends Location<Activities, Locations, Resources>,
   ActivityType extends Activity<Activities, Locations, Resources>,
-  ResourceType extends Resource<Resources>,
+  ResourceType extends Resource<Activities, Locations, Resources>,
 > {
   constructor(
     private readonly game: Game<

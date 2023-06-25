@@ -7,9 +7,9 @@ export { activityDefinitions } from './activities';
 export { locationDefinitions } from './location';
 export { resourceDefinitions } from './resources';
 
-export type GameLocation = Location<LocationKeys, ActivityKeys, ResourceKeys>;
+export type GameLocation = Location<ActivityKeys, LocationKeys, ResourceKeys>;
 export type GameActivities = Activity<ActivityKeys, LocationKeys, ResourceKeys>;
-export type GameResources = Resource<ResourceKeys>;
+export type GameResources = Resource<ActivityKeys, LocationKeys, ResourceKeys>;
 
 export type { ActivityKeys } from './activities';
 export type { LocationKeys } from './location';

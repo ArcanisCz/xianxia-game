@@ -14,8 +14,8 @@ export type LocationDef<
 };
 
 export class Location<
-  LocationKeys extends string,
   ActivityKeys extends string,
+  LocationKeys extends string,
   ResourceKeys extends string,
 > {
   constructor(init: {

@@ -15,16 +15,16 @@ export type XianxiaGame = Game<
   ActivityKeys,
   LocationKeys,
   ResourceKeys,
-  Location<LocationKeys, ActivityKeys, ResourceKeys>,
+  Location<ActivityKeys, LocationKeys, ResourceKeys>,
   Activity<ActivityKeys, LocationKeys, ResourceKeys>,
-  Resource<ResourceKeys>
+  Resource<ActivityKeys, LocationKeys, ResourceKeys>
 >;
 
 export type XianxiaGameClient = GameClient<
   ActivityKeys,
   LocationKeys,
   ResourceKeys,
-  Location<LocationKeys, ActivityKeys, ResourceKeys>,
+  Location<ActivityKeys, LocationKeys, ResourceKeys>,
   Activity<ActivityKeys, LocationKeys, ResourceKeys>,
-  Resource<ResourceKeys>
+  Resource<ActivityKeys, LocationKeys, ResourceKeys>
 >;

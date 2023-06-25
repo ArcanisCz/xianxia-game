@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import { Game, GameClient } from 'core';
 import {
   activityDefinitions,
-  activityTagDefinitions,
   locationDefinitions,
   resourceDefinitions,
   XianxiaGame,
@@ -18,7 +17,6 @@ configure({
 
 const newGame: XianxiaGame = new Game(
   {
-    activityTagDefinitions,
     locationDefinitions,
     activityDefinitions,
     resourceDefinitions,
@@ -26,12 +24,11 @@ const newGame: XianxiaGame = new Game(
   {
     startingLocation: 'sect',
     emptyActivity: 'empty',
-    parallelActivityTags: ['day', 'night'],
   },
 );
 const newGameClient: XianxiaGameClient = new GameClient(newGame);
 
-newGame.gameState.changeActivity('night', 'meditate');
+newGame.gameState.changeActivity('meditate');
 
 // eslint-disable-next-line no-console
 console.log('Registry', newGame.gameRegistry);

@@ -1,22 +1,15 @@
 import { ActivityDef } from 'core';
-import { ActivityTagKeys } from './activityTags';
 import { ResourceKeys } from './resources';
 
 export type ActivityKeys = 'empty' | 'meditate' | 'raid' | 'idle';
-export const activityDefinitions: ActivityDef<
-  ActivityKeys,
-  ActivityTagKeys,
-  ResourceKeys
->[] = [
+export const activityDefinitions: ActivityDef<ActivityKeys, ResourceKeys>[] = [
   {
     id: 'empty',
     name: 'Empty',
-    tags: ['day', 'night'],
   },
   {
     id: 'meditate',
     name: 'Meditate',
-    tags: ['night'],
     effects: [
       {
         resource: 'qi',
@@ -31,11 +24,9 @@ export const activityDefinitions: ActivityDef<
   {
     id: 'raid',
     name: 'Raid',
-    tags: ['day'],
   },
   {
     id: 'idle',
     name: 'Idle',
-    tags: ['day', 'night'],
   },
 ];

@@ -1,6 +1,5 @@
 import { keyBy, map, mapKeys, mapValues } from 'lodash';
 import { Activity, ActivityDef } from './activity';
-import { ActivityTagDef } from './activityTag';
 import { Effect } from './effect';
 import { Location, LocationDef } from './location';
 import { GameRegistry } from './registry';
@@ -10,20 +9,17 @@ import { GameState } from './state';
 export class Game<
   Activities extends string,
   Locations extends string,
-  ActivityTags extends string,
   Resources extends string,
-  ActivityTagType extends ActivityTagDef<ActivityTags>,
   LocationType extends Location<Locations, Activities, Resources>,
-  ActivityType extends Activity<Activities, ActivityTags, Locations, Resources>,
+  ActivityType extends Activity<Activities, Locations, Resources>,
   ResourceType extends Resource<Resources>,
 > {
   private readonly _gameRegistry: GameRegistry<
     Activities,
     Locations,
-    ActivityTags,
     Resources
   >;
-  readonly gameState: GameState<Activities, Locations, ActivityTags, Resources>;
+  readonly gameState: GameState<Activities, Locations, Resources>;
 
   /**
    * This is to force an interface to outside world - to express intention
@@ -34,7 +30,7 @@ export class Game<
     readonly activities: {
       [key in Activities]: Pick<
         ActivityType,
-        'id' | 'name' | 'tags' | 'active' | 'effects'
+        'id' | 'name' | 'active' | 'effects'
       >;
     };
     readonly locations: {
@@ -43,51 +39,37 @@ export class Game<
         'id' | 'name' | 'locations' | 'activities' | 'effects'
       >;
     };
-    readonly activityTags: {
-      [key in ActivityTags]: Pick<ActivityTagDef<ActivityTags>, 'id' | 'name'>;
-    };
     readonly resources: {
       [key in Resources]: Pick<ResourceType, 'id' | 'name' | 'amount'>;
     };
-    readonly parallelActivityTags: ActivityTags[];
   } {
     return this._gameRegistry;
   }
 
   constructor(
     {
-      activityTagDefinitions,
       locationDefinitions,
       activityDefinitions,
       resourceDefinitions,
     }: {
-      activityTagDefinitions: ActivityTagDef<ActivityTags>[];
       locationDefinitions: LocationDef<Locations, Activities, Resources>[];
-      activityDefinitions: ActivityDef<Activities, ActivityTags, Resources>[];
+      activityDefinitions: ActivityDef<Activities, Resources>[];
       resourceDefinitions: ResourceDef<Resources>[];
     },
     {
-      parallelActivityTags,
       emptyActivity,
       startingLocation,
     }: {
-      parallelActivityTags: ActivityTags[];
       emptyActivity: Activities;
       startingLocation: Locations;
     },
   ) {
-    const activityTagsMap = mapValues(
-      keyBy(activityTagDefinitions, 'id'),
-      def => def,
-    ) as { [key in ActivityTags]: ActivityTagType };
-
     const activitiesMap = mapValues(
       keyBy(activityDefinitions, 'id'),
       def =>
         new Activity({
           id: def.id,
           name: def.name,
-          tags: new Set(def.tags),
           effects: map(
             def.effects || [],
             effectDef => new Effect(effectDef, { activity: def.id }),
@@ -125,9 +107,7 @@ export class Game<
     this._gameRegistry = new GameRegistry(
       activitiesMap,
       locationsMap,
-      activityTagsMap,
       resourcesMap,
-      parallelActivityTags,
     );
 
     this.gameState = new GameState(

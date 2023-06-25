@@ -1,26 +1,17 @@
 import tap from 'tap';
 import { ActivityDef } from './activity';
-import { ActivityTagDef } from './activityTag';
 import { Game } from './game';
 import { LocationDef } from './location';
 import { ResourceDef } from './resource';
 
-const tagDefinition: ActivityTagDef<'aaa'>[] = [
-  {
-    id: 'aaa',
-    name: 'Aaa',
-  },
-];
-
 const activityDefinition: ActivityDef<
   'empty' | 'first' | 'second' | 'third',
-  'aaa',
   'a' | 'b'
 >[] = [
-  { id: 'empty', name: 'Empty', tags: [] },
-  { id: 'first', name: 'First', tags: ['aaa'] },
-  { id: 'second', name: 'Second', tags: ['aaa'] },
-  { id: 'third', name: 'Third', tags: [] },
+  { id: 'empty', name: 'Empty' },
+  { id: 'first', name: 'First' },
+  { id: 'second', name: 'Second' },
+  { id: 'third', name: 'Third' },
 ];
 
 const locationDefinitions: LocationDef<
@@ -41,13 +32,11 @@ const resourceDefinitions: ResourceDef<'a' | 'b'>[] = [
 const config = {
   activityDefinitions: activityDefinition,
   locationDefinitions: locationDefinitions,
-  activityTagDefinitions: tagDefinition,
   resourceDefinitions: resourceDefinitions,
 };
 
 const createGame = (startingLocation: 'loc1' | 'loc2' | 'loc3') =>
   new Game(config, {
-    parallelActivityTags: ['aaa'],
     emptyActivity: 'empty',
     startingLocation: startingLocation,
   });
@@ -64,7 +53,7 @@ void tap.test('Game state - ', group => {
     async t => {
       const { gameState } = createGame('loc1');
 
-      t.equal(gameState.activeActivity.aaa, 'empty');
+      t.equal(gameState.activeActivity, 'empty');
     },
   );
 
@@ -73,7 +62,7 @@ void tap.test('Game state - ', group => {
     async t => {
       const { gameState } = createGame('loc2');
 
-      t.ok(gameState.availableActivitiesByTag('aaa').includes('first'));
+      t.ok(gameState.availableActivities.includes('first'));
     },
   );
 
@@ -105,21 +94,21 @@ void tap.test('Game state - ', group => {
   void group.test('cannot change activity to unavailable one', async t => {
     const { gameState } = createGame('loc3');
 
-    t.equal(gameState.activeActivity.aaa, 'empty');
+    t.equal(gameState.activeActivity, 'empty');
 
-    gameState.changeActivity('aaa', 'third');
+    gameState.changeActivity('third');
 
-    t.equal(gameState.activeActivity.aaa, 'empty');
+    t.equal(gameState.activeActivity, 'empty');
   });
 
   void group.test('can change activity to available one', async t => {
     const { gameState } = createGame('loc3');
 
-    t.equal(gameState.activeActivity.aaa, 'empty');
+    t.equal(gameState.activeActivity, 'empty');
 
-    gameState.changeActivity('aaa', 'second');
+    gameState.changeActivity('second');
 
-    t.equal(gameState.activeActivity.aaa, 'second');
+    t.equal(gameState.activeActivity, 'second');
   });
 
   void group.test(
@@ -127,12 +116,12 @@ void tap.test('Game state - ', group => {
     async t => {
       const { gameState } = createGame('loc3');
 
-      gameState.changeActivity('aaa', 'second');
-      t.equal(gameState.activeActivity.aaa, 'second');
+      gameState.changeActivity('second');
+      t.equal(gameState.activeActivity, 'second');
 
       gameState.changeLocation('loc1');
 
-      t.equal(gameState.activeActivity.aaa, 'empty');
+      t.equal(gameState.activeActivity, 'empty');
     },
   );
 

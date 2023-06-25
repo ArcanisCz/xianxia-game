@@ -6,5 +6,4 @@ export { Resource } from './resource';
 
 export type { ActivityDef } from './activity';
 export type { LocationDef } from './location';
-export type { ActivityTagDef } from './activityTag';
 export type { ResourceDef } from './resource';

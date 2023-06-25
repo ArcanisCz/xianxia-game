@@ -5,6 +5,7 @@ import {
   activityDefinitions,
   locationDefinitions,
   resourceDefinitions,
+  stageDefinitions,
   XianxiaGame,
   XianxiaGameClient,
 } from 'game';
@@ -20,10 +21,12 @@ const newGame: XianxiaGame = new Game(
     locationDefinitions,
     activityDefinitions,
     resourceDefinitions,
+    stageDefinitions,
   },
   {
     startingLocation: 'sect',
     emptyActivity: 'empty',
+    startingStage: 'qi-ref-1',
   },
 );
 const newGameClient: XianxiaGameClient = new GameClient(newGame);

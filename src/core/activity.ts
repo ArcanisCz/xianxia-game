@@ -1,4 +1,4 @@
-import { makeObservable, observable } from 'mobx';
+import { makeObservable } from 'mobx';
 import { EffectDef, Effect } from './effect';
 
 export type ActivityDef<
@@ -14,11 +14,12 @@ export class Activity<
   ActivityKeys extends string,
   LocationKeys extends string,
   ResourceKeys extends string,
+  StageKeys extends string,
 > {
   constructor(init: {
     id: ActivityKeys;
     name: string;
-    effects: Effect<ActivityKeys, LocationKeys, ResourceKeys>[];
+    effects: Effect<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>[];
   }) {
     this.name = init.name;
     this.id = init.id;
@@ -28,18 +29,15 @@ export class Activity<
       name: false,
       id: false,
       effects: false,
-      setActive: false,
-      active: observable,
     });
   }
 
   readonly name: string;
   readonly id: ActivityKeys;
-  readonly effects: Effect<ActivityKeys, LocationKeys, ResourceKeys>[];
-
-  active: boolean = false;
-
-  setActive(active: boolean) {
-    this.active = active;
-  }
+  readonly effects: Effect<
+    ActivityKeys,
+    LocationKeys,
+    ResourceKeys,
+    StageKeys
+  >[];
 }

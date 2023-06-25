@@ -30,10 +30,12 @@ void tap.test('new Game()', group => {
         activityDefinitions: activityDefinition,
         locationDefinitions: locationDefinitions,
         resourceDefinitions: [],
+        stageDefinitions: [],
       },
       {
         emptyActivity: 'empty',
         startingLocation: '',
+        startingStage: '',
       },
     );
 
@@ -57,10 +59,12 @@ void tap.test('new Game()', group => {
         activityDefinitions: activityDefinition,
         locationDefinitions: locationDefinitions,
         resourceDefinitions: [],
+        stageDefinitions: [],
       },
       {
         emptyActivity: 'empty',
         startingLocation: '',
+        startingStage: '',
       },
     );
 
@@ -106,6 +110,8 @@ void tap.test('new Game()', group => {
   void group.test('should instantiate resources');
 
   void group.test('should instantiate effects');
+
+  void group.test('should instantiate stages');
 
   group.end();
 });

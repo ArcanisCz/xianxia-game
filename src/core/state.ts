@@ -1,4 +1,4 @@
-import { chain, find, forEach, groupBy } from 'lodash';
+import { chain, groupBy } from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { Effect } from './effect';
 import { GameRegistry } from './registry';
@@ -8,28 +8,33 @@ export class GameState<
   Activities extends string,
   Locations extends string,
   Resources extends string,
+  Stages extends string,
 > {
   constructor(
     private readonly emptyActivity: Activities,
-    private readonly startingLocation: Locations,
-    private readonly registry: GameRegistry<Activities, Locations, Resources>,
+    startingLocation: Locations,
+    startingStage: Stages,
+    private readonly registry: GameRegistry<
+      Activities,
+      Locations,
+      Resources,
+      Stages
+    >,
   ) {
-    this.currentLocation = this.startingLocation;
+    this.currentLocation = startingLocation;
+    this.currentStage = startingStage;
+    this.activeActivity = this.emptyActivity;
 
     makeObservable(this);
-
-    this.init();
   }
-  @computed
-  get activeActivity(): Activities {
-    return (
-      find(this.registry.activities, activity => activity.active)?.id ||
-      this.emptyActivity
-    );
-  }
+  @observable
+  activeActivity: Activities;
 
   @observable
   currentLocation: Locations;
+
+  @observable
+  currentStage: Stages;
 
   @computed
   get availableActivities(): Activities[] {
@@ -47,19 +52,20 @@ export class GameState<
   }
 
   @computed
-  get activeEffects(): Effect<Activities, Locations, Resources>[] {
+  get activeEffects(): Effect<Activities, Locations, Resources, Stages>[] {
     return [
       ...this.registry.locations[this.currentLocation].effects,
       ...this.registry.activities[this.activeActivity].effects,
+      ...this.registry.stages[this.currentStage].effects,
     ];
   }
 
   @computed
   get activeEffectsByResource(): {
-    [key in Resources]: Effect<Activities, Locations, Resources>[];
+    [key in Resources]: Effect<Activities, Locations, Resources, Stages>[];
   } {
     return groupBy(this.activeEffects, effect => effect.resource) as {
-      [key in Resources]: Effect<Activities, Locations, Resources>[];
+      [key in Resources]: Effect<Activities, Locations, Resources, Stages>[];
     };
   }
 
@@ -74,8 +80,7 @@ export class GameState<
 
   @action
   changeActivity(activity: Activities) {
-    this.registry.activities[this.activeActivity].setActive(false);
-    this.registry.activities[activity].setActive(true);
+    this.activeActivity = activity;
 
     this.checkActiveActivities();
   }
@@ -92,13 +97,6 @@ export class GameState<
       .value();
   }
 
-  @action
-  init() {
-    const emptyActivityInst = this.registry.activities[this.emptyActivity];
-
-    emptyActivityInst.setActive(true);
-  }
-
   @computed
   private get availableActivitiesSet(): Set<Activities> {
     return new Set(this.availableActivities);
@@ -106,8 +104,7 @@ export class GameState<
 
   private checkActiveActivities() {
     if (!this.availableActivities.includes(this.activeActivity)) {
-      this.registry.activities[this.activeActivity].setActive(false);
-      this.registry.activities[this.emptyActivity].setActive(true);
+      this.activeActivity = this.emptyActivity;
     }
   }
 }

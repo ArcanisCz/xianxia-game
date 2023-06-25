@@ -23,13 +23,6 @@ export const locationDefinitions: LocationDef<
           baseAmnt: 1,
         },
       },
-      {
-        resource: 'qi',
-        resourceTarget: 'max',
-        value: {
-          baseAmnt: 10,
-        },
-      },
     ],
   },
   {
@@ -50,13 +43,6 @@ export const locationDefinitions: LocationDef<
         resourceTarget: 'gain',
         value: {
           addMult: -0.25,
-        },
-      },
-      {
-        resource: 'qi',
-        resourceTarget: 'max',
-        value: {
-          baseAmnt: 10,
         },
       },
     ],

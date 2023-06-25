@@ -13,13 +13,14 @@ export class Resource<
   ActivityKeys extends string,
   LocationKeys extends string,
   ResourceKeys extends string,
+  StageKeys extends string,
 > {
   constructor(init: { id: ResourceKeys; name: string }) {
     this.name = init.name;
     this.id = init.id;
 
     makeObservable<
-      Resource<ActivityKeys, LocationKeys, ResourceKeys>,
+      Resource<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>,
       'gameState'
     >(this, {
       id: false,
@@ -36,7 +37,12 @@ export class Resource<
     });
   }
 
-  private gameState?: GameState<ActivityKeys, LocationKeys, ResourceKeys>;
+  private gameState?: GameState<
+    ActivityKeys,
+    LocationKeys,
+    ResourceKeys,
+    StageKeys
+  >;
 
   readonly id: ResourceKeys;
   readonly name: string;
@@ -47,7 +53,8 @@ export class Resource<
   get getActiveGainEffects(): Effect<
     ActivityKeys,
     LocationKeys,
-    ResourceKeys
+    ResourceKeys,
+    StageKeys
   >[] {
     return filter(
       this.gameState?.activeEffects,
@@ -58,7 +65,8 @@ export class Resource<
   get getActiveMaxEffects(): Effect<
     ActivityKeys,
     LocationKeys,
-    ResourceKeys
+    ResourceKeys,
+    StageKeys
   >[] {
     return filter(
       this.gameState?.activeEffects,
@@ -74,7 +82,9 @@ export class Resource<
     this.amount = Math.min(this.amount + toAdd, this.max);
   }
 
-  setGameState(gameState: GameState<ActivityKeys, LocationKeys, ResourceKeys>) {
+  setGameState(
+    gameState: GameState<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>,
+  ) {
     this.gameState = gameState;
   }
 }

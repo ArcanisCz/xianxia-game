@@ -13,6 +13,7 @@
     "useDefineForClassFields": true,
     "strict": true,
     "noEmit": true,
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "skipLibCheck": true,
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   }
 }

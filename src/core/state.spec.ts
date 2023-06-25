@@ -3,6 +3,7 @@ import { ActivityDef } from './activity';
 import { Game } from './game';
 import { LocationDef } from './location';
 import { ResourceDef } from './resource';
+import { StageDef } from './stage';
 
 const activityDefinition: ActivityDef<
   'empty' | 'first' | 'second' | 'third',
@@ -29,16 +30,23 @@ const resourceDefinitions: ResourceDef<'a' | 'b'>[] = [
   { id: 'b', name: 'B' },
 ];
 
+const stageDefinitions: StageDef<'a' | 'b', 's1' | 's2'>[] = [
+  { id: 's1', name: 'S1' },
+  { id: 's2', name: 'S2' },
+];
+
 const config = {
   activityDefinitions: activityDefinition,
   locationDefinitions: locationDefinitions,
   resourceDefinitions: resourceDefinitions,
+  stageDefinitions: stageDefinitions,
 };
 
 const createGame = (startingLocation: 'loc1' | 'loc2' | 'loc3') =>
   new Game(config, {
     emptyActivity: 'empty',
     startingLocation: startingLocation,
+    startingStage: 's1',
   });
 
 void tap.test('Game state - ', group => {

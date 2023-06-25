@@ -1,56 +1,46 @@
 import { makeObservable } from 'mobx';
-import { Effect, EffectDef } from './effect';
+import { EffectDef, Effect } from './effect';
 
-export type LocationDef<
-  LocationKeys extends string,
-  ActivityKeys extends string,
-  ResourceKeys extends string,
-> = {
-  id: LocationKeys;
+export type StageDef<ResourceKeys extends string, StageKeys extends string> = {
+  id: StageKeys;
   name: string;
-  activities?: ActivityKeys[];
-  locations?: LocationKeys[];
   effects?: EffectDef<ResourceKeys>[];
+  // TODO: upgrade to next.
+  nextStage?: StageKeys;
 };
 
-export class Location<
+export class Stage<
   ActivityKeys extends string,
   LocationKeys extends string,
   ResourceKeys extends string,
   StageKeys extends string,
 > {
   constructor(init: {
-    id: LocationKeys;
+    id: StageKeys;
     name: string;
-    activities: ActivityKeys[];
-    locations: LocationKeys[];
+    nextStage?: StageKeys;
     effects: Effect<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>[];
   }) {
     this.name = init.name;
     this.id = init.id;
-    this.activities = init.activities;
-    this.locations = init.locations;
+    this.nextStage = init.nextStage;
     this.effects = init.effects;
 
     makeObservable(this, {
       name: false,
       id: false,
-      activities: false,
-      locations: false,
+      nextStage: false,
       effects: false,
     });
   }
 
   readonly name: string;
-  readonly id: LocationKeys;
-  readonly activities: ActivityKeys[];
-  readonly locations: LocationKeys[];
+  readonly id: StageKeys;
+  readonly nextStage?: StageKeys;
   readonly effects: Effect<
     ActivityKeys,
     LocationKeys,
     ResourceKeys,
     StageKeys
   >[];
-  // Danger Level
-  // Spiritual particles density
 }

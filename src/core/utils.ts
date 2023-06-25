@@ -5,7 +5,10 @@ export function resolveEffects<
   ActivityKeys extends string,
   LocationKeys extends string,
   ResourceKeys extends string,
->(effects: Effect<ActivityKeys, LocationKeys, ResourceKeys>[]): number {
+  StageKeys extends string,
+>(
+  effects: Effect<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>[],
+): number {
   const baseValue = chain(effects)
     .filter(effect => !!effect.value.baseAmnt)
     .sumBy(effect => effect.value.baseAmnt || 0)

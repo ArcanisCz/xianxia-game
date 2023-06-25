@@ -13,10 +13,12 @@ export const activityDefinitions: ActivityDef<ActivityKeys, ResourceKeys>[] = [
     effects: [
       {
         resource: 'qi',
+        resourceTarget: 'gain',
         value: { multMult: 1.1 },
       },
       {
         resource: 'gold',
+        resourceTarget: 'gain',
         value: { baseAmnt: 1 },
       },
     ],

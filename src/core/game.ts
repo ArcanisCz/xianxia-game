@@ -1,4 +1,4 @@
-import { keyBy, map, mapKeys, mapValues } from 'lodash';
+import { forEach, keyBy, map, mapKeys, mapValues } from 'lodash';
 import { Activity, ActivityDef } from './activity';
 import { Effect } from './effect';
 import { Location, LocationDef } from './location';
@@ -40,7 +40,7 @@ export class Game<
       >;
     };
     readonly resources: {
-      [key in Resources]: Pick<ResourceType, 'id' | 'name' | 'amount'>;
+      [key in Resources]: Pick<ResourceType, 'id' | 'name' | 'amount' | 'max'>;
     };
   } {
     return this._gameRegistry;
@@ -98,13 +98,10 @@ export class Game<
     const resourcesMap = mapValues(
       keyBy(resourceDefinitions, 'id'),
       def =>
-        new Resource(
-          {
-            id: def.id,
-            name: def.name,
-          },
-          this.gameState,
-        ),
+        new Resource({
+          id: def.id,
+          name: def.name,
+        }),
     ) as { [key in Resources]: ResourceType };
 
     this._gameRegistry = new GameRegistry(
@@ -117,6 +114,10 @@ export class Game<
       emptyActivity,
       startingLocation,
       this._gameRegistry,
+    );
+
+    forEach(this._gameRegistry.resources, resource =>
+      resource.setGameState(this.gameState),
     );
   }
 }

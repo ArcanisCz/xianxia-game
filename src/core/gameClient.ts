@@ -34,7 +34,10 @@ export class GameClient<
       currentActivities: gameState.activeActivity,
       availableAbilities: gameState.availableActivities,
       availableLocations: gameState.availableLocations,
-      resources: mapValues(gameRegistry.resources, value => value.amount),
+      resources: mapValues(
+        gameRegistry.resources,
+        resource => `${resource.amount}/${resource.max}`,
+      ),
       effects: gameState.activeEffects,
     });
   }

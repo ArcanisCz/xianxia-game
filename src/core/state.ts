@@ -1,7 +1,8 @@
-import { find, forEach, chain } from 'lodash';
+import { find, forEach } from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { Effect } from './effect';
 import { GameRegistry } from './registry';
+import { resolveEffects } from './utils';
 
 export class GameState<
   Activities extends string,
@@ -72,34 +73,8 @@ export class GameState<
 
   @action
   changeResourcesTick() {
-    const result = chain(this.activeEffects)
-      .groupBy(effect => effect.resource)
-      .mapValues(effects => {
-        const baseValue = chain(effects)
-          .filter(effect => !!effect.value.baseAmnt)
-          .sumBy(effect => effect.value.baseAmnt || 0)
-          .value();
-
-        const additiveMult = chain(effects)
-          .filter(effect => !!effect.value.addMult)
-          .sumBy(effect => effect.value.addMult || 0)
-          .value();
-
-        const multiplicativeMult = chain(effects)
-          .filter(effect => !!effect.value.multMult)
-          .reduce((mul, effect) => mul * (effect.value.multMult || 1), 1)
-          .value();
-
-        if (!baseValue) {
-          return 0;
-        }
-
-        return baseValue * (1 + additiveMult) * multiplicativeMult;
-      })
-      .value();
-
-    forEach(result, (value, res) => {
-      this.registry.resources[res as Resources].add(value || 0);
+    forEach(this.registry.resources, resource => {
+      resource.add(resolveEffects(resource.getActiveGainEffects));
     });
   }
 

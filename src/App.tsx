@@ -1,51 +1,49 @@
-// import { Fragment } from 'react';
 import css from './app.module.css';
+import { ActivityKeys } from './game/activities';
+import { LocationKeys } from './game/location';
 import { withRootStore } from './gameProvider';
-// import { ActivityKeys } from './game/activities';
-// import { ActivityTagKeys } from './game/activityTags';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const App = withRootStore(({ game }) => {
-  // const changeLocation = () => {
-  //   if (game.currentLocation.id === 'graveyard') {
-  //     game.changeLocation('sect');
-  //   } else {
-  //     game.changeLocation('graveyard');
-  //   }
-  // };
-  //
-  // const changeActivity = (time: ActivityTagKeys, activity: ActivityKeys) => {
-  //   game.changeActivity(time, activity);
-  // };
+  const { gameRegistry, gameState } = game;
+
+  const changeLocation = (locKey: LocationKeys) => {
+    gameState.changeLocation(locKey);
+  };
+
+  const changeActivity = (activity: ActivityKeys) => {
+    gameState.changeActivity(activity);
+  };
+
+  const currentLocation = gameRegistry.locations[gameState.currentLocation];
 
   return (
     <div className={css.pokus}>
-      Console
-      {/*{game.parallelActivityTags.map(tagId => {*/}
-      {/*  const tag = game.activityTagsRegistry[tagId];*/}
-      {/*  return (*/}
-      {/*    <Fragment key={tagId}>*/}
-      {/*      <div>*/}
-      {/*        {tag.name}: {game.activeActivity[tagId].name}*/}
-      {/*      </div>*/}
-      {/*      <div>*/}
-      {/*        {game.availableActivitiesByTag(tagId).map(activity => (*/}
-      {/*          <button*/}
-      {/*            key={activity.id}*/}
-      {/*            disabled={activity.id === game.activeActivity[tagId].id}*/}
-      {/*            onClick={() => changeActivity(tagId, activity.id)}*/}
-      {/*          >*/}
-      {/*            {activity.name}*/}
-      {/*          </button>*/}
-      {/*        ))}*/}
-      {/*      </div>*/}
-      {/*    </Fragment>*/}
-      {/*  );*/}
-      {/*})}*/}
-      {/*<hr />*/}
-      {/*<div>Loc: {game.currentLocation.name}</div>*/}
-      {/*<hr />*/}
-      {/*<button onClick={changeLocation}>Change Location</button>*/}
+      <div>
+        {gameState.availableActivities.map(activityKey => {
+          const activity = gameRegistry.activities[activityKey];
+
+          return (
+            <button
+              key={activity.id}
+              disabled={activity.id === gameState.activeActivity}
+              onClick={() => changeActivity(activityKey)}
+            >
+              {activity.name}
+            </button>
+          );
+        })}
+      </div>
+
+      <hr />
+      <div>Loc: {currentLocation.name}</div>
+      <hr />
+      {currentLocation.locations.map(locKey => {
+        const loc = gameRegistry.locations[locKey];
+
+        return (
+          <button onClick={() => changeLocation(locKey)}>{loc.name}</button>
+        );
+      })}
     </div>
   );
 });

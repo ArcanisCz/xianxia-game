@@ -11,6 +11,7 @@ import {
 } from 'game';
 import { App } from './App';
 import { GameProvider } from './gameProvider';
+import './index.css';
 
 configure({
   enforceActions: 'always',

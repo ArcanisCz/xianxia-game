@@ -34,3 +34,7 @@ export type XianxiaGameClient = GameClient<
   Resource<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>,
   Stage<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>
 >;
+
+export type { ActivityKeys } from './activities';
+export type { LocationKeys } from './location';
+export type { ResourceKeys } from './resources';

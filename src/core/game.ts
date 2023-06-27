@@ -41,7 +41,10 @@ export class Game<
       >;
     };
     readonly resources: {
-      [key in Resources]: Pick<ResourceType, 'id' | 'name' | 'amount' | 'max'>;
+      [key in Resources]: Pick<
+        ResourceType,
+        'id' | 'name' | 'amount' | 'max' | 'gainPerSec'
+      >;
     };
     readonly stages: {
       [key in Stages]: Pick<StageType, 'id' | 'name' | 'nextStage' | 'effects'>;

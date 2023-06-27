@@ -2,7 +2,6 @@ import { chain, groupBy } from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { Effect } from './effect';
 import { GameRegistry } from './registry';
-import { resolveEffects } from './utils';
 
 export class GameState<
   Activities extends string,
@@ -92,7 +91,7 @@ export class GameState<
       .forEach(resourceKey => {
         const resource = this.registry.resources[resourceKey as Resources];
 
-        resource.add(resolveEffects(resource.getActiveGainEffects));
+        resource.add(resource.gainPerSec);
       })
       .value();
   }

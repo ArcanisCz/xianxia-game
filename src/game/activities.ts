@@ -19,7 +19,7 @@ export const activityDefinitions: ActivityDef<ActivityKeys, ResourceKeys>[] = [
       {
         resource: 'gold',
         resourceTarget: 'gain',
-        value: { baseAmnt: 1 },
+        value: { baseAmnt: 10000 },
       },
     ],
   },

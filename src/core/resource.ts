@@ -31,6 +31,7 @@ export class Resource<
       getActiveGainEffects: computed,
       getActiveMaxEffects: computed,
       max: computed,
+      gainPerSec: computed,
 
       add: false,
       setGameState: false,
@@ -72,6 +73,10 @@ export class Resource<
       this.gameState?.activeEffects,
       effect => effect.resource === this.id && effect.resourceTarget === 'max',
     );
+  }
+
+  get gainPerSec(): number {
+    return resolveEffects(this.getActiveGainEffects);
   }
 
   get max(): number {

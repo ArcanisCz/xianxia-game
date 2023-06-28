@@ -3,3 +3,9 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     width: 250px
 }
+
+.effectsList {
+    display: grid;
+    grid-template-columns: repeat(3, 350px);
+    gap: 10px;
+}

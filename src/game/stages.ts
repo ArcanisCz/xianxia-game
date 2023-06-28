@@ -10,6 +10,13 @@ export const stageDefinitions: StageDef<ResourceKeys, StageKeys>[] = [
     effects: [
       {
         resource: 'qi',
+        resourceTarget: 'gain',
+        value: {
+          addMult: 0.25,
+        },
+      },
+      {
+        resource: 'qi',
         resourceTarget: 'max',
         value: { baseAmnt: 10 },
       },

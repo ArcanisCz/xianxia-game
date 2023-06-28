@@ -1,4 +1,5 @@
 import { Activity, Game, GameClient, Location, Resource, Stage } from 'core';
+import { Effect } from '../core/effect';
 import type { ActivityKeys } from './activities';
 import type { LocationKeys } from './location';
 import type { ResourceKeys } from './resources';
@@ -33,6 +34,13 @@ export type XianxiaGameClient = GameClient<
   Activity<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>,
   Resource<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>,
   Stage<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>
+>;
+
+export type GameEffect = Effect<
+  ActivityKeys,
+  LocationKeys,
+  ResourceKeys,
+  StageKeys
 >;
 
 export type { ActivityKeys } from './activities';

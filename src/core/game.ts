@@ -43,7 +43,13 @@ export class Game<
     readonly resources: {
       [key in Resources]: Pick<
         ResourceType,
-        'id' | 'name' | 'amount' | 'max' | 'gainPerSec'
+        | 'id'
+        | 'name'
+        | 'amount'
+        | 'max'
+        | 'gainPerSec'
+        | 'getActiveGainEffects'
+        | 'getActiveMaxEffects'
       >;
     };
     readonly stages: {

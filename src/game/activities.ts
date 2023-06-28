@@ -14,18 +14,25 @@ export const activityDefinitions: ActivityDef<ActivityKeys, ResourceKeys>[] = [
       {
         resource: 'qi',
         resourceTarget: 'gain',
-        value: { multMult: 1.1 },
+        value: { baseAmnt: 0.25 },
       },
       {
-        resource: 'gold',
+        resource: 'qi',
         resourceTarget: 'gain',
-        value: { baseAmnt: 10000 },
+        value: { multMult: 1.1 },
       },
     ],
   },
   {
     id: 'raid',
     name: 'Raid',
+    effects: [
+      {
+        resource: 'gold',
+        resourceTarget: 'gain',
+        value: { baseAmnt: 1 },
+      },
+    ],
   },
   {
     id: 'idle',

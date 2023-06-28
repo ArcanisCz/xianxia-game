@@ -20,7 +20,7 @@ export const locationDefinitions: LocationDef<
         resource: 'qi',
         resourceTarget: 'gain',
         value: {
-          baseAmnt: 1,
+          baseAmnt: 0.75,
         },
       },
     ],
@@ -36,13 +36,6 @@ export const locationDefinitions: LocationDef<
         resourceTarget: 'gain',
         value: {
           baseAmnt: 1,
-        },
-      },
-      {
-        resource: 'qi',
-        resourceTarget: 'gain',
-        value: {
-          addMult: -0.25,
         },
       },
     ],

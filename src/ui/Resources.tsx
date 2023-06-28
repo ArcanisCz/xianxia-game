@@ -1,6 +1,7 @@
 import { chain } from 'lodash';
 import { Fragment } from 'react';
 import { withRootStore } from '../gameProvider';
+import { ResourceEffectList } from './ResourceEffectList';
 import { ResourceGain } from './ResourceGain';
 import css from './resources.module.css';
 import { formatResourceValue } from './utils';
@@ -20,6 +21,24 @@ export const Resources = withRootStore(({ game }) => {
               <div>/ {formatResourceValue(resource.max)}</div>
               <ResourceGain gain={resource.gainPerSec} />
             </Fragment>
+          ))
+          .toArray()
+          .value()}
+      </div>
+      <div>Gains:</div>
+      <div className={css.effectsList}>
+        {chain(gameRegistry.resources)
+          .mapValues(resource => (
+            <ResourceEffectList resourceKey={resource.id} type="gain" />
+          ))
+          .toArray()
+          .value()}
+      </div>
+      <div>Max:</div>
+      <div className={css.effectsList}>
+        {chain(gameRegistry.resources)
+          .mapValues(resource => (
+            <ResourceEffectList resourceKey={resource.id} type="max" />
           ))
           .toArray()
           .value()}

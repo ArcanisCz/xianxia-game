@@ -14,12 +14,13 @@ export class Stage<
   LocationKeys extends string,
   ResourceKeys extends string,
   StageKeys extends string,
+  UpgradeKeys extends string,
 > {
   constructor(init: {
     id: StageKeys;
     name: string;
     nextStage?: StageKeys;
-    effects: Effect<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>[];
+    effects: Effect<ActivityKeys, LocationKeys, ResourceKeys, StageKeys, UpgradeKeys>[];
   }) {
     this.name = init.name;
     this.id = init.id;
@@ -41,6 +42,7 @@ export class Stage<
     ActivityKeys,
     LocationKeys,
     ResourceKeys,
-    StageKeys
+    StageKeys,
+    UpgradeKeys
   >[];
 }

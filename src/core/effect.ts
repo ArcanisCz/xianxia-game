@@ -11,10 +11,11 @@ export class Effect<
   LocationKeys extends string,
   ResourceKeys extends string,
   StageKeys extends string,
+  UpgradeKeys extends string,
 > {
   constructor(
     init: EffectDef<ResourceKeys>,
-    source: Source<ActivityKeys, LocationKeys, StageKeys>,
+    source: Source<ActivityKeys, LocationKeys, StageKeys, UpgradeKeys>,
   ) {
     this.resource = init.resource;
     this.source = source;
@@ -31,25 +32,34 @@ export class Effect<
 
   readonly resource: ResourceKeys;
   readonly resourceTarget: 'gain' | 'max';
-  readonly source: Source<ActivityKeys, LocationKeys, StageKeys>;
+  readonly source: Source<ActivityKeys, LocationKeys, StageKeys, UpgradeKeys>;
   readonly value: Value;
 }
 
-type Source<ActivityKeys, LocationKeys, StageKeys> =
+type Source<ActivityKeys, LocationKeys, StageKeys, UpgradeKeys> =
   | {
       location: LocationKeys;
       activity?: never;
       stage?: never;
+      upgrade?: never;
     }
   | {
       location?: never;
       activity: ActivityKeys;
       stage?: never;
+      upgrade?: never;
     }
   | {
       location?: never;
       activity?: never;
       stage: StageKeys;
+      upgrade?: never;
+    }
+  | {
+      location?: never;
+      activity?: never;
+      stage?: never;
+      upgrade: UpgradeKeys;
     };
 
 type Value =

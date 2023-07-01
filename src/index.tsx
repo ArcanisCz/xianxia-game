@@ -6,6 +6,7 @@ import {
   locationDefinitions,
   resourceDefinitions,
   stageDefinitions,
+  upgradeDefinitions,
   XianxiaGame,
   XianxiaGameClient,
 } from 'game';
@@ -23,6 +24,7 @@ const newGame: XianxiaGame = new Game(
     activityDefinitions,
     resourceDefinitions,
     stageDefinitions,
+    upgradeDefinitions,
   },
   {
     startingLocation: 'sect',

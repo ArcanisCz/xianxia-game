@@ -14,13 +14,20 @@ export class Resource<
   LocationKeys extends string,
   ResourceKeys extends string,
   StageKeys extends string,
+  UpgradeKeys extends string,
 > {
   constructor(init: { id: ResourceKeys; name: string }) {
     this.name = init.name;
     this.id = init.id;
 
     makeObservable<
-      Resource<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>,
+      Resource<
+        ActivityKeys,
+        LocationKeys,
+        ResourceKeys,
+        StageKeys,
+        UpgradeKeys
+      >,
       'gameState'
     >(this, {
       id: false,
@@ -55,7 +62,8 @@ export class Resource<
     ActivityKeys,
     LocationKeys,
     ResourceKeys,
-    StageKeys
+    StageKeys,
+    UpgradeKeys
   >[] {
     return filter(
       this.gameState?.activeEffects,
@@ -67,7 +75,8 @@ export class Resource<
     ActivityKeys,
     LocationKeys,
     ResourceKeys,
-    StageKeys
+    StageKeys,
+    UpgradeKeys
   >[] {
     return filter(
       this.gameState?.activeEffects,

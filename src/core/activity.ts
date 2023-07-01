@@ -15,11 +15,18 @@ export class Activity<
   LocationKeys extends string,
   ResourceKeys extends string,
   StageKeys extends string,
+  UpgradeKeys extends string,
 > {
   constructor(init: {
     id: ActivityKeys;
     name: string;
-    effects: Effect<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>[];
+    effects: Effect<
+      ActivityKeys,
+      LocationKeys,
+      ResourceKeys,
+      StageKeys,
+      UpgradeKeys
+    >[];
   }) {
     this.name = init.name;
     this.id = init.id;
@@ -38,6 +45,7 @@ export class Activity<
     ActivityKeys,
     LocationKeys,
     ResourceKeys,
-    StageKeys
+    StageKeys,
+    UpgradeKeys
   >[];
 }

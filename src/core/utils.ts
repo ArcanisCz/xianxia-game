@@ -6,8 +6,15 @@ export function resolveEffects<
   LocationKeys extends string,
   ResourceKeys extends string,
   StageKeys extends string,
+  UpgradeKeys extends string,
 >(
-  effects: Effect<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>[],
+  effects: Effect<
+    ActivityKeys,
+    LocationKeys,
+    ResourceKeys,
+    StageKeys,
+    UpgradeKeys
+  >[],
 ): number {
   const baseValue = chain(effects)
     .filter(effect => !!effect.value.baseAmnt)

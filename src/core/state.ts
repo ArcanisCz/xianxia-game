@@ -8,6 +8,7 @@ export class GameState<
   Locations extends string,
   Resources extends string,
   Stages extends string,
+  Upgrades extends string,
 > {
   constructor(
     private readonly emptyActivity: Activities,
@@ -17,7 +18,8 @@ export class GameState<
       Activities,
       Locations,
       Resources,
-      Stages
+      Stages,
+      Upgrades
     >,
   ) {
     this.currentLocation = startingLocation;
@@ -51,7 +53,13 @@ export class GameState<
   }
 
   @computed
-  get activeEffects(): Effect<Activities, Locations, Resources, Stages>[] {
+  get activeEffects(): Effect<
+    Activities,
+    Locations,
+    Resources,
+    Stages,
+    Upgrades
+  >[] {
     return [
       ...this.registry.locations[this.currentLocation].effects,
       ...this.registry.activities[this.activeActivity].effects,
@@ -61,10 +69,22 @@ export class GameState<
 
   @computed
   get activeEffectsByResource(): {
-    [key in Resources]: Effect<Activities, Locations, Resources, Stages>[];
+    [key in Resources]: Effect<
+      Activities,
+      Locations,
+      Resources,
+      Stages,
+      Upgrades
+    >[];
   } {
     return groupBy(this.activeEffects, effect => effect.resource) as {
-      [key in Resources]: Effect<Activities, Locations, Resources, Stages>[];
+      [key in Resources]: Effect<
+        Activities,
+        Locations,
+        Resources,
+        Stages,
+        Upgrades
+      >[];
     };
   }
 

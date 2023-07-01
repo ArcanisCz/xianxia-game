@@ -4,16 +4,43 @@ import { Game } from './game';
 import { Location } from './location';
 import { Resource } from './resource';
 import { Stage } from './stage';
+import { Upgrade } from './upgrade';
 
 export class GameClient<
   Activities extends string,
   Locations extends string,
   Resources extends string,
   Stages extends string,
-  LocationType extends Location<Activities, Locations, Resources, Stages>,
-  ActivityType extends Activity<Activities, Locations, Resources, Stages>,
-  ResourceType extends Resource<Activities, Locations, Resources, Stages>,
-  StagesType extends Stage<Activities, Locations, Resources, Stages>,
+  Upgrades extends string,
+  LocationType extends Location<
+    Activities,
+    Locations,
+    Resources,
+    Stages,
+    Upgrades
+  >,
+  ActivityType extends Activity<
+    Activities,
+    Locations,
+    Resources,
+    Stages,
+    Upgrades
+  >,
+  ResourceType extends Resource<
+    Activities,
+    Locations,
+    Resources,
+    Stages,
+    Upgrades
+  >,
+  StagesType extends Stage<Activities, Locations, Resources, Stages, Upgrades>,
+  UpgradeType extends Upgrade<
+    Activities,
+    Locations,
+    Resources,
+    Stages,
+    Upgrades
+  >,
 > {
   constructor(
     private readonly game: Game<
@@ -21,10 +48,12 @@ export class GameClient<
       Locations,
       Resources,
       Stages,
+      Upgrades,
       LocationType,
       ActivityType,
       ResourceType,
-      StagesType
+      StagesType,
+      UpgradeType
     >,
   ) {}
 

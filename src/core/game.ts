@@ -6,24 +6,58 @@ import { GameRegistry } from './registry';
 import { Resource, ResourceDef } from './resource';
 import { Stage, StageDef } from './stage';
 import { GameState } from './state';
+import { Upgrade, UpgradeDef } from './upgrade';
 
 export class Game<
   Activities extends string,
   Locations extends string,
   Resources extends string,
   Stages extends string,
-  LocationType extends Location<Activities, Locations, Resources, Stages>,
-  ActivityType extends Activity<Activities, Locations, Resources, Stages>,
-  ResourceType extends Resource<Activities, Locations, Resources, Stages>,
-  StageType extends Stage<Activities, Locations, Resources, Stages>,
+  Upgrades extends string,
+  LocationType extends Location<
+    Activities,
+    Locations,
+    Resources,
+    Stages,
+    Upgrades
+  >,
+  ActivityType extends Activity<
+    Activities,
+    Locations,
+    Resources,
+    Stages,
+    Upgrades
+  >,
+  ResourceType extends Resource<
+    Activities,
+    Locations,
+    Resources,
+    Stages,
+    Upgrades
+  >,
+  StageType extends Stage<Activities, Locations, Resources, Stages, Upgrades>,
+  UpgradeType extends Upgrade<
+    Activities,
+    Locations,
+    Resources,
+    Stages,
+    Upgrades
+  >,
 > {
   private readonly _gameRegistry: GameRegistry<
     Activities,
     Locations,
     Resources,
-    Stages
+    Stages,
+    Upgrades
   >;
-  readonly gameState: GameState<Activities, Locations, Resources, Stages>;
+  readonly gameState: GameState<
+    Activities,
+    Locations,
+    Resources,
+    Stages,
+    Upgrades
+  >;
 
   /**
    * This is to force an interface to outside world - to express intention
@@ -55,6 +89,12 @@ export class Game<
     readonly stages: {
       [key in Stages]: Pick<StageType, 'id' | 'name' | 'nextStage' | 'effects'>;
     };
+    readonly upgrades: {
+      [key in Upgrades]: Pick<
+        UpgradeType,
+        'id' | 'name' | 'level' | 'activities' | 'effects' | 'price'
+      >;
+    };
   } {
     return this._gameRegistry;
   }
@@ -65,11 +105,13 @@ export class Game<
       activityDefinitions,
       resourceDefinitions,
       stageDefinitions,
+      upgradeDefinitions,
     }: {
       locationDefinitions: LocationDef<Locations, Activities, Resources>[];
       activityDefinitions: ActivityDef<Activities, Resources>[];
       resourceDefinitions: ResourceDef<Resources>[];
       stageDefinitions: StageDef<Resources, Stages>[];
+      upgradeDefinitions: UpgradeDef<Activities, Resources, Upgrades>[];
     },
     {
       emptyActivity,
@@ -135,11 +177,24 @@ export class Game<
         }),
     ) as { [key in Stages]: StageType };
 
+    const upgradesMap = mapValues(
+      keyBy(upgradeDefinitions, 'id'),
+      def =>
+        new Upgrade({
+          id: def.id,
+          name: def.name,
+          price: def.price || (() => ({})),
+          effects: def.effects || (() => []),
+          activities: def.activities || [],
+        }),
+    ) as { [key in Upgrades]: UpgradeType };
+
     this._gameRegistry = new GameRegistry(
       activitiesMap,
       locationsMap,
       resourcesMap,
       stagesMap,
+      upgradesMap,
     );
 
     this.gameState = new GameState(

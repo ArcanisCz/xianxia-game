@@ -18,13 +18,20 @@ export class Location<
   LocationKeys extends string,
   ResourceKeys extends string,
   StageKeys extends string,
+  UpgradeKeys extends string,
 > {
   constructor(init: {
     id: LocationKeys;
     name: string;
     activities: ActivityKeys[];
     locations: LocationKeys[];
-    effects: Effect<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>[];
+    effects: Effect<
+      ActivityKeys,
+      LocationKeys,
+      ResourceKeys,
+      StageKeys,
+      UpgradeKeys
+    >[];
   }) {
     this.name = init.name;
     this.id = init.id;
@@ -49,7 +56,8 @@ export class Location<
     ActivityKeys,
     LocationKeys,
     ResourceKeys,
-    StageKeys
+    StageKeys,
+    UpgradeKeys
   >[];
   // Danger Level
   // Spiritual particles density

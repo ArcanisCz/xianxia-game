@@ -29,7 +29,11 @@ export const Resources = withRootStore(({ game }) => {
       <div className={css.effectsList}>
         {chain(gameRegistry.resources)
           .mapValues(resource => (
-            <ResourceEffectList resourceKey={resource.id} type="gain" />
+            <ResourceEffectList
+              key={resource.id}
+              resourceKey={resource.id}
+              type="gain"
+            />
           ))
           .toArray()
           .value()}
@@ -38,7 +42,11 @@ export const Resources = withRootStore(({ game }) => {
       <div className={css.effectsList}>
         {chain(gameRegistry.resources)
           .mapValues(resource => (
-            <ResourceEffectList resourceKey={resource.id} type="max" />
+            <ResourceEffectList
+              key={resource.id}
+              resourceKey={resource.id}
+              type="max"
+            />
           ))
           .toArray()
           .value()}

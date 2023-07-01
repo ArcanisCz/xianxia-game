@@ -42,7 +42,13 @@ export const ResourceEffectList = withRootStore<{
       <div />
 
       {base.map(eff => (
-        <Fragment key={eff.source + '' + eff.value}>
+        <Fragment
+          key={
+            formatSource(eff.source, game.gameRegistry) +
+            '' +
+            formatAmount(eff.value)
+          }
+        >
           <div>{formatSource(eff.source, game.gameRegistry)}:</div>
           <div>{formatAmount(eff.value)}</div>
         </Fragment>
@@ -51,7 +57,13 @@ export const ResourceEffectList = withRootStore<{
       <div>= {formatResourceValue(sumBase)}</div>
 
       {additive.map(eff => (
-        <Fragment key={eff.source + '' + eff.value}>
+        <Fragment
+          key={
+            formatSource(eff.source, game.gameRegistry) +
+            '' +
+            formatAmount(eff.value)
+          }
+        >
           <div>{formatSource(eff.source, game.gameRegistry)}:</div>
           <div>{formatAmount(eff.value)}</div>
         </Fragment>
@@ -67,7 +79,13 @@ export const ResourceEffectList = withRootStore<{
       )}
 
       {multiplicative.map(eff => (
-        <Fragment key={eff.source + '' + eff.value}>
+        <Fragment
+          key={
+            formatSource(eff.source, game.gameRegistry) +
+            '' +
+            formatAmount(eff.value)
+          }
+        >
           <div>{formatSource(eff.source, game.gameRegistry)}: </div>
           <div>{formatAmount(eff.value)}</div>
         </Fragment>
@@ -95,6 +113,10 @@ function formatSource(
 
   if (source.location) {
     return registry.locations[source.location].name;
+  }
+
+  if (source.upgrade) {
+    return registry.upgrades[source.upgrade].name;
   }
 
   return registry.stages[source.stage].name;

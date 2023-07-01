@@ -31,6 +31,7 @@ void tap.test('new Game()', group => {
         locationDefinitions: locationDefinitions,
         resourceDefinitions: [],
         stageDefinitions: [],
+        upgradeDefinitions: [],
       },
       {
         emptyActivity: 'empty',
@@ -60,6 +61,7 @@ void tap.test('new Game()', group => {
         locationDefinitions: locationDefinitions,
         resourceDefinitions: [],
         stageDefinitions: [],
+        upgradeDefinitions: [],
       },
       {
         emptyActivity: 'empty',

@@ -40,6 +40,7 @@ const config = {
   locationDefinitions: locationDefinitions,
   resourceDefinitions: resourceDefinitions,
   stageDefinitions: stageDefinitions,
+  upgradeDefinitions: [],
 };
 
 const createGame = (startingLocation: 'loc1' | 'loc2' | 'loc3') =>

@@ -21,7 +21,7 @@ export const upgradeDefinitions: UpgradeDef<
       },
     ],
     price: level => ({
-      qi: level * 10 + 5,
+      qi: 5 + 2 * level,
     }),
   },
 ];

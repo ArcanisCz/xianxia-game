@@ -1,4 +1,4 @@
-import { chain, groupBy } from 'lodash';
+import { chain, groupBy, mapValues } from 'lodash';
 import { action, computed, makeObservable, observable } from 'mobx';
 import { Effect } from './effect';
 import { GameRegistry } from './registry';
@@ -64,6 +64,10 @@ export class GameState<
       ...this.registry.locations[this.currentLocation].effects,
       ...this.registry.activities[this.activeActivity].effects,
       ...this.registry.stages[this.currentStage].effects,
+      ...chain(this.registry.upgrades)
+        .mapValues(upgrade => upgrade.effects)
+        .flatMap(a => a)
+        .value(),
     ];
   }
 
@@ -114,6 +118,22 @@ export class GameState<
         resource.add(resource.gainPerSec);
       })
       .value();
+  }
+
+  @action
+  upgradeUpgrade(upgradeKey: Upgrades) {
+    const upgrade = this.registry.upgrades[upgradeKey];
+
+    if (upgrade.canUpgrade) {
+      chain(upgrade.price)
+        .entries()
+        .forEach(([res, amount]) => {
+          this.registry.resources[res as Resources]?.subtract(amount || 0);
+        })
+        .value();
+
+      upgrade.upgrade();
+    }
   }
 
   @computed

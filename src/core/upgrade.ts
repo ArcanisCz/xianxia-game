@@ -1,5 +1,7 @@
-import { computed, makeObservable, observable } from 'mobx';
+import { chain } from 'lodash';
+import { action, computed, makeObservable, observable } from 'mobx';
 import { Effect, EffectDef } from './effect';
+import { GameRegistry } from './registry';
 
 export type UpgradeDef<
   ActivityKeys extends string,
@@ -35,13 +37,17 @@ export class Upgrade<
 
     makeObservable<
       Upgrade<ActivityKeys, LocationKeys, ResourceKeys, StageKeys, UpgradeKeys>,
-      'getEffects' | 'getPrice'
+      'gameRegistry' | 'getPrice' | 'getEffects'
     >(this, {
+      canUpgrade: true,
+      setGameRegistry: action,
       name: false,
       id: false,
       activities: false,
+      gameRegistry: observable,
       getEffects: false,
       getPrice: false,
+      upgrade: false,
 
       level: observable,
 
@@ -57,8 +63,20 @@ export class Upgrade<
   private readonly getPrice: (level: number) => {
     [key in ResourceKeys]?: number;
   };
+  private gameRegistry?: GameRegistry<
+    ActivityKeys,
+    LocationKeys,
+    ResourceKeys,
+    StageKeys,
+    UpgradeKeys
+  >;
 
   level: number = 0;
+
+  upgrade() {
+    this.level++;
+  }
+
   get effects(): Effect<
     ActivityKeys,
     LocationKeys,
@@ -85,5 +103,28 @@ export class Upgrade<
     [key in ResourceKeys]?: number;
   } {
     return this.getPrice(this.level);
+  }
+
+  get canUpgrade(): boolean {
+    return chain(this.price)
+      .entries()
+      .every(
+        ([resource, price]) =>
+          (this.gameRegistry?.resources[resource as ResourceKeys].amount ||
+            0) >= (price || 0),
+      )
+      .value();
+  }
+
+  setGameRegistry(
+    gameRegistry: GameRegistry<
+      ActivityKeys,
+      LocationKeys,
+      ResourceKeys,
+      StageKeys,
+      UpgradeKeys
+    >,
+  ) {
+    this.gameRegistry = gameRegistry;
   }
 }

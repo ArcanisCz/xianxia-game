@@ -92,7 +92,13 @@ export class Game<
     readonly upgrades: {
       [key in Upgrades]: Pick<
         UpgradeType,
-        'id' | 'name' | 'level' | 'activities' | 'effects' | 'price'
+        | 'id'
+        | 'name'
+        | 'level'
+        | 'activities'
+        | 'effects'
+        | 'price'
+        | 'canUpgrade'
       >;
     };
   } {
@@ -206,6 +212,10 @@ export class Game<
 
     forEach(this._gameRegistry.resources, resource =>
       resource.setGameState(this.gameState),
+    );
+
+    forEach(this._gameRegistry.upgrades, upgrade =>
+      upgrade.setGameRegistry(this._gameRegistry),
     );
   }
 }

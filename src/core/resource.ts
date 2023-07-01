@@ -41,6 +41,7 @@ export class Resource<
       gainPerSec: computed,
 
       add: false,
+      subtract: false,
       setGameState: false,
     });
   }
@@ -49,7 +50,8 @@ export class Resource<
     ActivityKeys,
     LocationKeys,
     ResourceKeys,
-    StageKeys
+    StageKeys,
+    UpgradeKeys
   >;
 
   readonly id: ResourceKeys;
@@ -96,8 +98,18 @@ export class Resource<
     this.amount = Math.min(this.amount + toAdd, this.max);
   }
 
+  subtract(toSubtract: number) {
+    this.amount = Math.min(this.amount - toSubtract, this.max);
+  }
+
   setGameState(
-    gameState: GameState<ActivityKeys, LocationKeys, ResourceKeys, StageKeys>,
+    gameState: GameState<
+      ActivityKeys,
+      LocationKeys,
+      ResourceKeys,
+      StageKeys,
+      UpgradeKeys
+    >,
   ) {
     this.gameState = gameState;
   }

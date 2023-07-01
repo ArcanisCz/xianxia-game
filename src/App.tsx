@@ -4,6 +4,7 @@ import { Controls } from './ui/Controls';
 import { Locations } from './ui/Locations';
 import { Resources } from './ui/Resources';
 import { Stage } from './ui/Stage';
+import { Upgrades } from './ui/Upgrades';
 
 export const App = () => {
   return (
@@ -15,6 +16,8 @@ export const App = () => {
       <Resources />
       <hr />
       <Stage />
+      <hr />
+      <Upgrades />
       <hr />
       <Controls />
     </div>

@@ -1,4 +1,12 @@
-import { Activity, Game, GameClient, Location, Resource, Stage, Upgrade } from "core";
+import {
+  Activity,
+  Game,
+  GameClient,
+  Location,
+  Resource,
+  Stage,
+  Upgrade,
+} from 'core';
 import { Effect } from '../core/effect';
 import type { ActivityKeys } from './activities';
 import type { LocationKeys } from './location';
@@ -53,3 +61,5 @@ export type GameEffect = Effect<
 export type { ActivityKeys } from './activities';
 export type { LocationKeys } from './location';
 export type { ResourceKeys } from './resources';
+export type { StageKeys } from './stages';
+export type { UpgradeKeys } from './upgrades';

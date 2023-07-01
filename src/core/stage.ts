@@ -20,7 +20,13 @@ export class Stage<
     id: StageKeys;
     name: string;
     nextStage?: StageKeys;
-    effects: Effect<ActivityKeys, LocationKeys, ResourceKeys, StageKeys, UpgradeKeys>[];
+    effects: Effect<
+      ActivityKeys,
+      LocationKeys,
+      ResourceKeys,
+      StageKeys,
+      UpgradeKeys
+    >[];
   }) {
     this.name = init.name;
     this.id = init.id;
